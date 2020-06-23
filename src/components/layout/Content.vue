@@ -9,8 +9,7 @@
           </div>
         </div>
     </div>
-    <div class="map">
-      <img class="map-img" src="../../assets/images/map.jpg" alt="">
+    <div class="map" id="chart">
     </div>
       <div class="map-option">
       <div class="map-option-info" v-for="(item,index) of mapOptionList" :key="item.id" :class="{mapOption:mapNum === index}" @click="mapChangeSelect(index)"><span>{{item.option}}</span></div>
@@ -86,12 +85,11 @@ import ContentTab from "../tab/Tab.vue";
             font-size:26px
             color:#74e667
     .map
+      width:1140px
+      height:560px
       position:absolute
       left:28px
       bottom:98px
-      .map-img
-        width:1140px
-        height:560px
     .map-option
       position:absolute
       left:754px
