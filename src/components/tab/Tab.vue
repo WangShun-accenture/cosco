@@ -66,7 +66,7 @@
 			getTabInfo() {
 				axios
 					.get(
-						"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq '201610' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq 'X'&$format=json"
+						"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq '201910' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq 'X'&$format=json",
 						// "/api/table.json"
           )
 					.then(
@@ -93,7 +93,7 @@
 					this.ZkggsFlag = "X";//控股公司
 					// alert(this.ZkggsFlag);
 				} else {
-					this.ZkggsFlag = "";//参股公司
+					this.ZkggsFlag = " ";//参股公司
 					// alert(this.ZkggsFlag)
 				}
 				this.$store.commit("changeZkggsFlag", this.ZkggsFlag);

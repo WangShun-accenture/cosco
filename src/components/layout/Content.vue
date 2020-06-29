@@ -64,7 +64,7 @@ import ContentTab from "../tab/Tab.vue";
 			    this.ZdzhqFlag = "X";//大中华区
 			    // alert(this.ZdzhqFlag)
 		    }else{
-			    this.ZdzhqFlag = "";//世界
+			    this.ZdzhqFlag = " ";//世界
 			    // alert(this.ZdzhqFlag)
 		    }
 		    this.$store.commit("changeZdzhqFlag",this.ZdzhqFlag);
@@ -74,7 +74,7 @@ import ContentTab from "../tab/Tab.vue";
 	    		this.ZusdFlag = "X";
 			    // alert(this.ZusdFlag)
         }else{
-			    this.ZusdFlag = "";
+			    this.ZusdFlag = " ";
 			    // alert(this.ZusdFlag)
         }
 		    this.$store.commit("changeZusdFlag",this.ZusdFlag);

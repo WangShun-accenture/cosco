@@ -147,7 +147,7 @@
     getHeaderInfo(){
 			axios
         .get(
-        	"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201610' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'&$format=json"
+        	"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'&$format=json",
           // "/api/header.json"
         )
         .then(
@@ -174,7 +174,7 @@
     watch: {
 	    ZqycsNum() {
 	    	if(this.ZqycsNum === 0){
-			    this.ZqycsFlag = "";
+			    this.ZqycsFlag = " ";
         }else{
 			    this.ZqycsFlag = "X";
         }

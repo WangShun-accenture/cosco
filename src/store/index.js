@@ -8,8 +8,8 @@ export default new Vuex.Store({
 	  ZqycsFlag:"X",//权益乘数flag
 	  ZljsrFlag:0,//累计收入flag
 	  Calmonth:"",//日期
-	  ZdzhqFlag:"",//大中华区
-	  ZusdFlag:"",//本位币
+	  ZdzhqFlag:" ",//大中华区
+	  ZusdFlag:" ",//本位币
 	  ZkggsFlag:"X",//控股公司
   },
   mutations: {
