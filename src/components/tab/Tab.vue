@@ -2,104 +2,105 @@
   <div class="tab">
     <div class="tab-title">
       <ul>
-        <li class="tabOptionInfo" v-for="(item,index) of titleList" :key="item.id" :class="{tabOption:changeNum === index}" @click="changeSelect(index)">
+        <li class="tabOptionInfo" v-for="(item,index) of titleList" :key="item.id" :class="{tabOption:ZkggsNum === index}" @click="changeSelect(index)">
           {{item.title}}
         </li>
       </ul>
     </div>
     <div class="tab-content">
       <table class="tab-table">
-          <thead>
-            <tr class="table-head">
-              <th class="table-th1">公司</th>
-              <th class="table-th2">累计收入</th>
-              <th class="table-th3">币种</th>
-              <th class="table-th4">年度达成</th>
-              <th class="table-th5">同比</th>
-              <th class="table-th6">累计预算达成</th>
-             </tr>
-          </thead>
-          <tbody class="table-body">
-            <tr class="table-tr" v-for="item of tableControlList" :key="item.id" v-show="changeNum===0">
-              <td class="table-td1">{{item.name}}</td>
-              <td class="table-td2">{{item.income}}</td>
-              <td class="table-td3">{{item.currency}}</td>
-              <td class="table-td4">{{item.annual}}</td>
-              <td class="table-td5">
-                {{item.yoy}}
-                <span class="table-arrow-up">↑</span>
-              </td>
-              <td class="table-td6">{{item.total}}</td>
-            </tr>
-            <tr class="table-tr" v-for="item of tableParticipateList" :key="item.id" v-show="changeNum===1">
-              <td class="table-td1">{{item.name}}</td>
-              <td class="table-td2">{{item.income}}</td>
-              <td class="table-td3">{{item.currency}}</td>
-              <td class="table-td4">{{item.annual}}</td>
-              <td class="table-td5">
-                {{item.yoy}}
-                <span class="table-arrow-up">↑</span>
-              </td>
-              <td class="table-td6">{{item.total}}</td>
-            </tr>
-          </tbody>
+        <thead>
+        <tr class="table-head">
+          <th class="table-th1">公司</th>
+          <th class="table-th2">累计收入</th>
+          <th class="table-th3">币种</th>
+          <th class="table-th4">年度达成</th>
+          <th class="table-th5">同比</th>
+          <th class="table-th6">累计预算达成</th>
+        </tr>
+        </thead>
+        <tbody class="table-body" >
+        <tr class="table-tr" v-for="item of dataList" v-show="ZkggsNum===0">
+          <td class="table-td1">{{item.Zbgzz}}</td>
+          <td class="table-td2">{{item.Zljsr}}</td>
+          <td class="table-td3">{{item.Currency}}</td>
+          <td class="table-td4">{{item.Znddc}}</td>
+          <td class="table-td5">
+            {{ item.Ztb*100+"%" }}
+            <span class="table-arrow-up">↑</span>
+          </td>
+          <td class="table-td6">{{item.Zljysdc}}</td>
+        </tr>
+        <tr class="table-tr" v-for="item of dataList" v-show="ZkggsNum===1">
+          <td class="table-td1">{{item.Zbgzz}}</td>
+          <td class="table-td2">{{item.Zljsr}}</td>
+          <td class="table-td3">{{item.Currency}}</td>
+          <td class="table-td4">{{item.Znddc}}</td>
+          <td class="table-td5">
+            {{ item.Ztb*100+"%" }}
+            <span class="table-arrow-up">↑</span>
+          </td>
+          <td class="table-td6">{{item.Zljysdc}}</td>
+        </tr>
+        </tbody>
       </table>
-      
     </div>
   </div>
 </template>
 <script>
-export default{
-	name:"ContentTab",
-	data() {
-		return {
-			changeNum:0,
-			titleList: [{id:"0001",title:"控股公司"},{id:"0002",title:"参股公司"}],
-			tabs :["tableControl","tableParticipate"],
-			tabView: "tableControl",
-      tableControlList: [
-      	{id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-	      {id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-	      {id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-	      {id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-	      {id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-	      {id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-	      {id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"}, {id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-	      {id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"}, {id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-        {id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"}, {id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-        {id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"}, {id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-	      {id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-	      {id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-	      {id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-	      {id:"0001",name:"CSP西班牙集团",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"}, {id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-      ],
-			tableParticipateList: [
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"}, {id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"}, {id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"}, {id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"}, {id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"},{id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-				{id:"0001",name:"CSP泽布吕赫",income:"1,701,231",currency:"USD",annual:"12%",yoy:"+1.2%",total:"86%"}, {id:"0001",name:"CSP泽布吕赫",income:"2,201,703",currency:"USD",annual:"17%",yoy:"+74%",total:"94%"},
-			],
-		}
-	},
-	methods: {
-		changeSelect: function (index) {
-			this.changeNum = index;
+	import axios from "axios";
+	
+	export default {
+		name: "ContentTab",
+		data() {
+			return {
+				ZkggsNum: 0,//控股公司选择
+				titleList: [{id: "0001", title: "控股公司"}, {id: "0002", title: "参股公司"}],
+				dataList: [],
+			}
 		},
-		tabChange:function(tab){
-			this.tabView = tab;
+		methods: {
+			changeSelect: function (index) {
+				this.ZkggsNum = index;
+			},
+			getTabInfo() {
+				axios
+					.get(
+						// "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq '201610' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq 'X'&$format=json"
+						"/api/table.json"
+          )
+					.then(
+						this.getTabInfoSucc
+          )
+			},
+			getTabInfoSucc(res) {
+				res = res.data;
+				res = res.d;
+				const data = res.results;//results为数组
+				let jsonString = JSON.stringify(data, ["Zbgzz", "Zljsr", "Currency", "Znddc", "Ztb", "Zljysdc"]);
+				this.dataList = JSON.parse(jsonString);//string转json,输出数据为object
+				// this.dataList = eval('('+jsonString+')');//输出数据为Array
+				console.log(this.dataList);
+				console.log(typeof this.dataList);
+			},
+		},
+		mounted() {
+			this.getTabInfo();
+		},
+		watch: {
+			ZkggsNum() {
+				if (this.ZkggsNum === 0) {
+					this.ZkggsFlag = "X";//控股公司
+					// alert(this.ZkggsFlag);
+				} else {
+					this.ZkggsFlag = "";//参股公司
+					// alert(this.ZkggsFlag)
+				}
+				this.$store.commit("changeZkggsFlag", this.ZkggsFlag);
+				// alert(this.$store.state.ZkggsFlag);
+			},
 		}
-	}
-}
+  }
 </script>
 <style lang="stylus" scoped>
   .tab
@@ -196,6 +197,6 @@ export default{
             height:34px
             line-height:34px
 
-          
-        
+
+
 </style>

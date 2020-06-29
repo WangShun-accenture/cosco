@@ -1,0 +1,67 @@
+
+{
+    "d": {
+        "results": [
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set('A3004')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set('A3004')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_02"
+                },
+                "Calmonth": "0000000",
+                "Znddc": "0.00",
+                "ZqycsFlag": "",
+                "Ztb": "0.00",
+                "ZkggsFlag": "",
+                "Zljysdc": "0.00",
+                "Zndys": "-46813617.02",
+                "ZdzhqFlag": "",
+                "Zljys": "-46813617.02",
+                "Zbgzz": "A3004",
+                "ZusdFlag": "",
+                "Zljsr": "-185663.44",
+                "Currency": "CNY"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set('A3004')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set('A3004')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_02"
+                },
+                "Calmonth": "0000000",
+                "Znddc": "0.42",
+                "ZqycsFlag": "",
+                "Ztb": "0.00",
+                "ZkggsFlag": "",
+                "Zljysdc": "0.42",
+                "Zndys": "-46813617.02",
+                "ZdzhqFlag": "",
+                "Zljys": "-46813617.02",
+                "Zbgzz": "A3004",
+                "ZusdFlag": "",
+                "Zljsr": "-19881320.54",
+                "Currency": "CNY"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set('B1001')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set('B1001')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_02"
+                },
+                "Calmonth": "0000000",
+                "Znddc": "",
+                "ZqycsFlag": "",
+                "Ztb": "0.42",
+                "ZkggsFlag": "",
+                "Zljysdc": "",
+                "Zndys": "0.00",
+                "ZdzhqFlag": "",
+                "Zljys": "0.00",
+                "Zbgzz": "B1001",
+                "ZusdFlag": "",
+                "Zljsr": "-35982.00",
+                "Currency": "EUR"
+            }
+        ]
+    }
+}

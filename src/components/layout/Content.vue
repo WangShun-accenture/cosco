@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div class="total">
+   <!-- <div class="total">
         <div class="total-content" v-for="item of totalContentList" :key="item.id">
           <div class="total-content-dec">{{item.contentDec}}</div>
           <div class="total-content-num">
@@ -8,21 +8,26 @@
             <span class="arrow-up iconfont" v-show="item.id==='0002'">&#xe6a2;</span>
           </div>
         </div>
-    </div>
+    </div>-->
     <div class="map" id="chart">
     </div>
-      <div class="map-option">
-      <div class="map-option-info" v-for="(item,index) of mapOptionList" :key="item.id" :class="{mapOption:mapNum === index}" @click="mapChangeSelect(index)"><span>{{item.option}}</span></div>
+    <div class="map-option">
+      <div class="map-option-info" v-for="(item,index) of mapOptionList" :key="item.id" :class="{mapOption:ZdzhqNum === index}" @click="mapChangeSelect(index)"><span>{{item.option}}</span></div>
     </div>
     <ContentTab class="content-tab"></ContentTab>
     <div class="corner-option">
-      <div class="corner-option-info"  v-for="(item,index) of cornerOptionList" :key="item.id" :class="{cornerOption:cornerNum === index}" @click="cornerChangeSelect(index)"><span>{{item.option}}</span></div>
+<!--      <div class="corner-option-info"  v-for="(item,index) of cornerOptionList" :key="item.id" :class="{cornerOption:cornerNum === index}" @click="cornerChangeSelect(index)"><span>{{item.option}}</span></div>-->
+      <div class="corner-option-info" :class="{cornerOption:ZusdNum}" @click="ZusdChangeColor()">
+        <span>切换币种到：本位币</span>
+      </div>
+      <div class="corner-option-info" :class="{cornerOption:plotNum}" @click="plotChangeColor()">
+        <span>查看折线图</span>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import ContentTab from "../tab/Tab.vue";
-// import world from "../echarts/world.vue";
 	export default {
 		name: "HomeContent",
     components:{
@@ -34,20 +39,46 @@ import ContentTab from "../tab/Tab.vue";
 		},
     data(){
 			return{
+				ZdzhqNum:0,
+				ZusdNum:false,
+				plotNum:false,//查看折线图
 				totalContentList:[{id: "0001",contentDec: "累计收入 YTD",contentNum:"$17,053,102"},{id: "0002",contentDec: "同比 YoY",contentNum:"+2.1%"},{id: "0003",contentDec: "年度达成 Budget",contentNum:"16%"},{id: "0003",contentDec: "累计达成 Budget",contentNum:"87%"}],
 				mapOptionList:[{id: "0001",option: "查看全球"}, {id: "0002",option: "查看大中华区"}],
-				mapNum:0,
-				cornerOptionList:[{id: "0001",option: "切换币种到：本位币"}, {id: "0002",option: "查看折线图"}],
-        cornerNum:0
       }
     },
     methods: {
       mapChangeSelect: function (index) {
-        this.mapNum = index;
+        this.ZdzhqNum = index;
       },
-	    cornerChangeSelect: function (index) {
-		    this.cornerNum = index;
-	    }
+	    ZusdChangeColor: function(){
+		    this.ZusdNum = !this.ZusdNum;//选中状态为true
+      },
+	    plotChangeColor: function(){
+      	this.plotNum = !this.plotNum;
+      }
+      
+    },
+    watch:{
+	    ZdzhqNum(){
+		    if(this.ZdzhqNum === 1){
+			    this.ZdzhqFlag = "X";//大中华区
+			    // alert(this.ZdzhqFlag)
+		    }else{
+			    this.ZdzhqFlag = "";//世界
+			    // alert(this.ZdzhqFlag)
+		    }
+		    this.$store.commit("changeZdzhqFlag",this.ZdzhqFlag);
+      },
+	    ZusdNum(){
+	    	if(this.ZusdNum){
+	    		this.ZusdFlag = "X";
+			    // alert(this.ZusdFlag)
+        }else{
+			    this.ZusdFlag = "";
+			    // alert(this.ZusdFlag)
+        }
+		    this.$store.commit("changeZusdFlag",this.ZusdFlag);
+      },
     }
 	}
 </script>
@@ -58,7 +89,7 @@ import ContentTab from "../tab/Tab.vue";
     height:828px
     color:#fff
     background:linear-gradient(#001269, #000d4a)
-    .total
+    /*.total
       position:absolute
       left:184px
       top:55px
@@ -72,7 +103,7 @@ import ContentTab from "../tab/Tab.vue";
           line-height:30px
           text-align:center
           font-size:16px
-        /*background:yellowgreen*/
+        !*background:yellowgreen*!
         .total-content-num
           width:186px
           height:40px
@@ -80,16 +111,16 @@ import ContentTab from "../tab/Tab.vue";
           text-align:center
           font-size:30px
           font-weight:bolder
-          /*background:darkorange*/
+          !*background:darkorange*!
           .arrow-up
             font-size:26px
-            color:#74e667
+            color:#74e667*/
     .map
       width:1140px
       height:560px
       position:absolute
       left:28px
-      bottom:98px
+      bottom:118px
     .map-option
       position:absolute
       left:754px

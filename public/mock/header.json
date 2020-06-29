@@ -1,0 +1,22 @@
+
+{
+    "d": {
+        "results": [
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set(Calmonth='0000000',ZqycsFlag='',ZkggsFlag='',ZdzhqFlag='')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set(Calmonth='0000000',ZqycsFlag='',ZkggsFlag='',ZdzhqFlag='')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_01"
+                },
+                "Calmonth": "0000000",
+                "ZtbYtd": "-16726.82",
+                "ZqycsFlag": "",
+                "Znddc": "0.71",
+                "ZkggsFlag": "",
+                "ZljsrYtd": "-20070989.25",
+                "ZdzhqFlag": "",
+                "Currency": ""
+            }
+        ]
+    }
+}
