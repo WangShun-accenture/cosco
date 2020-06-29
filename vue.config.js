@@ -32,15 +32,15 @@ module.exports = {
 		hotOnly: false,
 		proxy: {
 			"/api": {
-				target: "http://localhost:8080", //就是把api的请求全部转到这个地址
+				target: "http://172.17.8.46:8000", //就是把api的请求全部转到这个地址
 				ws: true,
 				changeOrigin: true,
-				// pathRewrite: {
-				// 	'^/api': '/'
-				// }
 				pathRewrite: {
-					"^/api": "/mock"//一旦请求的地址是api开头的，就替换请求到mock文件夹
+					'^/api': ''
 				}
+				// pathRewrite: {
+				// 	"^/api": "/mock"//一旦请求的地址是api开头的，就替换请求到mock文件夹
+				// }
 			}
 		},
 	}

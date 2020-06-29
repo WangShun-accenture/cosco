@@ -66,8 +66,8 @@
 			getTabInfo() {
 				axios
 					.get(
-						// "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq '201610' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq 'X'&$format=json"
-						"/api/table.json"
+						"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq '201610' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq 'X'&$format=json"
+						// "/api/table.json"
           )
 					.then(
 						this.getTabInfoSucc
