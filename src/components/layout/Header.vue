@@ -147,8 +147,8 @@
     getHeaderInfo(){
 			axios
         .get(
-        	// "/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201610' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'&$format=json"
-          "/api/header.json"
+        	"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201610' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'&$format=json"
+          // "/api/header.json"
         )
         .then(
         	this.getHeaderInfoSucc
@@ -187,13 +187,13 @@
        * @return {string}
        */
       ZnddcPercent(){//把年度达成转化为百分比
-        return Number(this.Znddc * 100) + "%";
+        return Number(this.Znddc * 100).toFixed(2) + "%";
       },
 	    /**
 	     * @return {string}
 	     */
 	    ZtbYtdPercent(){//把年度达成转化为百分比
-		    return Number(this.ZtbYtd * 100) + "%";
+		    return Number(this.ZtbYtd * 100).toFixed(2) + "%";
 	    }
     }
 	}
