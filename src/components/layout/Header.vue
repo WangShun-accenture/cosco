@@ -102,10 +102,13 @@
   </div>
 </template>
 <script>
-	import axios from "axios";
-	
 	export default {
 		name: "HomeHeader",
+    props:{
+	    ZljsrYtd: String,//累计收入
+	    ZtbYtd: String,//同比
+	    Znddc: String,//年度达成
+    },
     data(){
 			return{
 				ZljsrNum:0,
@@ -120,9 +123,9 @@
 					{id: "0001",option: "非权益乘数"},
           {id: "0002",option: "权益乘数"}
           ],
-				ZljsrYtd: "",//累计收入
-        ZtbYtd: "",//同比
-				Znddc: "",//年度达成
+				// ZljsrYtd: "",//累计收入
+        // ZtbYtd: "",//同比
+				// Znddc: "",//年度达成
         show:true,
       }
     },
@@ -144,11 +147,12 @@
 			this.$store.commit("changeCalmonth",this.Calmonth);
 			// alert(this.$store.state.Calmonth)
 		},
-    getHeaderInfo(){
+/*    getHeaderInfo(){
 			axios
         .get(
-        	"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'&$format=json",
+        	// "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'&$format=json",
           // "/api/header.json"
+	        "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+"&$format=json",
         )
         .then(
         	this.getHeaderInfoSucc
@@ -164,12 +168,13 @@
 			this.ZtbYtd = data.ZtbYtd;
       this.Znddc = data.Znddc;
       // console.log(data);
-    }
+    }*/
 	},
 		mounted() {
       this.value = new Date();//设置初始默认时间为此时的时间
 			this.getMonth();
-			this.getHeaderInfo();
+			// console.log(this.ZljsrYtd);
+			// this.getHeaderInfo();
 		},
     watch: {
 	    ZqycsNum() {

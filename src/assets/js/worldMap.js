@@ -2,10 +2,10 @@ import echarts from "echarts";
 import world from '../../../node_modules/echarts/map/js/world.js'
 let install = function(Vue) {
 	Object.defineProperties(Vue.prototype, {
-			$chart: {
+			$worldChart: {
 				get() {
 					return {
-						first_bar: function (id) {
+						world_bar: function (id) {
 							this.chart = echarts.init(document.getElementById(id));
 							this.chart.clear();
 							const optionData = {

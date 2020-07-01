@@ -20,8 +20,8 @@
         </tr>
         </thead>
         <tbody class="table-body" >
-        <tr class="table-tr" v-for="item of dataList" v-show="ZkggsNum===0">
-          <td class="table-td1">{{item.Zbgzz}}</td>
+        <tr class="table-tr" v-for="item of TabList" v-show="ZkggsNum===0">
+          <td class="table-td1">{{item.ZbgzzT}}</td>
           <td class="table-td2">{{item.Zljsr}}</td>
           <td class="table-td3">{{item.Currency}}</td>
           <td class="table-td4">{{item.Znddc}}</td>
@@ -31,8 +31,8 @@
           </td>
           <td class="table-td6">{{item.Zljysdc}}</td>
         </tr>
-        <tr class="table-tr" v-for="item of dataList" v-show="ZkggsNum===1">
-          <td class="table-td1">{{item.Zbgzz}}</td>
+        <tr class="table-tr" v-for="item of TabList" v-show="ZkggsNum===1">
+          <td class="table-td1">{{item.ZbgzzT}}</td>
           <td class="table-td2">{{item.Zljsr}}</td>
           <td class="table-td3">{{item.Currency}}</td>
           <td class="table-td4">{{item.Znddc}}</td>
@@ -48,26 +48,27 @@
   </div>
 </template>
 <script>
-	import axios from "axios";
-	
 	export default {
 		name: "ContentTab",
+    props:{
+			TabList:Array,
+    },
 		data() {
 			return {
 				ZkggsNum: 0,//控股公司选择
 				titleList: [{id: "0001", title: "控股公司"}, {id: "0002", title: "参股公司"}],
-				dataList: [],
 			}
 		},
 		methods: {
 			changeSelect: function (index) {
 				this.ZkggsNum = index;
 			},
-			getTabInfo() {
+			/*			getTabInfo() {
 				axios
 					.get(
-						"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq '201910' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq 'X'&$format=json",
+						// "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq '201910' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq 'X'&$format=json",
 						// "/api/table.json"
+						"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZusdFlag eq "+"'"+this.$store.state.ZusdFlag+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+"&$format=json",
           )
 					.then(
 						this.getTabInfoSucc
@@ -84,13 +85,13 @@
 				console.log(typeof this.dataList);
 			},
 		},
-		mounted() {
-			this.getTabInfo();
+		*/
 		},
 		watch: {
 			ZkggsNum() {
 				if (this.ZkggsNum === 0) {
 					this.ZkggsFlag = "X";//控股公司
+          console.log(this.TabList)
 					// alert(this.ZkggsFlag);
 				} else {
 					this.ZkggsFlag = " ";//参股公司
@@ -99,8 +100,11 @@
 				this.$store.commit("changeZkggsFlag", this.ZkggsFlag);
 				// alert(this.$store.state.ZkggsFlag);
 			},
-		}
-  }
+		},
+		// mounted() {
+		// 	this.getTabInfo();
+		// },
+	}
 </script>
 <style lang="stylus" scoped>
   .tab

@@ -9,12 +9,12 @@
           </div>
         </div>
     </div>-->
-    <div class="map" id="chart">
-    </div>
+    <div class="map" id="worldMap" v-show="ZdzhqNum===0"></div>
+<!--    <div class="map" id="chinaMap" v-show="ZdzhqNum===1"></div>-->
     <div class="map-option">
       <div class="map-option-info" v-for="(item,index) of mapOptionList" :key="item.id" :class="{mapOption:ZdzhqNum === index}" @click="mapChangeSelect(index)"><span>{{item.option}}</span></div>
     </div>
-    <ContentTab class="content-tab"></ContentTab>
+    <ContentTab class="content-tab" :TabList="TabList"></ContentTab>
     <div class="corner-option">
 <!--      <div class="corner-option-info"  v-for="(item,index) of cornerOptionList" :key="item.id" :class="{cornerOption:cornerNum === index}" @click="cornerChangeSelect(index)"><span>{{item.option}}</span></div>-->
       <div class="corner-option-info" :class="{cornerOption:ZusdNum}" @click="ZusdChangeColor()">
@@ -34,8 +34,11 @@ import ContentTab from "../tab/Tab.vue";
 			ContentTab,
 	    // world
     },
+    props:{
+			TabList:Array,
+    },
 		mounted() {
-			this.$chart.first_bar('chart'); //方法调用
+			this.$worldChart.world_bar ('worldMap'); //方法调用
 		},
     data(){
 			return{
@@ -63,18 +66,20 @@ import ContentTab from "../tab/Tab.vue";
 		    if(this.ZdzhqNum === 1){
 			    this.ZdzhqFlag = "X";//大中华区
 			    // alert(this.ZdzhqFlag)
+			    // this.$chinaChart.china_bar ('chinaMap'); //方法调用
 		    }else{
 			    this.ZdzhqFlag = " ";//世界
 			    // alert(this.ZdzhqFlag)
+			    this.$worldChart.world_bar ('worldMap'); //方法调用
 		    }
 		    this.$store.commit("changeZdzhqFlag",this.ZdzhqFlag);
       },
 	    ZusdNum(){
-	    	if(this.ZusdNum){
-	    		this.ZusdFlag = "X";
+	    	if(this.ZusdNum){//若为true则切换到本位币
+	    		this.ZusdFlag = " ";
 			    // alert(this.ZusdFlag)
         }else{
-			    this.ZusdFlag = " ";
+			    this.ZusdFlag = "X";
 			    // alert(this.ZusdFlag)
         }
 		    this.$store.commit("changeZusdFlag",this.ZusdFlag);
