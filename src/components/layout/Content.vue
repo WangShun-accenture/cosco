@@ -10,7 +10,7 @@
         </div>
     </div>-->
     <div class="map" id="worldMap" v-show="ZdzhqNum===0"></div>
-<!--    <div class="map" id="chinaMap" v-show="ZdzhqNum===1"></div>-->
+    <div class="map" id="chinaMap" v-show="ZdzhqNum===1"></div>
     <div class="map-option">
       <div class="map-option-info" v-for="(item,index) of mapOptionList" :key="item.id" :class="{mapOption:ZdzhqNum === index}" @click="mapChangeSelect(index)"><span>{{item.option}}</span></div>
     </div>
