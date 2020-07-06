@@ -26,7 +26,7 @@
           <td class="table-td3">{{item.Currency}}</td>
           <td class="table-td4">{{item.Znddc}}</td>
           <td class="table-td5">
-            {{ item.Ztb*100+"%" }}
+            {{ Number(item.Ztb * 100).toFixed(2) + "%" }}
             <span class="table-arrow-up">↑</span>
           </td>
           <td class="table-td6">{{item.Zljysdc}}</td>
@@ -37,7 +37,7 @@
           <td class="table-td3">{{item.Currency}}</td>
           <td class="table-td4">{{item.Znddc}}</td>
           <td class="table-td5">
-            {{ item.Ztb*100+"%" }}
+            {{ Number(item.Ztb * 100).toFixed(2) + "%" }}
             <span class="table-arrow-up">↑</span>
           </td>
           <td class="table-td6">{{item.Zljysdc}}</td>
@@ -94,7 +94,7 @@
           console.log(this.TabList)
 					// alert(this.ZkggsFlag);
 				} else {
-					this.ZkggsFlag = " ";//参股公司
+					this.ZkggsFlag = "";//参股公司
 					// alert(this.ZkggsFlag)
 				}
 				this.$store.commit("changeZkggsFlag", this.ZkggsFlag);

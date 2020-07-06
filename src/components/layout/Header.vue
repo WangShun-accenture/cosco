@@ -179,7 +179,7 @@
     watch: {
 	    ZqycsNum() {
 	    	if(this.ZqycsNum === 0){
-			    this.ZqycsFlag = " ";
+			    this.ZqycsFlag = "";
         }else{
 			    this.ZqycsFlag = "X";
         }

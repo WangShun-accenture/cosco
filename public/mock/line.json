@@ -1,0 +1,312 @@
+{
+    "d": {
+        "results": [
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A4004')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A4004')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "南沙码头",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "A4004",
+                "Zljsr": "2264370578.54",
+                "Zqntqljsr": "2191455791.14",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A3004')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A3004')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "厦门远海",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "A3004",
+                "Zljsr": "1282959032.65",
+                "Zqntqljsr": "900645098.29",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A3001')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A3001')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "泉州太平洋",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "A3001",
+                "Zljsr": "800406403.73",
+                "Zqntqljsr": "706529010.61",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A2003')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A2003')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "连云港新东方",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "A2003",
+                "Zljsr": "737781645.92",
+                "Zqntqljsr": "648090056.08",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1001')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1001')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "PCT",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "B1001",
+                "Zljsr": "622665955.23",
+                "Zqntqljsr": "507998632.28",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1011')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1011')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "CSP瓦伦西亚码头",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "B1011",
+                "Zljsr": "597709857.34",
+                "Zqntqljsr": "0.00",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A2011')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A2011')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "张家港",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "A2011",
+                "Zljsr": "505237553.08",
+                "Zqntqljsr": "460271663.88",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A1008')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A1008')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "锦州新时代",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "A1008",
+                "Zljsr": "373631376.02",
+                "Zqntqljsr": "300162596.00",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A2012')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A2012')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "扬州远扬",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "A2012",
+                "Zljsr": "274374916.96",
+                "Zqntqljsr": "302227897.09",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A3002')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A3002')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "晋江太平洋",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "A3002",
+                "Zljsr": "234142988.39",
+                "Zqntqljsr": "236514834.11",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1009')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1009')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "CSP毕尔巴鄂码头",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "B1009",
+                "Zljsr": "184782389.42",
+                "Zqntqljsr": "0.00",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1017')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1017')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "CSP泽布吕赫",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "B1017",
+                "Zljsr": "46902589.03",
+                "Zqntqljsr": "0.00",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A2007')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A2007')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "武汉码头",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "A2007",
+                "Zljsr": "13928779.97",
+                "Zqntqljsr": "0.00",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1010')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1010')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "CSPZaragoza铁路场站",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "B1010",
+                "Zljsr": "4857724.27",
+                "Zqntqljsr": "0.00",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1014')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1014')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "CSP铁路服务场站",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "B1014",
+                "Zljsr": "3425677.88",
+                "Zqntqljsr": "0.00",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A2006')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('A2006')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "南通码头",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "A2006",
+                "Zljsr": "202493.74",
+                "Zqntqljsr": "0.00",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            },
+            {
+                "__metadata": {
+                    "id": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1008')",
+                    "uri": "http://172.17.8.46:8000/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set('B1008')",
+                    "type": "ZFI_DPXQ_SRV.LJSR_03"
+                },
+                "Calmonth": "0000000",
+                "ZdzhqFlag": "",
+                "ZbgzzT": "CSP西班牙码头",
+                "ZqycsFlag": "",
+                "ZkggsFlag": "",
+                "ZusdFlag": "",
+                "Zbgzz": "B1008",
+                "Zljsr": "0.00",
+                "Zqntqljsr": "0.00",
+                "Zljys": "0.00",
+                "Currency": "USD"
+            }
+        ]
+    }
+}

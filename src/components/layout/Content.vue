@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-   <!-- <div class="total">
+    <div class="total">
         <div class="total-content" v-for="item of totalContentList" :key="item.id">
           <div class="total-content-dec">{{item.contentDec}}</div>
           <div class="total-content-num">
@@ -8,19 +8,20 @@
             <span class="arrow-up iconfont" v-show="item.id==='0002'">&#xe6a2;</span>
           </div>
         </div>
-    </div>-->
-    <div class="map" id="worldMap" v-show="ZdzhqNum===0"></div>
-    <div class="map" id="chinaMap" v-show="ZdzhqNum===1"></div>
+    </div>
+    <div class="map" id="worldMap" v-show="ZdzhqNum===0&&!ZplotNum"></div>
+    <div class="map" id="chinaMap" v-show="ZdzhqNum===1&&!ZplotNum"></div>
+    <div class="line" id="line" v-show="ZplotNum"></div>
     <div class="map-option">
       <div class="map-option-info" v-for="(item,index) of mapOptionList" :key="item.id" :class="{mapOption:ZdzhqNum === index}" @click="mapChangeSelect(index)"><span>{{item.option}}</span></div>
     </div>
-    <ContentTab class="content-tab" :TabList="TabList"></ContentTab>
+    <ContentTab class="content-tab" :TabList="TabList" v-show="!ZplotNum"></ContentTab>
     <div class="corner-option">
 <!--      <div class="corner-option-info"  v-for="(item,index) of cornerOptionList" :key="item.id" :class="{cornerOption:cornerNum === index}" @click="cornerChangeSelect(index)"><span>{{item.option}}</span></div>-->
       <div class="corner-option-info" :class="{cornerOption:ZusdNum}" @click="ZusdChangeColor()">
         <span>切换币种到：本位币</span>
       </div>
-      <div class="corner-option-info" :class="{cornerOption:plotNum}" @click="plotChangeColor()">
+      <div class="corner-option-info" :class="{cornerOption:ZplotNum}" @click="plotChangeColor()">
         <span>查看折线图</span>
       </div>
     </div>
@@ -36,6 +37,11 @@ import ContentTab from "../tab/Tab.vue";
     },
     props:{
 			TabList:Array,
+	    // xData:Array,
+	    // ZljsrData:Array,//折线图 累计收入
+	    // ZqntqljsrData:Array,//折线图 去年同期累计收入
+	    // ZljysData:Array,
+	    ljsrChartList:Array,
     },
 		mounted() {
 			this.$worldChart.world_bar ('worldMap'); //方法调用
@@ -44,7 +50,7 @@ import ContentTab from "../tab/Tab.vue";
 			return{
 				ZdzhqNum:0,
 				ZusdNum:false,
-				plotNum:false,//查看折线图
+				ZplotNum:false,//false为查看折线图未点击状态
 				totalContentList:[{id: "0001",contentDec: "累计收入 YTD",contentNum:"$17,053,102"},{id: "0002",contentDec: "同比 YoY",contentNum:"+2.1%"},{id: "0003",contentDec: "年度达成 Budget",contentNum:"16%"},{id: "0003",contentDec: "累计达成 Budget",contentNum:"87%"}],
 				mapOptionList:[{id: "0001",option: "查看全球"}, {id: "0002",option: "查看大中华区"}],
       }
@@ -57,7 +63,7 @@ import ContentTab from "../tab/Tab.vue";
 		    this.ZusdNum = !this.ZusdNum;//选中状态为true
       },
 	    plotChangeColor: function(){
-      	this.plotNum = !this.plotNum;
+      	this.ZplotNum = !this.ZplotNum;
       }
       
     },
@@ -66,7 +72,7 @@ import ContentTab from "../tab/Tab.vue";
 		    if(this.ZdzhqNum === 1){
 			    this.ZdzhqFlag = "X";//大中华区
 			    // alert(this.ZdzhqFlag)
-			    // this.$chinaChart.china_bar ('chinaMap'); //方法调用
+			    this.$chinaChart.china_bar ('chinaMap'); //方法调用
 		    }else{
 			    this.ZdzhqFlag = " ";//世界
 			    // alert(this.ZdzhqFlag)
@@ -76,7 +82,7 @@ import ContentTab from "../tab/Tab.vue";
       },
 	    ZusdNum(){
 	    	if(this.ZusdNum){//若为true则切换到本位币
-	    		this.ZusdFlag = " ";
+	    		this.ZusdFlag = "";
 			    // alert(this.ZusdFlag)
         }else{
 			    this.ZusdFlag = "X";
@@ -84,6 +90,18 @@ import ContentTab from "../tab/Tab.vue";
         }
 		    this.$store.commit("changeZusdFlag",this.ZusdFlag);
       },
+	    ZplotNum(){
+		    if(this.ZplotNum){//若为true则切换到折线图
+			    this.ZplotFlag = "X";
+			    // this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
+          // alert(this.ZusdFlag)
+			    // console.log(this.xData);
+		    }else{
+			    this.ZplotFlag = "";
+			    // alert(this.ZusdFlag)
+		    }
+		    this.$store.commit("changeZplotFlag",this.ZplotFlag);
+	    },
     }
 	}
 </script>
@@ -94,7 +112,7 @@ import ContentTab from "../tab/Tab.vue";
     height:828px
     color:#fff
     background:linear-gradient(#001269, #000d4a)
-    /*.total
+    .total
       position:absolute
       left:184px
       top:55px
@@ -108,7 +126,7 @@ import ContentTab from "../tab/Tab.vue";
           line-height:30px
           text-align:center
           font-size:16px
-        !*background:yellowgreen*!
+        /*background:yellowgreen*/
         .total-content-num
           width:186px
           height:40px
@@ -116,16 +134,22 @@ import ContentTab from "../tab/Tab.vue";
           text-align:center
           font-size:30px
           font-weight:bolder
-          !*background:darkorange*!
+          /*background:darkorange*/
           .arrow-up
             font-size:26px
-            color:#74e667*/
+            color:#74e667
     .map
       width:1140px
       height:560px
       position:absolute
       left:28px
-      bottom:118px
+      bottom:80px
+    .line
+      width:1760px
+      height:570px
+      position:absolute
+      left:77px
+      bottom:102px
     .map-option
       position:absolute
       left:754px

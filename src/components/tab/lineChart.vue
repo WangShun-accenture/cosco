@@ -2,7 +2,7 @@
   <div class="lineChart" id="lineChart"></div>
 </template>
 <script>
-  import ecahrts from "echarts";
+  import echarts from "echarts";
   export default {
   	name:"linePlot",
 	  methods:{
@@ -17,6 +17,6 @@
 </script>
 <style lang="stylus" scoped>
   .lineChart
-    width:1740px
-    height:600px
+    width:1760px
+    height:570px
 </style>

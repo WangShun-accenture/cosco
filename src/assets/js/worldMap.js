@@ -15,7 +15,7 @@ let install = function(Vue) {
 									x2: 0,
 									y2: 1,
 									colorStops: [{
-										offset: 0, color: '#001164' // 0% 处的颜色
+										offset: 0, color: '#001162' // 0% 处的颜色
 									}, {
 										offset: 1, color: '#000d4d' // 100% 处的颜色
 									}],
