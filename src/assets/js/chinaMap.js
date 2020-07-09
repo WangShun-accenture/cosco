@@ -8,6 +8,8 @@ let install = function(Vue) {
 						china_bar: function (id) {
 							this.chart = echarts.init(document.getElementById(id));
 							this.chart.clear();
+							//公司，累计收入，年度预算达成，同比 '未完成累计预算', '完成累计预算'
+							
 							const optionData = {
 								backgroundColor: {type: 'linear',
 									x: 0,
@@ -23,15 +25,12 @@ let install = function(Vue) {
 								},
 								visualMap: {
 									show: false,
-									inRange:{
-										color:'#3d4d86'
+									textStyle: {
+										color: '#fff'
 									},
-									color: ['orangered', 'yellow', 'lightskyblue']
+									
 								},
-								// 提示框
-								tooltip: {
-									trigger: 'item'
-								},
+
 								geo: {
 									map: 'china',
 									zoom: 1.2,//当前视角的缩放比例
@@ -52,29 +51,6 @@ let install = function(Vue) {
 										}
 									},
 								},
-								series: [{
-									type: 'map',
-									
-									// zoom: 1.2,
-									mapLocation: {
-										y: 100
-									},
-									symbolSize: 12,
-									label: {
-										normal: {
-											show: false
-										},
-										emphasis: {
-											show: false
-										}
-									},
-									itemStyle: {
-										emphasis: {
-											borderColor: '#fff',
-											borderWidth: 1
-										}
-									}
-								}],
 							};
 							this.chart.setOption(optionData);
 						}

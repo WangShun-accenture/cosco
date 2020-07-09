@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
 	  ZqycsFlag:"",//权益乘数flag
 	  ZljsrFlag:0,//累计收入flag
+	  ZxllxFlag:"A",//箱量类型flag
 	  Calmonth:"",//日期
 	  ZdzhqFlag:"",//大中华区
 	  ZusdFlag:"X",//本位币 X-不是本位币
