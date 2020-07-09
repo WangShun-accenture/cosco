@@ -13,7 +13,13 @@ let install = function(Vue) {
 							//标题样式
 							//菜单
 							legend : {
-								show : false
+								show : true,
+								right: '10%',
+								top: '11%',
+								textStyle: {
+									color: '#fff',
+								},
+								
 							},
 							//提示框
 							tooltip : {
@@ -23,6 +29,8 @@ let install = function(Vue) {
 									type : 'line',
 									lineStyle : {
 										color: '#fff',
+										width: 0.5,
+										
 									},
 									// label : {
 									// 	backgroundColor : '#6a7985'
@@ -57,8 +65,10 @@ let install = function(Vue) {
 								//x轴字体设置
 								axisLabel : {
 									show : true,
-									fontSize : 12,
+									fontSize : 10,
 									color : 'white',
+									interval: 0,
+									rotate:45
 								},
 								data : xData,
 								// data : [ '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度' ]
@@ -75,7 +85,7 @@ let install = function(Vue) {
 								axisLabel : {
 									show : true,
 									color : 'white',
-									fontSize : 12
+									fontSize : 10
 								},
 								//y轴线设置
 								axisLine : {

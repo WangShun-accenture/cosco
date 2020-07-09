@@ -7,7 +7,13 @@
     >
     </HomeHeader>
     <HomeContent
-        :TabList="TabList" :ljsrChartList="ljsrChartList">
+        :TabList="TabList"
+        :ljsrChartList="ljsrChartList"
+        :ZTljsrYtd="ZTljsrYtd"
+        :ZTtbYtd="ZTtbYtd"
+        :ZTnddc="ZTnddc"
+        :ZTljysdc="ZTljysdc"
+    >
         <!--:xData="xData"
         :ZljsrData="ZljsrData"
         :ZqntqljsrData="ZqntqljsrData"
@@ -33,53 +39,107 @@ export default {
 		  ZljsrYtd: "",//累计收入
 		  ZtbYtd: "",//同比
 		  Znddc: "",//年度达成
+		  ZTljsrYtd: "",//累计收入 total
+		  ZTtbYtd: "",//同比 total
+		  ZTnddc: "",//年度达成 total
+		  ZTljysdc: "",//累计预算达成率 total
 		  TabList:[],
 		  ljsrChartList:[],
 		  xData:[],
 		  ZljsrData:[],//折线图 累计收入
 		  ZqntqljsrData:[],//折线图 去年同期累计收入
 		  ZljysData:[],//折线图 累计预算
+		  
     }
   },
   methods:{
-  	/*getDataInfo(){
-		  this.$axios.all([
-			  this.$axios.get("/api/header.json").then(res => res.data),
-			  this.$axios.get("/api/table.json").then(res => res.data)
-		  ]).then(
-			  this.$axios.spread((val1,val2) => {
-				  // val 是数组中每个接口返回的值 res.data
-				  let res1 = val1.data;
-				  res1 = res1.d;
-				  const data1 = res1.results;//results为数组
-				  let jsonString1 = JSON.stringify(data1, ["ZljsrYtd", "ZtbYtd", "Znddc"]);
-				  let HeaderList = JSON.parse(jsonString1);//string转json,输出数据为object
-				  this.ZljsrYtd = HeaderList.ZljsrYtd;
-				  this.ZtbYtd = HeaderList.ZtbYtd;
-				  this.Znddc = HeaderList.Znddc;
-				  let res2 = val2.data;
-				  res2 = res2.d;
-				  const data2 = res2.results;//results为数组
-				  let jsonString2 = JSON.stringify(data2, ["Zbgzz", "Zljsr", "Currency", "Znddc", "Ztb", "Zljysdc"]);
-				  this.TabList = JSON.parse(jsonString2);//string转json,输出数据为object
-				  console.log('两个接口全部加载完成',val1,val2) ; // 1,2
-			  })
-		  ).catch(err => {
-			  console.log(err) ;
-		  })
-    },*/
   	//折线图获取list里的数据
-  	getLineData(key,list){
-		  for (var i in this.ljsrChartList){
+	  getLineData(key){
+		  let list = [];
+		  for (let i in this.ljsrChartList){
 			  let tempX = this.ljsrChartList[i][key];
 			  list.push(tempX);
 		  }
-    },
-	  getHeaderInfo(){
+		  if(key==="ZbgzzT"){
+			  this.xData = list;
+		  }
+		  if(key==="Zljsr"){
+			  this.ZljsrData = list;
+		  }
+		  if(key==="Zqntqljsr"){
+			  this.ZqntqljsrData = list;
+		  }
+		  if(key==="Zljys"){
+			  this.ZljysData = list;
+		  }
+	  },
+  	// getLineData(key,list){
+		//   for (var i in this.ljsrChartList){
+		// 	  let tempX = this.ljsrChartList[i][key];
+		// 	  list.push(tempX);
+		//   }
+    // },
+    //累计收入header接口获取
+	  getLjsrHeaderInfo(){
 		  axios
 			  .get(
-			  	// "/api/header.json"
-				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'&$format=json",
+				  // "/api/header.json"
+				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X'",
+				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+"&$format=json",
+				  {
+					  auth: {
+						  username: `T-WANGBJ`,
+						  password: `1qaz2wsx`
+					  }
+				  }
+			  )
+			  .then(
+				  this.getLjsrHeaderInfoSucc
+			  )
+			  .catch((e)=>{console.log(e)})
+	  },
+	  getLjsrHeaderInfoSucc(res){
+		  res = res.data;
+		  res = res.d;
+		  res = res.results;
+		  const data = res[0];//data是对象{..:..,..:..}
+		  this.ZljsrYtd = data.ZljsrYtd;
+		  this.ZtbYtd = data.ZtbYtd;
+		  this.Znddc = data.Znddc;
+	  },
+    //累计箱量header接口获取
+	  getLjxlHeaderInfo(){
+		  axios
+			  .get(
+				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X' and ZxllxFlag eq 'A'",
+				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZxllxFlag eq "+"'"+this.$store.state.ZxllxFlag+"'"+"&$format=json",
+				  {
+					  auth: {
+						  username: `T-WANGBJ`,
+						  password: `1qaz2wsx`
+					  }
+				  }
+			  )
+			  .then(
+				  this.getLjxlHeaderInfoSucc
+			  )
+			  .catch((e)=>{console.log(e)})
+	  },
+	  getLjxlHeaderInfoSucc(res){
+		  res = res.data;
+		  res = res.d;
+		  res = res.results;
+		  const data = res[0];//data是对象{..:..,..:..}
+		  this.ZljsrYtd = data.ZljsrYtd;
+		  this.ZtbYtd = data.ZtbYtd;
+		  this.Znddc = data.Znddc;
+	  },
+    //左侧3个汇总数
+	  getTotalInfo(){
+		  axios
+			  .get(
+				  // "/api/header.json"
+				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'",
 				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+"&$format=json",
 				  {
 					  auth: {
@@ -89,30 +149,24 @@ export default {
 				  }
 			  )
 			  .then(
-				  this.getHeaderInfoSucc
+				  this.getTotalInfoSucc
 			  )
 			  .catch((e)=>{console.log(e)})
 	  },
-	  getHeaderInfoSucc(res){
+	  getTotalInfoSucc(res){
 		  res = res.data;
 		  res = res.d;
 		  res = res.results;
 		  const data = res[0];//data是对象{..:..,..:..}
-		  this.ZljsrYtd = data.ZljsrYtd;
-		  this.ZtbYtd = data.ZtbYtd;
-		  this.Znddc = data.Znddc;
-		  // let HeaderList = JSON.parse(jsonString);//string转json,输出数据为object
-		  // console.log(this.ZljsrYtd);
-      // this.ZljsrYtd = HeaderList.ZljsrYtd;
-		  //
-		  // this.ZtbYtd = HeaderList.ZtbYtd;
-		  // this.Znddc = HeaderList.Znddc;
+		  this.ZTljsrYtd = data.ZljsrYtd;
+		  this.ZTtbYtd = data.ZtbYtd;
+		  this.ZTnddc = data.Znddc;
+		  this.ZTljysdc = data.Zljysdc;
 	  },
 	  getTabInfo() {
 		  axios
 			  .get(
-			  	// "/api/table.json",
-				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq '201910' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq 'X'&$format=json",
+				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq '201610' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq 'X'",
 				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZusdFlag eq "+"'"+this.$store.state.ZusdFlag+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+"&$format=json",
 				  {
 					  auth: {
@@ -124,6 +178,7 @@ export default {
 			  .then(
 				  this.getTabInfoSucc
 			  )
+			  .catch((e)=>{console.log(e)})
 	  },
 	  getTabInfoSucc(res) {
 		  res = res.data;
@@ -131,14 +186,12 @@ export default {
 		  const data = res.results;//results为数组
 		  let jsonString = JSON.stringify(data, ["ZbgzzT", "Zljsr", "Currency", "Znddc", "Ztb", "Zljysdc"]);
 		  this.TabList = JSON.parse(jsonString);//string转json,输出数据为object
-      // console.log(typeof this.TabList)
-		  // this.dataList = eval('('+jsonString+')');//输出数据为Array
-	  },
+	    // console.log(this.TabList);
+    },
     //折线图-累计收入
 	  getLjsrChartInfo() {
 		  axios
 			  .get(
-				  // "/api/table.json",
 				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set?$filter= Calmonth eq '201812' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq ' '",
 				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZusdFlag eq "+"'"+this.$store.state.ZusdFlag+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+"&$format=json",
 				  {
@@ -158,42 +211,62 @@ export default {
 		  const data = res.results;//results为数组
 		  let jsonString = JSON.stringify(data, ["ZbgzzT", "Zljsr", "Zqntqljsr", "Zljys"]);
 		  this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
-		  this.getLineData('ZbgzzT',this.xData);
-		  this.getLineData('Zljsr',this.ZljsrData);
-		  this.getLineData('Zqntqljsr',this.ZqntqljsrData);
-		  this.getLineData('Zljys',this.ZljysData);
+		  this.getLineData('ZbgzzT');
+		  this.getLineData('Zljsr');
+		  this.getLineData('Zqntqljsr');
+		  this.getLineData('Zljys');
 		  console.log(this.xData);
 	  },
+	  // getLjsrChartInfoSucc(res) {
+		//   res = res.data;
+		//   res = res.d;
+		//   const data = res.results;//results为数组
+		//   let jsonString = JSON.stringify(data, ["ZbgzzT", "Zljsr", "Zqntqljsr", "Zljys"]);
+		//   this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
+		//   this.getLineData('ZbgzzT',this.xData);
+		//   this.getLineData('Zljsr',this.ZljsrData);
+		//   this.getLineData('Zqntqljsr',this.ZqntqljsrData);
+		//   this.getLineData('Zljys',this.ZljysData);
+		//   console.log(this.xData);
+	  // },
   },
   mounted(){
-	  this.getHeaderInfo();
+		this.getLjsrHeaderInfo();
+	  this.getTotalInfo();
 	  this.getTabInfo();
-	  // this.getLjsrChartInfo();
-  	screenSize(this.$refs.editor);
-  },
+		screenSize(this.$refs.editor);
+},
 
 	watch: {
 		'$store.state.Calmonth': function () {
-			this.getHeaderInfo();
+			this.getLjsrHeaderInfo();
+			this.getTotalInfo();
 			this.getTabInfo();
       this.getLjsrChartInfo();
 			this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
 			
 		},
 		'$store.state.ZqycsFlag': function () {
-			this.getHeaderInfo();
+			this.getLjsrHeaderInfo();
+			this.getTotalInfo();
 			this.getTabInfo();
+			this.getLjsrChartInfo();
+			this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
 			},
 		'$store.state.ZkggsFlag': function () {
-			this.getHeaderInfo();
+			this.getTotalInfo();
 			this.getTabInfo();
+			this.getLjsrChartInfo();
+			this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
 			},
 		'$store.state.ZusdFlag': function () {
 			this.getTabInfo();
+			this.getLjsrChartInfo();
+			this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
 			},
     '$store.state.ZplotFlag': function () {
 	    // console.log(this.xData);
-	    // this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
+	    this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
 },
 	}
 }

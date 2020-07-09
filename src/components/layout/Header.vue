@@ -147,28 +147,6 @@
 			this.$store.commit("changeCalmonth",this.Calmonth);
 			// alert(this.$store.state.Calmonth)
 		},
-/*    getHeaderInfo(){
-			axios
-        .get(
-        	// "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'&$format=json",
-          // "/api/header.json"
-	        "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+"&$format=json",
-        )
-        .then(
-        	this.getHeaderInfoSucc
-        )
-        .catch((e)=>{console.log(e)})
-    },
-		getHeaderInfoSucc(res){
-			res = res.data;
-			res = res.d;
-			res = res.results;
-			const data = res[0];//data是对象{..:..,..:..}
-      this.ZljsrYtd = data.ZljsrYtd;
-			this.ZtbYtd = data.ZtbYtd;
-      this.Znddc = data.Znddc;
-      // console.log(data);
-    }*/
 	},
 		mounted() {
       this.value = new Date();//设置初始默认时间为此时的时间

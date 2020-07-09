@@ -1,31 +1,48 @@
 <template>
-  <div class="content">
-    <div class="total">
-        <div class="total-content" v-for="item of totalContentList" :key="item.id">
-          <div class="total-content-dec">{{item.contentDec}}</div>
-          <div class="total-content-num">
-            {{item.contentNum}}
-            <span class="arrow-up iconfont" v-show="item.id==='0002'">&#xe6a2;</span>
-          </div>
+<div class="content">
+  <div class="total">
+      <div class="total-content">
+        <div class="total-content-dec">累计收入 YTD</div>
+        <div class="total-content-num">
+          {{ this.ZTljsrYtd }}
         </div>
+      </div>
+      <div class="total-content">
+        <div class="total-content-dec">同比 YoY</div>
+        <div class="total-content-num">
+          {{ ZTtbYtdPercent }}
+        </div>
+      </div>
+      <div class="total-content">
+        <div class="total-content-dec">年度达成 Budget</div>
+        <div class="total-content-num">
+          {{ ZTnddcPercent }}
+        </div>
+      </div>
+      <div class="total-content">
+        <div class="total-content-dec">累计预算达成率</div>
+        <div class="total-content-num">
+          {{ ZTljysdcPercent }}
+        </div>
+      </div>
     </div>
-    <div class="map" id="worldMap" v-show="ZdzhqNum===0&&!ZplotNum"></div>
-    <div class="map" id="chinaMap" v-show="ZdzhqNum===1&&!ZplotNum"></div>
-    <div class="line" id="line" v-show="ZplotNum"></div>
-    <div class="map-option">
-      <div class="map-option-info" v-for="(item,index) of mapOptionList" :key="item.id" :class="{mapOption:ZdzhqNum === index}" @click="mapChangeSelect(index)"><span>{{item.option}}</span></div>
-    </div>
-    <ContentTab class="content-tab" :TabList="TabList" v-show="!ZplotNum"></ContentTab>
-    <div class="corner-option">
+  <div class="map" id="worldMap" v-show="ZdzhqNum===0&&!ZplotNum"></div>
+  <div class="map" id="chinaMap" v-show="ZdzhqNum===1&&!ZplotNum"></div>
+  <div class="line" id="line" v-show="ZplotNum"></div>
+  <div class="map-option">
+    <div class="map-option-info" v-for="(item,index) of mapOptionList" :key="item.id" :class="{mapOption:ZdzhqNum === index}" @click="mapChangeSelect(index)"><span>{{item.option}}</span></div>
+  </div>
+  <ContentTab class="content-tab" :TabList="TabList" v-show="!ZplotNum"></ContentTab>
+  <div class="corner-option">
 <!--      <div class="corner-option-info"  v-for="(item,index) of cornerOptionList" :key="item.id" :class="{cornerOption:cornerNum === index}" @click="cornerChangeSelect(index)"><span>{{item.option}}</span></div>-->
-      <div class="corner-option-info" :class="{cornerOption:ZusdNum}" @click="ZusdChangeColor()">
-        <span>切换币种到：本位币</span>
-      </div>
-      <div class="corner-option-info" :class="{cornerOption:ZplotNum}" @click="plotChangeColor()">
-        <span>查看折线图</span>
-      </div>
+    <div class="corner-option-info" :class="{cornerOption:ZusdNum}" @click="ZusdChangeColor()">
+      <span>切换币种到：本位币</span>
+    </div>
+    <div class="corner-option-info" :class="{cornerOption:ZplotNum}" @click="plotChangeColor()">
+      <span>查看折线图</span>
     </div>
   </div>
+</div>
 </template>
 <script>
 import ContentTab from "../tab/Tab.vue";
@@ -37,6 +54,10 @@ import ContentTab from "../tab/Tab.vue";
     },
     props:{
 			TabList:Array,
+      ZTljsrYtd: String,//累计收入
+      ZTtbYtd: String,//同比
+      ZTnddc: String,//年度达成
+	    ZTljysdc: String,//年度达成
 	    // xData:Array,
 	    // ZljsrData:Array,//折线图 累计收入
 	    // ZqntqljsrData:Array,//折线图 去年同期累计收入
@@ -55,6 +76,26 @@ import ContentTab from "../tab/Tab.vue";
 				mapOptionList:[{id: "0001",option: "查看全球"}, {id: "0002",option: "查看大中华区"}],
       }
     },
+		computed:{
+			/**
+			 * @return {string}
+			 */
+			ZTnddcPercent(){//把同比YOY转化为百分比
+				return Number(this.ZTnddc * 100).toFixed(2) + "%";
+			},
+			/**
+			 * @return {string}
+			 */
+			ZTtbYtdPercent(){//把年度达成率转化为百分比
+				return Number(this.ZTtbYtd * 100).toFixed(2) + "%";
+			},
+			/**
+			 * @return {string}
+			 */
+			ZTljysdcPercent(){//把累计预算达成率转化为百分比
+				return Number(this.ZTljysdc * 100).toFixed(2) + "%";
+			},
+		},
     methods: {
       mapChangeSelect: function (index) {
         this.ZdzhqNum = index;
@@ -74,7 +115,7 @@ import ContentTab from "../tab/Tab.vue";
 			    // alert(this.ZdzhqFlag)
 			    this.$chinaChart.china_bar ('chinaMap'); //方法调用
 		    }else{
-			    this.ZdzhqFlag = " ";//世界
+			    this.ZdzhqFlag = "";//世界
 			    // alert(this.ZdzhqFlag)
 			    this.$worldChart.world_bar ('worldMap'); //方法调用
 		    }
