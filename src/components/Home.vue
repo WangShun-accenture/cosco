@@ -20,7 +20,6 @@
         :ZljysData="ZljysData"-->
     
     </HomeContent>
-    
   </div>
 </template>
 <script>
@@ -234,8 +233,9 @@ export default {
 		this.getLjsrHeaderInfo();
 	  this.getTotalInfo();
 	  this.getTabInfo();
-		screenSize(this.$refs.editor);
-},
+	  // this.getLjsrChartInfo();
+  	// screenSize(this.$refs.editor);
+  },
 
 	watch: {
 		'$store.state.Calmonth': function () {
@@ -271,5 +271,5 @@ export default {
 	}
 }
 </script>
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 </style>

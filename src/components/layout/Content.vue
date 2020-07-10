@@ -1,38 +1,24 @@
 <template>
-<div class="content">
-  <div class="total">
-      <div class="total-content">
-        <div class="total-content-dec">累计收入 YTD</div>
+  <div class="content">
+    <div class="total">
+      <div class="total-content" v-for="(item,index) of totalContentList" :key="index">
         <div class="total-content-num">
-          {{ this.ZTljsrYtd }}
+          <div>{{ item.contentNum }}</div>
+          <div v-if="index === 1">
+            <img src="../../assets/images/middle_green_up.png" v-if="item.id==='0002'">
+            <img src="../../assets/images/middle_yellow_down.png" v-if="item.id!=='0002'">
+          </div>
         </div>
-      </div>
-      <div class="total-content">
-        <div class="total-content-dec">同比 YoY</div>
-        <div class="total-content-num">
-          {{ ZTtbYtdPercent }}
-        </div>
-      </div>
-      <div class="total-content">
-        <div class="total-content-dec">年度达成 Budget</div>
-        <div class="total-content-num">
-          {{ ZTnddcPercent }}
-        </div>
-      </div>
-      <div class="total-content">
-        <div class="total-content-dec">累计预算达成率</div>
-        <div class="total-content-num">
-          {{ ZTljysdcPercent }}
-        </div>
+        <div class="total-content-dec">{{item.contentDec}}</div>
       </div>
     </div>
-  <div class="map" id="worldMap" v-show="ZdzhqNum===0&&!ZplotNum"></div>
-  <div class="map" id="chinaMap" v-show="ZdzhqNum===1&&!ZplotNum"></div>
-  <div class="line" id="line" v-show="ZplotNum"></div>
-  <div class="map-option">
-    <div class="map-option-info" v-for="(item,index) of mapOptionList" :key="item.id" :class="{mapOption:ZdzhqNum === index}" @click="mapChangeSelect(index)"><span>{{item.option}}</span></div>
-  </div>
-  <ContentTab class="content-tab" :TabList="TabList" v-show="!ZplotNum"></ContentTab>
+    <div class="map" id="worldMap" v-show="ZdzhqNum===0&&!ZplotNum"></div>
+    <div class="map" id="chinaMap" v-show="ZdzhqNum===1&&!ZplotNum"></div>
+    <div class="line" id="line" v-show="ZplotNum"></div>
+    <div class="map-option">
+      <div class="map-option-info" v-for="(item,index) of mapOptionList" :key="item.id" :class="{mapOption:ZdzhqNum === index}" @click="mapChangeSelect(index)"><span>{{item.option}}</span></div>
+    </div>
+    <ContentTab class="content-tab" :TabList="TabList" v-show="!ZplotNum"></ContentTab>
   <div class="corner-option">
 <!--      <div class="corner-option-info"  v-for="(item,index) of cornerOptionList" :key="item.id" :class="{cornerOption:cornerNum === index}" @click="cornerChangeSelect(index)"><span>{{item.option}}</span></div>-->
     <div class="corner-option-info" :class="{cornerOption:ZusdNum}" @click="ZusdChangeColor()">
@@ -152,7 +138,7 @@ import ContentTab from "../tab/Tab.vue";
     position:relative
     height:828px
     color:#fff
-    background:linear-gradient(#001269, #000d4a)
+    background:linear-gradient(#001372, #00126b)
     .total
       position:absolute
       left:184px
@@ -167,6 +153,7 @@ import ContentTab from "../tab/Tab.vue";
           line-height:30px
           text-align:center
           font-size:16px
+          color: #999999
         /*background:yellowgreen*/
         .total-content-num
           width:186px
@@ -175,10 +162,16 @@ import ContentTab from "../tab/Tab.vue";
           text-align:center
           font-size:30px
           font-weight:bolder
+          display: flex
+          justify-content:center
           /*background:darkorange*/
-          .arrow-up
-            font-size:26px
-            color:#74e667
+          div
+            margin-left:5px
+            display: flex;
+            align-items: center;
+            img
+              width: 100%;
+              height: 70%;
     .map
       width:1140px
       height:560px
@@ -196,35 +189,38 @@ import ContentTab from "../tab/Tab.vue";
       left:754px
       bottom:32px
       .map-option-info
-        width:118px
-        height:28px
-        line-height:28px
         text-align:center
         float:left
         font-size:15px
-        margin:0 13px
-        border:1px #fff solid
+        margin:0 15px
+        padding: 10px
+        background-image: url('../../assets/images/btn.png')
+        background-position: center
+        background-repeat: no-repeat
+        background-size: 100% 100%
+        color: rgb(86,181,239)
       .mapOption
         font-weight:bold
         color:#001370
         background:#fff
     .content-tab
       position:absolute
-      top:48px
       right:33px
     .corner-option
       position:absolute
       right:46px
       bottom:35px
       .corner-option-info
-        width:158px
-        height:28px
-        line-height:28px
+        background-image: url('../../assets/images/btn.png')
+        background-position: center
+        background-repeat: no-repeat
+        background-size: 100% 100%
         text-align:center
         float:left
         font-size:15px
-        margin:0 13px
-        border:1px #fff solid
+        margin:0 15px
+        color: rgb(86,181,239)
+        padding: 10px
       .cornerOption
         font-weight:bold
         color:#001370
