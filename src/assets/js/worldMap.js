@@ -1,6 +1,6 @@
 import echarts from "echarts";
 import world from '../../../node_modules/echarts/map/js/world.js'
-import {geoCoordMap , rawData} from './position'
+import {geoCoordMap , rawData} from './worldPosition'
 
 const img = require('../images/05.png');
 
@@ -41,7 +41,7 @@ let install = function(Vue) {
 									global: false // 缺省为 false
 								},
 								color: [
-									'rgb(200,144,36)', 'rgb(125,222,105)'
+									'rgba(255,170,0)', 'rgba(0,255,169)'
 								],
 								legend: {
 									left:10,
@@ -55,6 +55,8 @@ let install = function(Vue) {
 								},
 								geo: {
 									map: 'world',
+									roam: true,
+									zoom: 1.2,//当前视角的缩放比例
 									silent: true,
 									emphasis: {
 										label: {

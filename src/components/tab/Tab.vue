@@ -1,5 +1,5 @@
 <template>
-  <div class="tab">
+  <div class="tab" :class="{scroll:ZkggsNum === 1}">
     <div class="tab-title">
       <ul>
         <li class="tabOptionInfo" v-for="(item,index) of titleList" :key="item.id" :class="{tabOption:ZkggsNum === index}" @click="changeSelect(index)">
@@ -19,35 +19,24 @@
           <th class="table-th6">累计预算达成</th>
         </tr>
         </thead>
-        <tbody class="table-body" >
-        <tr class="table-tr" v-for="(item,index) of TabList" :key="index" v-show="ZkggsNum===0">
-          <td class="table-td1">
-            <span :class="{yellow:item.Zljysdc<1,transparent:item.Zljysdc>=1}"></span>
-            <span>{{item.ZbgzzT}}</span>
-          </td>
-          <td class="table-td2">{{item.Zljsr}}</td>
-          <td class="table-td3">{{item.Currency}}</td>
-          <td class="table-td4">{{item.Znddc}}</td>
-          <td class="table-td5">
-            <div>{{ Number(item.Ztb * 100).toFixed(2) + "%" }}</div>
-            <div>
-              <img src="../../assets/images/small_white_up.png" v-if="item.Ztb>0">
-              <img src="../../assets/images/small_yellow_down.png" v-if="item.Ztb<0">
-            </div>
-          </td>
-          <td class="table-td6">{{item.Zljysdc}}</td>
-        </tr>
-        <!-- <tr class="table-tr" v-for="item of TabList" v-show="ZkggsNum===1">
-          <td class="table-td1">{{item.ZbgzzT}}</td>
-          <td class="table-td2">{{item.Zljsr}}</td>
-          <td class="table-td3">{{item.Currency}}</td>
-          <td class="table-td4">{{item.Znddc}}</td>
-          <td class="table-td5">
-            {{ Number(item.Ztb * 100).toFixed(2) + "%" }}
-            <span class="table-arrow-up">↑</span>
-          </td>
-          <td class="table-td6">{{item.Zljysdc}}</td>
-        </tr> -->
+        <tbody class="table-body">
+          <tr class="table-tr" v-for="(item,index) of TabList" :key="index">
+            <td class="table-td1">
+              <span :class="{green:item.Zljysdc>1,transparent:item.Zljysdc<=1}"></span>
+              <span>{{item.ZbgzzT}}</span>
+            </td>
+            <td class="table-td2">{{item.Zljsr}}</td>
+            <td class="table-td3">{{item.Currency}}</td>
+            <td class="table-td4">{{ Number(item.Znddc * 100).toFixed(2) + "%" }}</td>
+            <td class="table-td5">
+              <div>{{ Number(item.Ztb * 100).toFixed(2) + "%" }}</div>
+              <div>
+                <img src="../../assets/images/small_green_up.png" v-if="item.Ztb>0">
+                <img src="../../assets/images/small_yellow_down.png" v-if="item.Ztb<=0" style="opacity:0">
+              </div>
+            </td>
+            <td class="table-td6">{{ Number(item.Zljysdc * 100).toFixed(2) + "%" }}</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -64,7 +53,7 @@
 				ZkggsNum: 0,//控股公司选择
 				titleList: [{id: "0001", title: "控股公司"}, {id: "0002", title: "参股公司"}],
 			}
-		},
+    },
 		methods: {
 			changeSelect: function (index) {
 				this.ZkggsNum = index;
@@ -113,13 +102,15 @@
 	}
 </script>
 <style lang="stylus" scoped>
-  .yellow
+  .green
     width:10px
     height:10px
-    background-color:rgb(211,151,38)
+    background-color:rgb(125,222,105)
     border-radius: 100%
     display: inline-block
     margin-right:5px
+  .scroll
+    overflow:scroll
   .transparent{
     width:10px
     height:10px
@@ -160,7 +151,7 @@
         border-bottom:2px #334185 solid
         color: #999999
         .table-th1
-          width:140px
+          width:160px
           height:34px
           line-height:34px
           font-weight:bolder
@@ -180,7 +171,7 @@
           line-height:34px
           font-weight:bolder
         .table-th5
-          width:119px
+          width:110px
           height:34px
           line-height:34px
           font-weight:bolder
@@ -194,13 +185,12 @@
         // height:546px
         display:block
         /*overflow:auto*/
-        // overflow-y:scroll
         .table-tr
           height:34px
           line-height:34px
           border-bottom:1px #334185 solid
           .table-td1
-            width:140px
+            width:160px
             height:34px
             line-height:34px
             text-align:left

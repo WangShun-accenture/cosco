@@ -25,7 +25,7 @@
       <span>切换币种到：本位币</span>
     </div>
     <div class="corner-option-info" :class="{cornerOption:ZplotNum}" @click="plotChangeColor()">
-      <span>查看折线图</span>
+      <span>{{!ZplotNum ? '查看折线图' : '查看数据表'}}</span>
     </div>
   </div>
 </div>

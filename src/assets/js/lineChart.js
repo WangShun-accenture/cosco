@@ -76,6 +76,9 @@ let install = function(Vue) {
 							//y轴
 							yAxis : [ {
 								type : 'value',
+								max: function(value) {
+									return value.max*2;
+								},
 								boundaryGap: true,
 								// boundaryGap: ['5%', '5%'],
 								//y轴字体设置
@@ -136,13 +139,13 @@ let install = function(Vue) {
 									symbolSize : 8,
 									//线条样式
 									lineStyle : {
-										color : '#ffaa00',
+										color: '#74e667',
 										width : 2,
 										type : 'solid',
 									},
 									//折线连接点样式
 									itemStyle : {
-										color : '#ffaa00'
+										color: '#74e667'
 									},
 									data : ZqntqljsrData,
 									// data: [
@@ -157,13 +160,13 @@ let install = function(Vue) {
 									symbolSize : 8,
 									//线条样式
 									lineStyle : {
-										color : '#74e667',
+										color: '#ffaa00',
 										width : 2,
 										type : 'solid',
 									},
 									//折线连接点样式
 									itemStyle : {
-										color : '#74e667'
+										color: '#ffaa00'
 									},
 									data : ZljysData,
 									// data : [
