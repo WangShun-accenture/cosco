@@ -58,29 +58,7 @@
 			changeSelect: function (index) {
 				this.ZkggsNum = index;
 			},
-			/*			getTabInfo() {
-				axios
-					.get(
-						// "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq '201910' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq 'X'&$format=json",
-						// "/api/table.json"
-						"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZusdFlag eq "+"'"+this.$store.state.ZusdFlag+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+"&$format=json",
-          )
-					.then(
-						this.getTabInfoSucc
-          )
-			},
-			getTabInfoSucc(res) {
-				res = res.data;
-				res = res.d;
-				const data = res.results;//results为数组
-				let jsonString = JSON.stringify(data, ["Zbgzz", "Zljsr", "Currency", "Znddc", "Ztb", "Zljysdc"]);
-				this.dataList = JSON.parse(jsonString);//string转json,输出数据为object
-				// this.dataList = eval('('+jsonString+')');//输出数据为Array
-				console.log(this.dataList);
-				console.log(typeof this.dataList);
-			},
-		},
-		*/
+
 		},
 		watch: {
 			ZkggsNum() {
