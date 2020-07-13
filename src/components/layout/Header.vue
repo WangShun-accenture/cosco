@@ -32,7 +32,7 @@
 	export default {
 		name: "HomeHeader",
     props:{
-	    ZljsrYtd: String,//累计收入
+	    ZljsrYtdC: String,//累计收入
 	    ZtbYtd: String,//同比
       Znddc: String,//年度达成
       Zljsl: String,//累计数量
