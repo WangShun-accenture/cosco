@@ -89,17 +89,43 @@
         </div>
         
       </div>
-
+  
       <div class="total">
-        <div class="total-content" v-for="(item,index) of totalContentList" :key="index">
+        <div class="total-content">
           <div class="total-content-num">
-            <div>{{ item.contentNum }}</div>
-            <div v-if="index === 1">
-              <img src="../../assets/images/middle_green_up.png" v-if="item.id==='0002'">
-              <img src="../../assets/images/middle_yellow_down.png" v-if="item.id!=='0002'">
+            <div>{{ this.ZTljsrYtd }}</div>
+          </div>
+          <div class="total-content-dec">
+            累计收入 YTD
+          </div>
+        </div>
+        <div class="total-content">
+          <div class="total-content-num">
+            <div>{{ this.ZTtbYtdPercent }}</div>
+            <div>
+              <img src="../../assets/images/middle_green_up.png" v-if="this.ZTtbYtdPercent>0">
+              <img src="../../assets/images/middle_yellow_down.png" v-if="this.ZTtbYtdPercent<0">
             </div>
           </div>
-          <div class="total-content-dec">{{item.contentDec}}</div>
+          <div class="total-content-dec">
+            同比 YoY
+          </div>
+        </div>
+        <div class="total-content">
+          <div class="total-content-num">
+            <div>{{ this.ZTnddcPercent }}</div>
+          </div>
+          <div class="total-content-dec">
+            年度达成 Budget
+          </div>
+        </div>
+        <div class="total-content">
+          <div class="total-content-num">
+            <div>{{ this.ZTljysdcPercent }}</div>
+          </div>
+          <div class="total-content-dec">
+            累计达成 Budget
+          </div>
         </div>
       </div>
 
@@ -150,7 +176,6 @@ import { mapState,mapGetters,mapActions } from 'vuex';
         ZljsrNum:0,
 				ZusdNum:false,
 				ZplotNum:false,//false为查看折线图未点击状态
-				totalContentList:[{id: "0001",contentDec: "累计收入 YTD",contentNum:"$17,053,102"},{id: "0002",contentDec: "同比 YoY",contentNum:"+2.1%"},{id: "0003",contentDec: "年度达成 Budget",contentNum:"16%"},{id: "0003",contentDec: "累计达成 Budget",contentNum:"87%"}],
         mapOptionList:[{id: "0001",option: "查看全球"}, {id: "0002",option: "查看大中华区"}],
         subjectOptionList:[{id: "0001",option: "非权益乘数"},{id: "0002",option: "权益乘数"}],
       }
