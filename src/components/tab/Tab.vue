@@ -1,15 +1,12 @@
 <template>
-  <div class="tab" :class="{scroll:ZkggsNum === 1}">
+  <div class="tab">
     <div class="tab-title">
-      <ul>
-        <li class="tabOptionInfo" v-for="(item,index) of titleList" :key="item.id" :class="{tabOption:ZkggsNum === index}" @click="changeSelect(index)">
+        <div class="tabOptionInfo" v-for="(item,index) of titleList" :key="item.id" :class="{tabOption:ZkggsNum === index}" @click="changeSelect(index)">
           {{item.title}}
-        </li>
-      </ul>
+        </div>
     </div>
-    <div class="tab-content">
+    <div class="tab-content" :class="{scroll:ZkggsNum === 1,hidden:ZkggsNum === 0}">
       <table class="tab-table">
-        <thead>
         <tr class="table-head">
           <th class="table-th1">公司</th>
           <th class="table-th2">累计收入</th>
@@ -18,35 +15,34 @@
           <th class="table-th5">同比</th>
           <th class="table-th6">累计预算达成</th>
         </tr>
-        </thead>
-        <tbody class="table-body">
-          <tr class="table-tr" v-for="(item,index) of TabList" :key="index">
-            <td class="table-td1">
-              <span :class="{green:item.Zljysdc>1,transparent:item.Zljysdc<=1}"></span>
-              <span>{{item.ZbgzzT}}</span>
-            </td>
-            <td class="table-td2">{{item.Zljsr}}</td>
-            <td class="table-td3">{{item.Currency}}</td>
-            <td class="table-td4">{{ Number(item.Znddc * 100).toFixed(2) + "%" }}</td>
-            <td class="table-td5">
-              <div>{{ Number(item.Ztb * 100).toFixed(2) + "%" }}</div>
-              <div>
-                <img src="../../assets/images/small_green_up.png" v-if="item.Ztb>0">
-                <img src="../../assets/images/small_yellow_down.png" v-if="item.Ztb<=0" style="opacity:0">
-              </div>
-            </td>
-            <td class="table-td6">{{ Number(item.Zljysdc * 100).toFixed(2) + "%" }}</td>
-          </tr>
-        </tbody>
+        <tr class="table-tr" v-for="(item,index) of TabList" :key="index">
+          <td class="table-td1">
+            <span :class="{green:item.Zljysdc>1,transparent:item.Zljysdc<=1}"></span>
+            <span>{{item.ZbgzzT}}</span>
+          </td>
+          <td class="table-td2">{{item.Zljsr}}</td>
+          <td class="table-td3">{{item.Currency}}</td>
+          <td class="table-td4">{{ Number(item.Znddc * 100).toFixed(2) + "%" }}</td>
+          <td class="table-td5">
+            <div>{{ Number(item.Ztb * 100).toFixed(2) + "%" }}</div>
+            <div>
+              <img src="../../assets/images/small_green_up.png" v-if="item.Ztb>0">
+              <img src="../../assets/images/small_yellow_down.png" v-if="item.Ztb<=0" style="opacity:0">
+            </div>
+          </td>
+          <td class="table-td6">{{ Number(item.Zljysdc * 100).toFixed(2) + "%" }}</td>
+        </tr>
       </table>
+      
     </div>
   </div>
 </template>
 <script>
+import { mapState,mapGetters,mapActions } from 'vuex';
 	export default {
 		name: "ContentTab",
     props:{
-			TabList:Array,
+			TabList:Array
     },
 		data() {
 			return {
@@ -59,12 +55,14 @@
 				this.ZkggsNum = index;
 			},
 
-		},
+    },
+    computed:{
+      
+    },
 		watch: {
 			ZkggsNum() {
 				if (this.ZkggsNum === 0) {
 					this.ZkggsFlag = "X";//控股公司
-          console.log(this.TabList)
 					// alert(this.ZkggsFlag);
 				} else {
 					this.ZkggsFlag = "";//参股公司
@@ -87,6 +85,8 @@
     border-radius: 100%
     display: inline-block
     margin-right:5px
+  .hidden
+    overflow:hidden
   .scroll
     overflow:scroll
   .transparent{
@@ -98,14 +98,15 @@
   }
   .tab
     display:flex
-    width:692px
-    height:707px
-    justify-content:center
+    align-items: center;
+    flex-flow: column;
   .tab-title
     margin-top:9px
     height:40px
+    display:flex
+    justify-content:center
+    align-items:center
     .tabOptionInfo
-      float:left
       width:120px
       height:40px
       line-height:40px
@@ -119,90 +120,36 @@
       border-bottom:3px #fff solid
       color: white
   .tab-content
-    position:absolute
-    top:60px
-    right:12px
+    height:735px
     text-align:center
+    margin-top: 15px;
+    width: 100%;
     .tab-table
+      width: 100%;
       .table-head
-        display:block
-        border-bottom:2px #334185 solid
-        color: #999999
-        .table-th1
-          width:160px
-          height:34px
-          line-height:34px
-          font-weight:bolder
-        .table-th2
-          width:90px
-          height:34px
-          line-height:34px
-          font-weight:bolder
-        .table-th3
-          width:86px
-          height:34px
-          line-height:34px
-          font-weight:bolder
-        .table-th4
-          width:110px
-          height:34px
-          line-height:34px
-          font-weight:bolder
-        .table-th5
-          width:110px
-          height:34px
-          line-height:34px
-          font-weight:bolder
-        .table-th6
-          width:104px
-          height:34px
-          line-height:34px
-          font-weight:bolder
-      .table-body
-        width:669px
-        // height:546px
-        display:block
-        /*overflow:auto*/
-        .table-tr
-          height:34px
-          line-height:34px
-          border-bottom:1px #334185 solid
-          .table-td1
-            width:160px
-            height:34px
-            line-height:34px
-            text-align:left
-          .table-td2
-            width:90px
-            height:34px
-            line-height:34px
-            text-align:right
-          .table-td3
-            width:86px
-            height:34px
-            line-height:34px
-          .table-td4
-            width:110px
-            height:34px
-            line-height:34px
-          .table-td5
-            width:100px
-            height:34px
-            line-height:34px
-            display: flex
-            justify-content:flex-end
-            div
-              margin-left:5px
-              display: flex;
-              align-items: center;
-              img
-                width: 100%;
-                height: 70%;
-          .table-td6
-            width:104px
-            height:34px
-            line-height:34px
-
-
-
+        line-height:40px
+        border-bottom:1px white solid
+      .table-tr
+        line-height:40px
+        border-bottom:1px #334185 solid
+        .table-td1
+          width:162px 
+          text-align:left 
+        .table-td2
+          text-align:right 
+          width:100px
+        .table-td4
+          width:100px
+        .table-td5
+          width:100px
+          text-align:right
+          div
+            margin-left:5px
+            display: inline-block;
+            align-items: center;
+            img
+              width: 100%;
+              height: 70%;
+        .table-td6
+          width:100px
 </style>

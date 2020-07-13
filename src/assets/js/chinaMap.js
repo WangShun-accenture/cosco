@@ -9,23 +9,36 @@ let install = function(Vue) {
 			$chinaChart: {
 				get() {
 					return {
-						china_bar: function (id) {
+						china_bar: function (id, data) {
 							this.chart = echarts.init(document.getElementById(id));
 							this.chart.clear();
-							//公司，累计收入，年度预算达成，同比 '未完成累计预算', '完成累计预算'
+							const china = {
+								done: [],
+								undone: []
+							};
 							function makeMapData(rawData) {
-								var mapData = [];
-								for (var i = 0; i < rawData.length; i++) {
-									var geoCoord = geoCoordMap[rawData[i][0]];
-									if (geoCoord) {
-										mapData.push({
-											name: rawData[i][0],
-											value: geoCoord.concat(rawData[i].slice(1))
-										});
+								for (let i = 0; i < rawData.length; i++) {
+									let temp = {
+										name: rawData[i]['ZbgzzT'],
+										value: [
+											rawData[i]['Longitude'],
+											rawData[i]['Latitude'],
+											rawData[i]['Zljsr'],
+											rawData[i]['Zljysdc'],
+											rawData[i]['Ztb']
+										]
+									};
+									if (rawData[i]['Zbgzz'][0] === 'A'){
+										if (rawData[i]['Zljysdc'] > 1) {
+											china.done.push(temp);
+										} else {
+											china.undone.push(temp);
+										}
 									}
 								}
-								return mapData;
 							};
+							makeMapData(data);
+							console.log('china===>',china);
 							const optionData = {
 								backgroundColor: {type: 'linear',
 									x: 0,
@@ -39,9 +52,6 @@ let install = function(Vue) {
 									}],
 									global: false // 缺省为 false
 								},
-								color: [
-									'rgba(255,170,0)', 'rgba(0,255,169)'
-								],
 								legend: {
 									left: 10,
 									bottom: 0,
@@ -54,7 +64,7 @@ let install = function(Vue) {
 								},
 								geo: {
 									map: 'china',
-									roam: true,
+									// roam: true,
 									zoom: 1.2,//当前视角的缩放比例
 									silent: true,
 									emphasis: {
@@ -90,54 +100,63 @@ let install = function(Vue) {
 										background-repeat: no-repeat;
 										background-position: center;
 									`,
-									// formatter: function (params) {
-									// 	return params;
-									// },
-									formatter: `
-										{b}
-										<br>
-										累计收入 ￥1,091,522
-										<br>
-										年度预算达成 17%
-										<br>
-										同比 +7.4%
-									`
+									formatter: function (params) {
+										return `
+										<div>
+											${params.name}
+											<br> 
+											累计收入 ${params.value[2]}
+											<br>
+											<span>年度预算达成 ${Number(params.value[3] * 100).toFixed(2) + "%"}</span>
+											<br>
+											<span>同比 ${Number(params.value[4] * 100).toFixed(2) + "%"}</span>
+										</div>
+										`;
+									},
 								},
 								series: [
 									{
 										name: "未完成累计预算",
 										type: 'scatter',
 										coordinateSystem: 'geo',
-										data: []
+										data: china.undone,
+										symbolSize: 20,
+										itemStyle: {
+											opacity: .9,
+											color: {
+												type: 'radial',
+												x: 0.5,
+												y: 0.5,
+												r: 0.5,
+												colorStops: [{
+													offset: 0, color: 'rgba(255,170,0,1)' // 0% 处的颜色
+												}, {
+													offset: 1, color: 'rgba(255,170,0,.5)' // 100% 处的颜色
+												}],
+												global: false // 缺省为 false
+											}
+										}
 									},
 									{
 										name: "完成累计预算",
 										type: 'scatter',
 										coordinateSystem: 'geo',
-										data: makeMapData(rawData),
-										symbolSize: function (data) {
-											let size = '';
-											console.log(data)
-											if (data[2] === '123'){
-												size = 10
-											} else if (data[2] === '456'){
-												size = 30
-											}else{
-												size = 15
-											}
-											return size;
-										},
+										data: china.done,
+										symbolSize: 20,
 										itemStyle: {
-											color: function (data) {
-												let color = '';
-												data.dataIndex % 2 === 0
-													? color = 'rgba(255,170,0)'
-													: color = 'rgba(0,255,169)'
-												return color;
-											},
-											shadowColor: 'rgba(0, 0, 0, 0.5)',
-											shadowBlur: 10,
-											opacity: .9
+											opacity: .9,
+											color: {
+												type: 'radial',
+												x: 0.5,
+												y: 0.5,
+												r: 0.5,
+												colorStops: [{
+													offset: 0, color: 'rgba(0,255,169,1)' // 0% 处的颜色
+												}, {
+													offset: 1, color: 'rgba(0,255,169,.5)' // 100% 处的颜色
+												}],
+												global: false // 缺省为 false
+											}
 										}
 									}
 								],

@@ -36,10 +36,10 @@ export default new Vuex.Store({
 	  },
 	  changeZplotFlag(state,ZplotFlag){
 		  state.ZplotFlag = ZplotFlag;
-		  console.log(state.ZplotFlag);
-	  },
+	  }
   },
   actions: {
+	  
   },
   modules: {
   }

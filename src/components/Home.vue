@@ -1,10 +1,7 @@
 <template>
   <div>
     <HomeHeader
-        :ZljsrYtd="ZljsrYtd"
-        :ZtbYtd="ZtbYtd"
-        :Znddc="Znddc"
-		:Zljsl="Zljsl"
+        
     >
     </HomeHeader>
     <HomeContent
@@ -14,6 +11,10 @@
         :ZTtbYtd="ZTtbYtd"
         :ZTnddc="ZTnddc"
         :ZTljysdc="ZTljysdc"
+		:ZljsrYtd="ZljsrYtd"
+        :ZtbYtd="ZtbYtd"
+        :Znddc="Znddc"
+		:Zljsl="Zljsl"
     >
         <!--:xData="xData"
         :ZljsrData="ZljsrData"
@@ -202,7 +203,7 @@ export default {
 		  res = res.data;
 		  res = res.d;
 		  const data = res.results;//results为数组
-		  let jsonString = JSON.stringify(data, ["ZbgzzT", "Zljsr", "Currency", "Znddc", "Ztb", "Zljysdc"]);
+		  let jsonString = JSON.stringify(data);
 		  this.TabList = JSON.parse(jsonString);//string转json,输出数据为object
 	    // console.log(this.TabList);
     },

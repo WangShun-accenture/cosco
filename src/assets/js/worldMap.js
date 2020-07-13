@@ -9,23 +9,35 @@ let install = function(Vue) {
 			$worldChart: {
 				get() {
 					return {
-						world_bar: function (id) {
+						world_bar: function (id,data) {
 							this.show = false;
 							this.chart = echarts.init(document.getElementById(id));
 							this.chart.clear();
+							const world = {
+								done:[],
+								undone:[]
+							};
 							function makeMapData(rawData) {
-								var mapData = [];
-								for (var i = 0; i < rawData.length; i++) {
-									var geoCoord = geoCoordMap[rawData[i][0]];
-									if (geoCoord) {
-										mapData.push({
-											name: rawData[i][0],
-											value: geoCoord.concat(rawData[i].slice(1))
-										});
+								for(let i = 0;i<rawData.length;i++){
+									let temp = {
+										name: rawData[i]['ZbgzzT'],
+										value:[
+											rawData[i]['Longitude'],
+											rawData[i]['Latitude'],
+											rawData[i]['Zljsr'],
+											rawData[i]['Zljysdc'],
+											rawData[i]['Ztb']
+										]
+									};
+									if (rawData[i]['Zljysdc'] > 1){
+										world.done.push(temp);
+									}else{
+										world.undone.push(temp);
 									}
 								}
-								return mapData;
 							};
+							makeMapData(data);
+							console.log(world);
 							const optionData = {
 								backgroundColor: {
 									type: 'linear',
@@ -40,9 +52,6 @@ let install = function(Vue) {
 									}],
 									global: false // 缺省为 false
 								},
-								color: [
-									'rgba(255,170,0)', 'rgba(0,255,169)'
-								],
 								legend: {
 									left:10,
 									bottom: 0,
@@ -55,7 +64,7 @@ let install = function(Vue) {
 								},
 								geo: {
 									map: 'world',
-									roam: true,
+									// roam: true,
 									zoom: 1.2,//当前视角的缩放比例
 									silent: true,
 									emphasis: {
@@ -73,7 +82,7 @@ let install = function(Vue) {
 								// 提示框
 								tooltip: {
 									show:true,
-									alwaysShowContent: true,
+									// alwaysShowContent: true,
 									triggerOn:'mousemove',
 									enterable:true,
 									trigger: 'item',
@@ -91,44 +100,61 @@ let install = function(Vue) {
 										background-repeat: no-repeat;
 										background-position: center;
 									`,
-									// formatter: function (params) {
-									// 	return params;
-									// },
-									formatter: `
-										{b}
-										<br>
-										累计收入 ￥1,091,522
-										<br>
-										年度预算达成 17%
-										<br>
-										同比 +7.4%
-									`
+									formatter: function (params) {
+										return `
+											${params.name}
+											<br> 
+											累计收入 ${params.value[2]}
+											<br>
+											<span>年度预算达成 ${Number(params.value[3] * 100).toFixed(2) + "%"}</span>
+											<br>
+											<span>同比 ${Number(params.value[4] * 100).toFixed(2) + "%"}</span>
+										`;
+									},
 								},
 								series: [
 									{
 										name: "未完成累计预算",
 										type: 'scatter',
 										coordinateSystem: 'geo',
-										data:[]
+										data: world.undone,
+										symbolSize: 20,
+										itemStyle: {
+											opacity: .9,
+											color: {
+												type: 'radial',
+												x: 0.5,
+												y: 0.5,
+												r: 0.5,
+												colorStops: [{
+													offset: 0, color: 'rgba(255,170,0,1)' // 0% 处的颜色
+												}, {
+													offset: 1, color: 'rgba(255,170,0,.5)' // 100% 处的颜色
+												}],
+												global: false // 缺省为 false
+											}
+										}
 									},
 									{
 										name:"完成累计预算",
 										type: 'scatter',
 										coordinateSystem: 'geo',
-										data: makeMapData(rawData),
-										symbolSize: function (data) {
-											return Math.random() * 20 + 10;
-										},
-										// symbolSize: 10,
+										data: world.done,
+										symbolSize: 20,
 										itemStyle: {
-											color: function (data){
-												let color = '';
-												data.dataIndex%2 === 0
-													? color = 'rgb(200,144,36)'
-													: color = 'rgb(125,222,105)'
-												return color;
-											},
-											opacity:.9
+											opacity:.9,
+											color: {
+												type: 'radial',
+												x: 0.5,
+												y: 0.5,
+												r: 0.5,
+												colorStops: [{
+													offset: 0, color: 'rgba(0,255,169,1)' // 0% 处的颜色
+												}, {
+													offset: 1, color: 'rgba(0,255,169,.5)' // 100% 处的颜色
+												}],
+												global: false // 缺省为 false
+											}
 										}
 									}
 								],

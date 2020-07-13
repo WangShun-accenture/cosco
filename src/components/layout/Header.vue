@@ -16,101 +16,16 @@
         </div>
       </div>
     </div>
+
     <!--        权益乘数-->
-    <div class="options">
+    <!-- <div class="options">
       <div class="container">
         <div class="option-info" v-for="(item,index) of subjectOptionList" :key="item.id" :class="{subjectOption:ZqycsNum === index}" @click="changeSelect(index)">
           {{ item.option }}
         </div>
       </div>
-    </div>
-    <div class="subject">
-      <div class="subject-box" v-show="ZljsrNum===0">
-        <div class="title" >中远海运港口当月累计收入</div>
-        <div class="count">
-          <div class="count-content">
-            <div class="count-content-num">
-              {{ this.ZljsrYtd }}
-            </div>
-            <div class="count-content-dec">累计收入 YTD</div>
-          </div>
-          <div class="count-content">
-            <div class="count-content-num">
-              <div>{{ this.ZtbYtdPercent }}</div>
-              <div>
-                <img src="../../assets/images/large_white_up.png" v-if="false">
-                <img src="../../assets/images/large_yellow_down.png">
-              </div>
-            </div>
-            <div class="count-content-dec">同比 YoY</div>
-          </div>
-          <div class="count-content">
-            <div class="count-content-num">
-              {{ ZtbYtdPercent }}
-            </div>
-            <div class="count-content-dec">年度达成 Budget</div>
-          </div>
-    
-        </div>
-      </div>
-      <div class="subject-box" v-show="ZljsrNum===1">
-        <div class="title" >中远海运港口当月累计利润</div>
-        <div class="count">
-          <div class="count-content">
-            <div class="count-content-num">
-              {{ this.ZljsrYtd }}
-            </div>
-            <div class="count-content-dec">累计利润</div>
-          </div>
-          <div class="count-content">
-            <div class="count-content-num">
-              <div>  {{ this.ZtbYtd }}</div>
-              <div>
-                <img src="../../assets/images/large_white_up.png" v-if="false">
-                <img src="../../assets/images/large_yellow_down.png">
-              </div>
-            </div>
-            <div class="count-content-dec">同比 YoY</div>
-          </div>
-          <div class="count-content">
-            <div class="count-content-num">
-              {{ ZnddcPercent }}
-            </div>
-            <div class="count-content-dec">年度达成 Budget</div>
-          </div>
-    
-        </div>
-      </div>
-      <div class="subject-box" v-show="ZljsrNum===2">
-        <div class="title" >中远海运港口当月累计箱量</div>
-        <div class="count">
-          <div class="count-content">
-            <div class="count-content-num">
-              {{ this.ZljsrYtd }}
-            </div>
-            <div class="count-content-dec">累计箱量</div>
-          </div>
-          <div class="count-content">
-            <div class="count-content-num">
-              <div>  {{ this.Zljsl }}</div>
-              <div>
-                <img src="../../assets/images/large_white_up.png" v-if="false">
-                <img src="../../assets/images/large_yellow_down.png">
-              </div>
-            </div>
-            <div class="count-content-dec">同比 YoY</div>
-          </div>
-          <div class="count-content">
-            <div class="count-content-num">
-              {{ ZtbYtdPercent }}
-            </div>
-            <div class="count-content-dec">年度达成 Budget</div>
-          </div>
-          
-        </div>
-      </div>
-      
-    </div>
+    </div> -->
+
   </div>
 </template>
 <script>
@@ -124,18 +39,18 @@
     },
     data(){
 			return{
-				ZljsrNum:0,
-				ZqycsNum:0,
+        ZqycsNum:0,
+        ZljsrNum:0,
         value:"",//输入的date格式的时间
 				navList:[
 					{id:"0001",nav:"累计收入"},
           {id:"0002",nav:"累计利润"},
           {id:"0003",nav:"累计箱量"}
           ],
-				subjectOptionList:[
-					{id: "0001",option: "非权益乘数"},
-          {id: "0002",option: "权益乘数"}
-          ],
+				// subjectOptionList:[
+				// 	{id: "0001",option: "非权益乘数"},
+        //   {id: "0002",option: "权益乘数"}
+        //   ],
 				// ZljsrYtd: "",//累计收入
         // ZtbYtd: "",//同比
 				// Znddc: "",//年度达成
@@ -146,9 +61,9 @@
 		changeColor:function(index){
 			this.ZljsrNum = index;
 		},
-		changeSelect: function (index) {
-			this.ZqycsNum = index;
-		},
+		// changeSelect: function (index) {
+		// 	this.ZqycsNum = index;
+		// },
 		ptOpenDowOrUp:function () {
 			this.show = !this.show
 		},
@@ -179,31 +94,18 @@
 			    this.ZljsrFlag = 2;
 		    }
 		    this.$store.commit("changeZljsrFlag",this.ZljsrFlag);
-		    // alert(this.$store.state.ZljsrFlag)
 	    },
-	    ZqycsNum() {
-	    	if(this.ZqycsNum === 0){
-			    this.ZqycsFlag = "";
-        }else{
-			    this.ZqycsFlag = "X";
-        }
-		    this.$store.commit("changeZqycsFlag",this.ZqycsFlag);
-	    	// alert(this.$store.state.ZqycsFlag)
-      },
+	    // ZqycsNum() {
+	    // 	if(this.ZqycsNum === 0){
+			//     this.ZqycsFlag = "";
+      //   }else{
+			//     this.ZqycsFlag = "X";
+      //   }
+		  //   this.$store.commit("changeZqycsFlag",this.ZqycsFlag);
+      // },
     },
     computed:{
-      /**
-       * @return {string}
-       */
-      ZnddcPercent(){//把年度达成转化为百分比
-        return Number(this.Znddc * 100).toFixed(2) + "%";
-      },
-	    /**
-	     * @return {string}
-	     */
-	    ZtbYtdPercent(){//把年度达成转化为百分比
-		    return Number(this.ZtbYtd * 100).toFixed(2) + "%";
-	    }
+      
     }
 	}
 </script>
@@ -285,57 +187,6 @@
         background-color: transparent;
         background-size: cover;
         color: white;
-  .subject
-    color:#fff
-    background:linear-gradient(#001372, #00126b)
-    .subject-box
-      height:180px
-      display:flex
-      justify-content: center
-      align-items:center
-      width: 95%;
-      margin: 0 auto;
-      background-image: url('../../assets/images/01.png')
-      background-repeat: no-repeat;
-      background-color: transparent;
-      background-size: 100% 100%;
-      .title
-        font-size:43px
-        font-weight:bolder
-        color:#fff
-      .count
-        width:810px
-        height:80px
-        display:flex
-        margin-left:100px
-      .count-content
-        
-        .count-content-dec
-          width:270px
-          height:20px
-          line-height:20px
-          text-align:center
-          font-size:18px
-          color: #999999
-        /*background:yellowgreen*/
-        .count-content-num
-          display:flex
-          justify-content: center;
-          width:270px
-          height:40px
-          margin-bottom:16px
-          line-height:40px
-          text-align:center
-          font-size:38px
-          font-weight:bolder
-          /*background:darkorange*/
-          div
-            margin-left: 10px
-            display:flex
-            align-items: center
-            img
-              width: 100%;
-              height: 100%;
 </style>
 <style>
   .nav-time .time-input .ivu-input-inner-container i{
