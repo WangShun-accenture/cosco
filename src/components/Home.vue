@@ -4,6 +4,7 @@
         :ZljsrYtd="ZljsrYtd"
         :ZtbYtd="ZtbYtd"
         :Znddc="Znddc"
+		:Zljsl="Zljsl"
     >
     </HomeHeader>
     <HomeContent
@@ -41,6 +42,7 @@ export default {
 		  ZTljsrYtd: "",//累计收入 total
 		  ZTtbYtd: "",//同比 total
 		  ZTnddc: "",//年度达成 total
+		  Zljsl: "",//累计数量
 		  ZTljysdc: "",//累计预算达成率 total
 		  TabList:[],
 		  ljsrChartList:[],
@@ -77,7 +79,21 @@ export default {
 		// 	  let tempX = this.ljsrChartList[i][key];
 		// 	  list.push(tempX);
 		//   }
-    // },
+	// },
+	
+
+	getHeader() {
+	    if (this.$store.state.ZljsrFlag === 0) {
+		    this.getLjsrHeaderInfo();
+	    }
+	    // if (this.ZljsrFlag === 1) {
+		  //   this.getLjxlHeaderInfo();
+	    // }
+	    if (this.$store.state.ZljsrFlag === 2) {
+		    this.getLjxlHeaderInfo();
+		    // alert(this.$store.state.ZljsrFlag)
+	    }
+    },
     //累计收入header接口获取
 	  getLjsrHeaderInfo(){
 		  axios
@@ -111,7 +127,7 @@ export default {
 		  axios
 			  .get(
 				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X' and ZxllxFlag eq 'A'",
-				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZxllxFlag eq "+"'"+this.$store.state.ZxllxFlag+"'"+"&$format=json",
+				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZxllxFlag eq "+"'"+this.$store.state.ZxllxFlag+"'"+"&$format=json",
 				  {
 					  auth: {
 						  username: `T-WANGBJ`,
@@ -130,8 +146,10 @@ export default {
 		  res = res.results;
 		  const data = res[0];//data是对象{..:..,..:..}
 		  this.ZljsrYtd = data.ZljsrYtd;
+		  this.ZljsrYtd = data.ZljsrYtd;
 		  this.ZtbYtd = data.ZtbYtd;
 		  this.Znddc = data.Znddc;
+		  console.log(this.xData);
 	  },
     //左侧3个汇总数
 	  getTotalInfo(){
@@ -246,8 +264,16 @@ export default {
 			this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
 			
 		},
+		'$store.state.ZljsrFlag': function () {
+			this.getHeader();
+			this.getTotalInfo();
+			this.getTabInfo();
+			this.getLjsrChartInfo();
+			this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
+		  // alert(this.$store.state.ZljsrFlag);
+    },
 		'$store.state.ZqycsFlag': function () {
-			this.getLjsrHeaderInfo();
+			this.getHeader();
 			this.getTotalInfo();
 			this.getTabInfo();
 			this.getLjsrChartInfo();

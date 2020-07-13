@@ -36,7 +36,7 @@
           </div>
           <div class="count-content">
             <div class="count-content-num">
-              <div>{{ ZtbYtdPercent }}</div>
+              <div>{{ this.ZtbYtdPercent }}</div>
               <div>
                 <img src="../../assets/images/large_white_up.png" v-if="false">
                 <img src="../../assets/images/large_yellow_down.png">
@@ -46,7 +46,7 @@
           </div>
           <div class="count-content">
             <div class="count-content-num">
-              {{ ZnddcPercent }}
+              {{ ZtbYtdPercent }}
             </div>
             <div class="count-content-dec">年度达成 Budget</div>
           </div>
@@ -92,7 +92,7 @@
           </div>
           <div class="count-content">
             <div class="count-content-num">
-              <div>  {{ this.ZtbYtd }}</div>
+              <div>  {{ this.Zljsl }}</div>
               <div>
                 <img src="../../assets/images/large_white_up.png" v-if="false">
                 <img src="../../assets/images/large_yellow_down.png">
@@ -102,7 +102,7 @@
           </div>
           <div class="count-content">
             <div class="count-content-num">
-              {{ ZnddcPercent }}
+              {{ ZtbYtdPercent }}
             </div>
             <div class="count-content-dec">年度达成 Budget</div>
           </div>
@@ -119,7 +119,8 @@
     props:{
 	    ZljsrYtd: String,//累计收入
 	    ZtbYtd: String,//同比
-	    Znddc: String,//年度达成
+      Znddc: String,//年度达成
+      Zljsl: String,//累计数量
     },
     data(){
 			return{
@@ -167,6 +168,19 @@
 			// this.getHeaderInfo();
 		},
     watch: {
+      ZljsrNum() {
+		    if(this.ZljsrNum === 0){
+			    this.ZljsrFlag = 0;
+		    }
+		    if(this.ZljsrNum === 1){
+			    this.ZljsrFlag = 1;
+		    }
+		    if(this.ZljsrNum === 2){
+			    this.ZljsrFlag = 2;
+		    }
+		    this.$store.commit("changeZljsrFlag",this.ZljsrFlag);
+		    // alert(this.$store.state.ZljsrFlag)
+	    },
 	    ZqycsNum() {
 	    	if(this.ZqycsNum === 0){
 			    this.ZqycsFlag = "";
