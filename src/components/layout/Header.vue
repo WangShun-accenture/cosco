@@ -30,7 +30,7 @@
         <div class="count">
           <div class="count-content">
             <div class="count-content-num">
-              {{ this.ZljsrYtd }}
+              {{ this.ZljsrYtdCRealVal }}
             </div>
             <div class="count-content-dec">累计收入 YTD</div>
           </div>
@@ -117,7 +117,7 @@
 	export default {
 		name: "HomeHeader",
     props:{
-	    ZljsrYtd: String,//累计收入
+	    ZljsrYtdC: String,//累计收入
 	    ZtbYtd: String,//同比
       Znddc: String,//年度达成
       Zljsl: String,//累计数量
@@ -192,6 +192,11 @@
       },
     },
     computed:{
+      //累计收入去小数，标示千分位
+      ZljsrYtdCRealVal(){  
+        const realVal = Number(this.ZljsrYtdC).toFixed(0);
+        return "$ "+(realVal+ '').replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g,'$1,');
+      },
       /**
        * @return {string}
        */

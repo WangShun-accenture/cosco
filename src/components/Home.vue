@@ -1,7 +1,7 @@
 <template>
   <div>
     <HomeHeader
-        :ZljsrYtd="ZljsrYtd"
+        :ZljsrYtdC="ZljsrYtdC"
         :ZtbYtd="ZtbYtd"
         :Znddc="Znddc"
 		:Zljsl="Zljsl"
@@ -36,7 +36,7 @@ export default {
   },
   data(){
   	return{
-		  ZljsrYtd: "",//累计收入
+		  ZljsrYtdC: "",//累计收入
 		  ZtbYtd: "",//同比
 		  Znddc: "",//年度达成
 		  ZTljsrYtd: "",//累计收入 total
@@ -118,7 +118,7 @@ export default {
 		  res = res.d;
 		  res = res.results;
 		  const data = res[0];//data是对象{..:..,..:..}
-		  this.ZljsrYtd = data.ZljsrYtd;
+		  this.ZljsrYtdC = data.ZljsrYtdC;
 		  this.ZtbYtd = data.ZtbYtd;
 		  this.Znddc = data.Znddc;
 	  },
@@ -145,8 +145,8 @@ export default {
 		  res = res.d;
 		  res = res.results;
 		  const data = res[0];//data是对象{..:..,..:..}
-		  this.ZljsrYtd = data.ZljsrYtd;
-		  this.ZljsrYtd = data.ZljsrYtd;
+		  this.ZljsrYtdC = data.ZljsrYtdC;
+		  this.ZljsrYtdC = data.ZljsrYtdC;
 		  this.ZtbYtd = data.ZtbYtd;
 		  this.Znddc = data.Znddc;
 		  console.log(this.xData);
