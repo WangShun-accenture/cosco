@@ -16,8 +16,8 @@
               <div class="count-content-num">
                 <div>{{ this.ZtbYtdPercent }}</div>
                 <div>
-                  <img src="../../assets/images/large_white_up.png" v-if="false">
-                  <img src="../../assets/images/large_yellow_down.png">
+                  <img src="../../assets/images/large_white_up.png" v-if="this.Ztbytd>0">
+                  <img src="../../assets/images/large_yellow_down.png" v-if="this.Ztbytd<=0" style="opacity:0">
                 </div>
               </div>
               <div class="count-content-dec">同比 YoY</div>
