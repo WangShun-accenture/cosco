@@ -11,8 +11,11 @@
         :ZTtbYtd="ZTtbYtd"
         :ZTnddc="ZTnddc"
         :ZTljysdc="ZTljysdc"
+		:ZTljlrYtdC="ZTljlrYtdC"
+		:ZTljlrtbYTD="ZTljlrtbYTD"
+		:ZTljlrnddc="ZTljlrnddc"
+		:ZTTljydc="ZTTljydc"
 		:ZljsrYtdC="ZljsrYtdC"
-
         :ZtbYtd="ZtbYtd"
         :Znddc="Znddc"
 		:ZljlrYtdC="ZljlrYtdC"
@@ -51,12 +54,16 @@ export default {
 		  ZTtbYtd: "",//同比 total
 		  ZTnddc: "",//年度达成 total
 		  ZljxlYtdC: "",//累计数量
+		  ZTljysdc: "",//累计预算达成率 total
 		  ZljxltbYTD:"",
 		  Zljxlnddc:"",
 		  ZljlrYtdC:"",
 		  ZljlrtbYTD:"",
 		  Zljlrnddc:"",
-		  ZTljysdc: "",//累计预算达成率 total
+		  ZTljlrYtdC:"",
+		  ZTljlrtbYTD:"",
+          ZTljlrnddc:"",
+          ZTTljydc:"",
 		  TabList:[],
 		  ljsrChartList:[],
 		  xData:[],
@@ -194,8 +201,8 @@ export default {
 		  this.Zljxlnddc = data.Znddc;
 		  //console.log(this.xData);
 	  },
-    //左侧3个汇总数
-	  getTotalInfo(){
+      //地图上方累计收入数据
+	  getTotalLJSRInfo(){
 		  axios
 			  .get(
 				  // "/api/header.json"
@@ -209,11 +216,11 @@ export default {
 				  }
 			  )
 			  .then(
-				  this.getTotalInfoSucc
+				  this.getTotalLJSRInfoSucc
 			  )
 			  .catch((e)=>{console.log(e)})
 	  },
-	  getTotalInfoSucc(res){
+	  getTotalLJSRInfoSucc(res){
 		  res = res.data;
 		  res = res.d;
 		  res = res.results;
@@ -223,6 +230,37 @@ export default {
 		  this.ZTnddc = data.Znddc;
 		  this.ZTljysdc = data.Zljysdc;
 	  },
+
+	  //地图上方累计利润数据
+	  getTotalLJLRInfo(){
+		  axios
+			  .get(
+				  // "/api/header.json"
+				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'",
+				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJLR_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+"&$format=json",
+				  {
+					  auth: {
+						  username: `T-WANGBJ`,
+						  password: `1qaz2wsx`
+					  }
+				  }
+			  )
+			  .then(
+				  this.getTotalLJLRInfoSucc
+			  )
+			  .catch((e)=>{console.log(e)})
+	  },
+	  getTotalLJLRInfoSucc(res){
+		  res = res.data;
+		  res = res.d;
+		  res = res.results;
+		  const data = res[0];//data是对象{..:..,..:..}
+		  this.ZTljlrYtdC = data.ZljsrYtdC;
+		  this.ZTljlrtbYTD = data.ZtbYtd;
+		  this.ZTljlrnddc = data.Znddc;
+		  this.ZTTljydc = data.Zljysdc;
+	  },
+
 	  getTabInfo() {
 		  axios
 			  .get(
@@ -299,7 +337,7 @@ export default {
 	},
 	mounted(){
 		this.getLjsrHeaderInfo();
-		this.getTotalInfo();
+		this.getTotalLJSRInfo();
 		this.getTabInfo();
 		// this.getLjsrChartInfo();
 		// screenSize(this.$refs.editor);
@@ -312,38 +350,41 @@ export default {
 	watch: {
 		'$store.state.ChinaOnlyFlag': function () {
 			this.getLjsrHeaderInfo();
-			this.getTotalInfo();
+			this.getTotalLJSRInfo();
 			this.getTabInfo();
 			this.getLjsrChartInfo();
 		},
 		'$store.state.Calmonth': function () {
 			this.getLjsrHeaderInfo();
-			this.getTotalInfo();
+			this.getTotalLJSRInfo();
 			this.getTabInfo();
 
 			this.getLjlrHeaderInfo();
+			this.getTotalLJLRInfo();
 			this.getLjxlHeaderInfo();
 			this.getLjsrChartInfo();
 		},
 		'$store.state.ZljsrFlag': function () {
 			this.getHeader();
-			this.getTotalInfo();
+			this.getTotalLJSRInfo();
 			this.getTabInfo();
 			this.getLjsrChartInfo();
 		  // alert(this.$store.state.ZljsrFlag);
     },
 		'$store.state.ZqycsFlag': function () {
 			this.getHeader();
-			this.getTotalInfo();
+			this.getTotalLJSRInfo();
 			this.getTabInfo();
 
 			this.getLjlrHeaderInfo();
+			this.getTotalLJLRInfo();
 			this.getLjxlHeaderInfo();
 			this.getLjsrChartInfo();
 		},
 		'$store.state.ZkggsFlag': function () {
 			console.log(this.ZljysData)
-			this.getTotalInfo();
+			this.getTotalLJSRInfo();
+			this.getTotalLJLRInfo();
 			this.getTabInfo();
 			this.getLjsrChartInfo();
 		},

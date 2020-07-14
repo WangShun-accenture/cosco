@@ -99,7 +99,7 @@
     
       </div>
   
-      <div class="total" :class="{fullWidth:ZplotNum}">
+      <div class="total" :class="{fullWidth:ZplotNum}" v-show="ZljsrFlag===0">
         <div class="total-content">
           <div class="total-content-num">
             <div>{{ this.ZTljsrYtdC | commafy}}</div>
@@ -131,6 +131,50 @@
         <div class="total-content">
           <div class="total-content-num">
             <div>{{ this.ZTljysdcPercent }}</div>
+          </div>
+          <div class="total-content-dec">
+            累计达成
+          </div>
+        </div>
+        <div class="tab-title" v-show="ZplotNum">
+            <div class="tabOptionInfo" v-for="(item,index) of titleList" :key="item.id" :class="{tabOption:ZkggsNum === index}" @click="changeComponySelect(index)">
+              {{item.title}}
+            </div>
+        </div>
+      </div>
+
+      <div class="total" :class="{fullWidth:ZplotNum}" v-show="ZljsrFlag===1">
+        <div class="total-content">
+          <div class="total-content-num">
+            <div>{{ this.ZTljlrYtdC | commafy}}</div>
+          </div>
+          <div class="total-content-dec">
+            累计收入
+          </div>
+        </div>
+        <div class="total-content">
+          <div class="total-content-num">
+            <div>{{ this.ZTljlrtbYTDPercent }}</div>
+            <div>
+              <img src="../../assets/images/middle_green_up.png" v-if="this.ZTtbYtdPercent>0">
+              <img src="../../assets/images/middle_yellow_down.png" v-if="this.ZTtbYtdPercent<0">
+            </div>
+          </div>
+          <div class="total-content-dec">
+            同比
+          </div>
+        </div>
+        <div class="total-content">
+          <div class="total-content-num">
+            <div>{{ this.ZTljlrnddcPercent }}</div>
+          </div>
+          <div class="total-content-dec">
+            年度达成
+          </div>
+        </div>
+        <div class="total-content">
+          <div class="total-content-num">
+            <div>{{ this.ZTTljydcPercent }}</div>
           </div>
           <div class="total-content-dec">
             累计达成
@@ -209,7 +253,11 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       Znddc: String,//年度达成
       ZljlrYtdC: String,
 		  ZljlrtbYTD: String,
-		  Zljlrnddc: String,
+      Zljlrnddc: String,
+      ZTljlrYtdC: String,
+      ZTljlrtbYTD: String,
+      ZTljlrnddc: String,
+      ZTTljydc: String,
       ZljxlYtdC: String,//累计数量
       ZljxltbYTD:String,
       Zljxlnddc:String,
@@ -245,6 +293,16 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       },
 		  ZljlrnddcPercent(){
         return Number(this.Zljlrnddc * 100).toFixed(2) + "%";
+      },
+      ZTljlrtbYTDPercent(){
+        return Number(this.ZTljlrtbYTD * 100).toFixed(2) + "%";
+      },
+
+      ZTljlrnddcPercent(){
+        return Number(this.ZTljlrnddc * 100).toFixed(2) + "%";
+      },
+      ZTTljydcPercent(){
+        return Number(this.ZTTljydc * 100).toFixed(2) + "%";
       },
       //累计箱量
       ZljxltbYTDPercent(){
