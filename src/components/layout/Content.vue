@@ -31,7 +31,7 @@
             </div>
             <div class="count-content">
               <div class="count-content-num">
-                {{ ZtbYtdPercent | tb}}
+                {{ ZnddcPercent | tb}}
               </div>
               <div class="count-content-dec">年度达成 Budget</div>
             </div>
@@ -43,23 +43,23 @@
           <div class="count">
             <div class="count-content">
               <div class="count-content-num">
-                {{ ZljsrYtdCRealVal | commafy}}
+                {{ this.ZljlrYtdC | commafy}}
               </div>
               <div class="count-content-dec">累计利润</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
-                <div>  {{ ZtbYtd }}</div>
+                <div>  {{ ZljlrtbYTDPercent }}</div>
                 <div>
-                  <img src="../../assets/images/large_white_up.png" v-if="false">
-                  <img src="../../assets/images/large_yellow_down.png">
+                  <!--<img src="../../assets/images/large_white_up.png" v-if="false">-->
+                  <!--<img src="../../assets/images/large_yellow_down.png">-->
                 </div>
               </div>
               <div class="count-content-dec">同比 YoY</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
-                {{ ZnddcPercent | tb}}
+                {{ ZljlrnddcPercent | tb}}
               </div>
               <div class="count-content-dec">年度达成 Budget</div>
             </div>
@@ -71,23 +71,23 @@
           <div class="count">
             <div class="count-content">
               <div class="count-content-num">
-                {{ ZljsrYtdCRealVal }}
+                {{ this.ZljxlYtdC }}
               </div>
               <div class="count-content-dec">累计箱量</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
-                <div>  {{ Zljsl }}</div>
+                <div>  {{ this.ZljxltbYTDPercent }}</div>
                 <div>
-                  <img src="../../assets/images/large_white_up.png" v-if="false">
-                  <img src="../../assets/images/large_yellow_down.png">
+                  <!--<img src="../../assets/images/large_white_up.png" v-if="false">-->
+                  <!--<img src="../../assets/images/large_yellow_down.png">-->
                 </div>
               </div>
               <div class="count-content-dec">同比 YoY</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
-                {{ ZtbYtdPercent }}
+                {{ this.ZljxlnddcPercent }}
               </div>
               <div class="count-content-dec">年度达成 Budget</div>
             </div>
@@ -198,7 +198,12 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       ZljsrYtdC: String,//累计收入
 	    ZtbYtd: String,//同比
       Znddc: String,//年度达成
-      Zljsl: String,//累计数量
+      ZljlrYtdC: String,
+		  ZljlrtbYTD: String,
+		  Zljlrnddc: String,
+      ZljxlYtdC: String,//累计数量
+      ZljxltbYTD:String,
+      Zljxlnddc:String,
 	    // xData:Array,
 	    // ZljsrData:Array,//折线图 累计收入
 	    // ZqntqljsrData:Array,//折线图 去年同期累计收入
@@ -246,7 +251,21 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 			 */
 			ZTljysdcPercent(){//把累计预算达成率转化为百分比
 				return Number(this.ZTljysdc * 100).toFixed(2) + "%";
-			},
+      },
+      //累计利润
+      ZljlrtbYTDPercent(){
+        return Number(this.ZljlrtbYTD * 100).toFixed(2) + "%";
+      },
+		  ZljlrnddcPercent(){
+        return Number(this.Zljlrnddc * 100).toFixed(2) + "%";
+      },
+      //累计箱量
+      ZljxltbYTDPercent(){
+        return Number(this.ZljxltbYTD * 100).toFixed(2) + "%";
+      },
+      ZljxlnddcPercent(){
+        return Number(this.Zljxlnddc * 100).toFixed(2) + "%";
+      },
 		},
     watch:{
       TabList(data){
