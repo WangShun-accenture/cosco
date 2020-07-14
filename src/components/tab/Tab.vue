@@ -9,10 +9,10 @@
       <table class="tab-table">
         <tr class="table-head">
           <th class="table-th1">公司</th>
-          <th class="table-th2">累计收入</th>
           <th class="table-th3">币种</th>
-          <th class="table-th4">年度预算达成</th>
+          <th class="table-th2">累计收入</th>
           <th class="table-th5">同比</th>
+          <th class="table-th4">年度预算达成</th>
           <th class="table-th6">累计预算达成</th>
         </tr>
         <tr class="table-tr" v-for="(item,index) of tableData" :key="index">
@@ -20,16 +20,21 @@
             <span :class="{greenBall:item.Zljysdc>1,transparent:item.Zljysdc<=1}"></span>
             <span>{{item.ZbgzzT}}</span>
           </td>
-          <td class="table-td2">{{item.ZljsrC | commafy}}</td>
-          <td class="table-td3">{{item.Currency}}</td>
-          <td class="table-td4">{{ Number(item.Znddc * 100).toFixed(2) + "%" }}</td>
-          <td class="table-td5">
-            <div :class="{yellow:item.Ztb<=0,green:item.Ztb>0}">{{ Number(item.Ztb * 100).toFixed(2) + "%" | tb}}</div>
+          <td class="table-td2">{{item.Currency}}</td>
+          <td class="table-td3">{{item.ZljsrC | commafy}}</td>
+          <td class="table-td4">
+            <div 
+              :class="{yellow:item.Ztb<0,green:item.Ztb>0}" 
+              :title="Number(item.Ztb * 100).toFixed(2) + '%'"
+            >
+              {{ Number(item.Ztb * 100).toFixed(2) + "%" | tb}}
+            </div>
             <div>
               <img src="../../assets/images/small_green_up.png" v-if="item.Ztb>0">
-              <img src="../../assets/images/small_yellow_down.png" v-if="item.Ztb<=0">
+              <img src="../../assets/images/small_yellow_down.png" v-if="item.Ztb<0">
             </div>
           </td>
+          <td class="table-td5">{{ Number(item.Znddc * 100).toFixed(2) + "%" }}</td>
           <td class="table-td6">{{ Number(item.Zljysdc * 100).toFixed(2) + "%" }}</td>
         </tr>
       </table>
@@ -153,13 +158,19 @@ import { mapState,mapGetters,mapActions } from 'vuex';
           width:162px 
           text-align:left 
         .table-td2
+          width:62px 
+        .table-td3
           text-align:right 
           width:100px
         .table-td4
           width:100px
-        .table-td5
-          width:100px
           position relative
+          >div:nth-of-type(1)
+            width: 80px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            margin: 0 auto;
           >div:nth-of-type(2)
             position:absolute
             top:5px
@@ -167,6 +178,8 @@ import { mapState,mapGetters,mapActions } from 'vuex';
             img
               width: 100%;
               height: 70%;
+        .table-td5
+          width:100px
         .table-td6
           width:100px
 </style>

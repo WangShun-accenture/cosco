@@ -214,7 +214,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       ...mapState({
           'ZljsrFlag' : state=>state.ZljsrFlag
       }),
-      // ZljsrYtdCRealVal(){  
+      // ZljsrYtdC(){  
       //   const realVal = Number(this.ZljsrYtdC).toFixed(2);
       //   return "$ "+(realVal+ '').replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g,'$1,');
       // },
