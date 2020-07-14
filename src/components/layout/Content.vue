@@ -2,29 +2,36 @@
   <div class="content">
 
     <div class="content-left">
-      <div class="subject">
+
+      <div class="rightUnit" v-show="ZplotNum">
+        <div v-show="ZljsrFlag!==2">金额：1,000,000</div>
+        <div v-show="ZljsrFlag===2">吞吐量：10,000 TEU</div>
+      </div>
+      <div class="subject" :class="{fullWidth:ZplotNum}">
+
         <div class="subject-box" v-show="ZljsrFlag===0">
           <div class="title" >中远海运港口当月累计收入</div>
           <div class="count">
             <div class="count-content">
               <div class="count-content-num">
-                {{ this.ZljsrYtdCRealVal | commafy}}
+                {{ ZljsrYtdCRealVal}}
               </div>
               <div class="count-content-dec">累计收入 YTD</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
-                <div>{{ this.ZtbYtdPercent }}</div>
+                <div>{{ ZtbYtdPercent }}</div>
                 <div>
-                  <img src="../../assets/images/large_white_up.png" v-if="this.Ztbytd>0">
-                  <img src="../../assets/images/large_yellow_down.png" v-if="this.Ztbytd<=0" style="opacity:0">
+                  <!-- {{Ztbytd}} -->
+                  <!-- <img src="../../assets/images/large_white_up.png" v-if="Ztbytd>0"> -->
+                  <!-- <img src="../../assets/images/large_yellow_down.png" style="opacity:0"> -->
                 </div>
               </div>
               <div class="count-content-dec">同比 YoY</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
-                {{ ZtbYtdPercent }}
+                {{ ZtbYtdPercent | tb}}
               </div>
               <div class="count-content-dec">年度达成 Budget</div>
             </div>
@@ -36,13 +43,13 @@
           <div class="count">
             <div class="count-content">
               <div class="count-content-num">
-                {{ this.ZljsrYtd | commafy}}
+                {{ ZljsrYtdCRealVal | commafy}}
               </div>
               <div class="count-content-dec">累计利润</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
-                <div>  {{ this.ZtbYtd }}</div>
+                <div>  {{ ZtbYtd }}</div>
                 <div>
                   <img src="../../assets/images/large_white_up.png" v-if="false">
                   <img src="../../assets/images/large_yellow_down.png">
@@ -52,7 +59,7 @@
             </div>
             <div class="count-content">
               <div class="count-content-num">
-                {{ ZnddcPercent }}
+                {{ ZnddcPercent | tb}}
               </div>
               <div class="count-content-dec">年度达成 Budget</div>
             </div>
@@ -64,13 +71,13 @@
           <div class="count">
             <div class="count-content">
               <div class="count-content-num">
-                {{ this.ZljsrYtd }}
+                {{ ZljsrYtdCRealVal }}
               </div>
               <div class="count-content-dec">累计箱量</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
-                <div>  {{ this.Zljsl }}</div>
+                <div>  {{ Zljsl }}</div>
                 <div>
                   <img src="../../assets/images/large_white_up.png" v-if="false">
                   <img src="../../assets/images/large_yellow_down.png">
@@ -87,10 +94,10 @@
             
           </div>
         </div>
-        
+    
       </div>
   
-      <div class="total">
+      <div class="total" :class="{fullWidth:ZplotNum}">
         <div class="total-content">
           <div class="total-content-num">
             <div>{{ this.ZTljsrYtdCRealVal }}</div>
@@ -133,6 +140,7 @@
       <div class="map" id="chinaMap" v-show="ZdzhqNum&&!ZplotNum"></div>
       <div class="line" id="line" v-show="ZplotNum"></div>
     </div>
+
     <div class="content-right" v-show="!ZplotNum" id="contentRight">
       <div class="unit">
         <div v-show="ZljsrFlag!==2">金额：1,000,000</div>
@@ -308,6 +316,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       },
       mapChangeSelect: function (index) {
         this.ZdzhqNum = !this.ZdzhqNum;
+        this.$store.commit("changeChinaOnlyFlag",this.ZdzhqNum);
       },
 	    ZusdChangeColor: function(){
 		    this.ZusdNum = !this.ZusdNum;//选中状态为true
@@ -323,6 +332,22 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 	}
 </script>
 <style lang="stylus" scoped>
+  .rightUnit
+    position:absolute
+    text-align right
+    font-size: 12px;
+    right:-10px
+    top:180px
+    padding-right:20px;
+  .unit
+    position:absolute
+    text-align right
+    font-size: 12px;
+    right:0
+    top:10px
+    padding-right:20px;
+  .right
+    right:-110px
   .content
     display:flex
     position:relative
@@ -332,16 +357,10 @@ import { mapState,mapGetters,mapActions } from 'vuex';
     .content-left
       flex:3
       padding:20px
+      position: relative
     .content-right
       position:relative
       flex:2
-      .unit
-        position:absolute
-        text-align right
-        font-size: 12px;
-        right:0
-        top:10px
-        padding-right:20px;
     .content-bottom
       position:absolute
       bottom:20px
@@ -430,6 +449,8 @@ import { mapState,mapGetters,mapActions } from 'vuex';
               img
                 width: 100%;
                 height: 100%;
+    .fullWidth
+      width:100%
     .map
       width:1030px
       height:560px

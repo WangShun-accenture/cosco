@@ -13,6 +13,7 @@ export default new Vuex.Store({
 	ZusdFlag: "X",//本位币 X-不是本位币
 	ZkggsFlag: "X",//控股公司
 	ZplotFlag: "",//自己加的折线图flag,接口里没有
+	ChinaOnlyFlag: false
   },
   mutations: {
 	  changeZljsrFlag(state,ZljsrFlag){
@@ -24,7 +25,6 @@ export default new Vuex.Store({
 	  changeCalmonth(state,Calmonth){
 		  state.Calmonth = Calmonth;
 	  },
-	  
 	  changeZdzhqFlag(state,ZdzhqFlag){
 		  state.ZdzhqFlag = ZdzhqFlag;
 	  },
@@ -36,6 +36,9 @@ export default new Vuex.Store({
 	  },
 	  changeZplotFlag(state,ZplotFlag){
 		  state.ZplotFlag = ZplotFlag;
+	  },
+	  changeChinaOnlyFlag(state, ChinaOnlyFlag) {
+		  state.ChinaOnlyFlag = ChinaOnlyFlag;
 	  }
   },
   actions: {

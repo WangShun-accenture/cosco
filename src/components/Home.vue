@@ -28,6 +28,7 @@
 import HomeHeader from "./layout/Header";
 import HomeContent from "./layout/Content";
 import {screenSize} from "../assets/js/utils.js";
+import { mapState,mapGetters,mapActions } from 'vuex';
 import axios from "axios";
 export default {
   name: "Home",
@@ -193,16 +194,19 @@ export default {
 					  }
 				  }
 			  )
-			  .then(
-				  this.getTabInfoSucc
-			  )
+			  .then(res=>{
+				this.getTabInfoSucc(res);
+			  })
 			  .catch((e)=>{console.log(e)})
 	  },
 	  getTabInfoSucc(res) {
 		  console.log(res)
 		  res = res.data;
 		  res = res.d;
-		  const data = res.results;//results为数组
+		  let data = [];//results为数组
+		  this.ChinaOnlyFlag
+			  ? data = res.results.filter(item => item['Zbgzz'][0] === 'A')
+			  : data = res.results
 		  let jsonString = JSON.stringify(data);
 		  this.TabList = JSON.parse(jsonString);//string转json,输出数据为object
 	    // console.log(this.TabList);
@@ -255,8 +259,18 @@ export default {
 		// this.getLjsrChartInfo();
 		// screenSize(this.$refs.editor);
 	},
-
+	computed:{
+      ...mapState({
+          'ChinaOnlyFlag' : state=>state.ChinaOnlyFlag
+	  }),
+	},
 	watch: {
+		'$store.state.ChinaOnlyFlag': function () {
+			this.getLjsrHeaderInfo();
+			this.getTotalInfo();
+			this.getTabInfo();
+			this.getLjsrChartInfo();
+		},
 		'$store.state.Calmonth': function () {
 			this.getLjsrHeaderInfo();
 			this.getTotalInfo();

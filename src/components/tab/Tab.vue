@@ -17,17 +17,17 @@
         </tr>
         <tr class="table-tr" v-for="(item,index) of tableData" :key="index">
           <td class="table-td1">
-            <span :class="{green:item.Zljysdc>1,transparent:item.Zljysdc<=1}"></span>
+            <span :class="{greenBall:item.Zljysdc>1,transparent:item.Zljysdc<=1}"></span>
             <span>{{item.ZbgzzT}}</span>
           </td>
           <td class="table-td2">{{item.Zljsr | commafy}}</td>
           <td class="table-td3">{{item.Currency}}</td>
           <td class="table-td4">{{ Number(item.Znddc * 100).toFixed(2) + "%" }}</td>
           <td class="table-td5">
-            <div>{{ Number(item.Ztb * 100).toFixed(2) + "%" }}</div>
+            <div :class="{yellow:item.Ztb<=0,green:item.Ztb>0}">{{ Number(item.Ztb * 100).toFixed(2) + "%" | tb}}</div>
             <div>
               <img src="../../assets/images/small_green_up.png" v-if="item.Ztb>0">
-              <img src="../../assets/images/small_yellow_down.png" v-if="item.Ztb<=0" style="opacity:0">
+              <img src="../../assets/images/small_yellow_down.png" v-if="item.Ztb<=0">
             </div>
           </td>
           <td class="table-td6">{{ Number(item.Zljysdc * 100).toFixed(2) + "%" }}</td>
@@ -90,7 +90,11 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 	}
 </script>
 <style lang="stylus" scoped>
+  .yellow
+    color:rgb(255,170,0)
   .green
+    color:rgb(125,222,105)
+  .greenBall
     width:10px
     height:10px
     background-color:rgb(125,222,105)
@@ -155,13 +159,12 @@ import { mapState,mapGetters,mapActions } from 'vuex';
           width:100px
         .table-td5
           width:100px
-          text-align:right
-          div
-            margin-left:5px
-            display: inline-block;
-            align-items: center;
+          position relative
+          >div:nth-of-type(2)
+            position:absolute
+            top:5px
+            right:10px
             img
-              maring-top:10px
               width: 100%;
               height: 70%;
         .table-td6
