@@ -20,7 +20,7 @@
             <span :class="{greenBall:item.Zljysdc>1,transparent:item.Zljysdc<=1}"></span>
             <span>{{item.ZbgzzT}}</span>
           </td>
-          <td class="table-td2">{{item.Zljsr | commafy}}</td>
+          <td class="table-td2">{{item.ZljsrC | commafy}}</td>
           <td class="table-td3">{{item.Currency}}</td>
           <td class="table-td4">{{ Number(item.Znddc * 100).toFixed(2) + "%" }}</td>
           <td class="table-td5">
@@ -59,7 +59,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 
     },
     computed:{
-      
+
     },
 		watch: {
       TabList(){
