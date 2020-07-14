@@ -15,7 +15,12 @@
 
         :ZtbYtd="ZtbYtd"
         :Znddc="Znddc"
-		:Zljsl="Zljsl"
+		:ZljlrYtdC="ZljlrYtdC"
+		:ZljlrtbYTD="ZljlrtbYTD"
+		:Zljlrnddc="Zljlrnddc"
+		:ZljxlYtdC="ZljxlYtdC"
+		:ZljxltbYTD="ZljxltbYTD"
+		:Zljxlnddc="Zljxlnddc"
     >
         <!--:xData="xData"
         :ZljsrData="ZljsrData"
@@ -45,7 +50,12 @@ export default {
 		  ZTljsrYtdC: "",//累计收入 total
 		  ZTtbYtd: "",//同比 total
 		  ZTnddc: "",//年度达成 total
-		  Zljsl: "",//累计数量
+		  ZljxlYtdC: "",//累计数量
+		  ZljxltbYTD:"",
+		  Zljxlnddc:"",
+		  ZljlrYtdC:"",
+		  ZljlrtbYTD:"",
+		  Zljlrnddc:"",
 		  ZTljysdc: "",//累计预算达成率 total
 		  TabList:[],
 		  ljsrChartList:[],
@@ -83,20 +93,19 @@ export default {
 		// 	  list.push(tempX);
 		//   }
 	// },
-	
-
 	getHeader() {
 	    if (this.$store.state.ZljsrFlag === 0) {
 		    this.getLjsrHeaderInfo();
 	    }
-	    // if (this.ZljsrFlag === 1) {
-		  //   this.getLjxlHeaderInfo();
-	    // }
+	    if (this.$store.state.ZljsrFlag === 1) {
+			this.getLjlrHeaderInfo();
+		}
 	    if (this.$store.state.ZljsrFlag === 2) {
 		    this.getLjxlHeaderInfo();
 		    // alert(this.$store.state.ZljsrFlag)
 	    }
-    },
+	},
+	
     //累计收入header接口获取
 	  getLjsrHeaderInfo(){
 		  axios
@@ -126,12 +135,42 @@ export default {
 		  this.Znddc = data.Znddc;
 	  },
 
+	  //累计利润header接口获取
+	  getLjlrHeaderInfo(){
+		  axios
+			  .get(
+				  // "/api/header.json"
+				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X'",
+				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJLR_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+"&$format=json",
+				  {
+					  auth: {
+						  username: `T-WANGBJ`,
+						  password: `1qaz2wsx`
+					  }
+				  }
+			  )
+			  .then(
+				  this.getLjlrHeaderInfoSucc
+			  )
+			  .catch((e)=>{console.log(e)})
+	  },
+	  getLjlrHeaderInfoSucc(res){
+		  res = res.data;
+		  res = res.d;
+		  res = res.results;
+		  const data = res[0];//data是对象{..:..,..:..}
+		  this.ZljlrYtdC = data.ZljsrYtdC;
+		  this.ZljlrtbYTD = data.ZtbYtd;
+		  this.Zljlrnddc = data.Znddc;
+	  },
+
       //累计箱量header接口获取
 	  getLjxlHeaderInfo(){
 		  axios
 			  .get(
 				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X' and ZxllxFlag eq 'A'",
-				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZxllxFlag eq "+"'"+this.$store.state.ZxllxFlag+"'"+"&$format=json",
+				  //"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZxllxFlag eq "+"'"+this.$store.state.ZxllxFlag+"'"+"&$format=json",
+				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZxllxFlag eq 'A'&$format=json",
 				  {
 					  auth: {
 						  username: `T-WANGBJ`,
@@ -149,11 +188,11 @@ export default {
 		  res = res.d;
 		  res = res.results;
 		  const data = res[0];//data是对象{..:..,..:..}
-		  this.ZljsrYtd = data.ZljsrYtd;
-		  this.ZljsrYtd = data.ZljsrYtd;
-		  this.ZtbYtd = data.ZtbYtd;
-		  this.Znddc = data.Znddc;
-		  console.log(this.xData);
+		  console.log("ljxl result=="+data);
+		  this.ZljxlYtdC = data.ZljslC;
+		  this.ZljxltbYTD = data.ZtbYtd;
+		  this.Zljxlnddc = data.Znddc;
+		  //console.log(this.xData);
 	  },
     //左侧3个汇总数
 	  getTotalInfo(){
@@ -281,6 +320,9 @@ export default {
 			this.getLjsrHeaderInfo();
 			this.getTotalInfo();
 			this.getTabInfo();
+
+			this.getLjlrHeaderInfo();
+			this.getLjxlHeaderInfo();
 			this.getLjsrChartInfo();
 		},
 		'$store.state.ZljsrFlag': function () {
@@ -294,6 +336,9 @@ export default {
 			this.getHeader();
 			this.getTotalInfo();
 			this.getTabInfo();
+
+			this.getLjlrHeaderInfo();
+			this.getLjxlHeaderInfo();
 			this.getLjsrChartInfo();
 		},
 		'$store.state.ZkggsFlag': function () {
