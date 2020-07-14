@@ -14,8 +14,8 @@ let install = function(Vue) {
 							//菜单
 							legend : {
 								show : true,
-								right: '10%',
-								top: '11%',
+								right: '6%',
+								top: '35px',
 								textStyle: {
 									color: '#fff',
 								},
@@ -68,7 +68,7 @@ let install = function(Vue) {
 									fontSize : 10,
 									color : 'white',
 									interval: 0,
-									rotate:45
+									// rotate:45
 								},
 								data : xData,
 								// data : [ '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度' ]
@@ -77,8 +77,10 @@ let install = function(Vue) {
 							yAxis : [ {
 								type : 'value',
 								// max: function(value) {
-								// 	return value;
+								// 	return value*3;
 								// },
+								name:'USD',
+								splitNumber: 8,
 								boundaryGap: true,
 								// boundaryGap: ['5%', '5%'],
 								//y轴字体设置
@@ -112,20 +114,20 @@ let install = function(Vue) {
 							} ],
 							series : [
 								{
-								name : "累计收入",//seriesName
-								type : 'line',
-								symbol : 'circle',
-								symbolSize : 8,
-								//线条样式
-								lineStyle : {
-									color : '#00c2ff',
-									width : 2,
-									type : 'solid',
-								},
-								//折线连接点样式
-								itemStyle : {
-									color : '#00c2ff'
-								},
+									name : "累计收入",//seriesName
+									type : 'line',
+									symbol : 'circle',
+									symbolSize : 8,
+									//线条样式
+									lineStyle : {
+										color : '#00c2ff',
+										width : 2,
+										type : 'solid',
+									},
+									//折线连接点样式
+									itemStyle : {
+										color : '#00c2ff'
+									},
 									data : ZljsrData,
 								// data : [
 								// 	509, 917, 2455, 2610, 2719, 3033, 3044, 3085, 2708, 2809, 2117,2000,1455,1210,719,

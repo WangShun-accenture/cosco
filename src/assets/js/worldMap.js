@@ -16,6 +16,19 @@ let install = function(Vue) {
 								done:[],
 								undone:[]
 							};
+							const unit = 1000000;
+							const radioArr = [5,10,20,25,35,45];
+							const rangeArr1 = [.02, .27, 88.47, 165.31, 1983.7];
+							let targetArr = [];
+							function findRangeIn(number) {
+								if (!targetArr.length) return 10;
+								if (number > targetArr[targetArr.length - 1]) return radioArr[targetArr.length - 1];
+								for (let i = 0; i < targetArr.length; i++) {
+									if (number < targetArr[i]) {
+										return radioArr[i];
+									}
+								}
+							}
 							function makeMapData(rawData) {
 								for(let i = 0;i<rawData.length;i++){
 									let temp = {
@@ -30,10 +43,13 @@ let install = function(Vue) {
 									};
 									if (flag===0){
 										temp.value.push(rawData[i]['Zljsr']);
+										targetArr = rangeArr1;
 									}else if(flag===1){
 										// temp.value.push();
+										// targetArr = [];
 									}else{
 										// temp.value.push();
+										// targetArr = [];
 									}
 									if (rawData[i]['Zljysdc'] > 1){
 										world.done.push(temp);
@@ -59,12 +75,12 @@ let install = function(Vue) {
 									global: false // 缺省为 false
 								},
 								legend: {
-									// left:c,
+									left:'42%',
 									bottom: 0,
 									data: ['完成累计预算','未完成累计预算'],
 									textStyle: {
 										color: '#fff',
-										fontSize: 16
+										fontSize: 12
 									},
 									// orient: 'vertical'
 								},
@@ -86,7 +102,6 @@ let install = function(Vue) {
 										borderColor: 'rgb(33,54,124)'
 									},
 								},
-								// 提示框
 								tooltip: {
 									show:true,
 									// alwaysShowContent: true,
@@ -126,23 +141,8 @@ let install = function(Vue) {
 										coordinateSystem: 'geo',
 										data: world.undone,
 										symbolSize: function(params){
-											const number = Number(params[params.length-1])/1000000;
-											let temp = 10;
-											if (number <= 0.02){
-												temp = 5;
-											} else if (number <= 0.27){
-												temp = 10;
-											} else if (number <= 88.47) {
-												temp = 20;
-											} else if (number <= 165.31) {
-												temp = 25;
-											} else if (number <= 1983.70) {
-												temp = 35;
-											} else {
-												temp = 45;
-											}
-											
-											return temp;
+											const number = Number(params[params.length-1])/unit;
+											return findRangeIn(number);
 										},
 										itemStyle: {
 											opacity: .9,
@@ -167,23 +167,8 @@ let install = function(Vue) {
 										data: world.done,
 										symbolSize: 20,
 										symbolSize: function (params) {
-											const number = Number(params[params.length - 1]) / 1000000;
-											let temp = 10;
-											if (number <= 0.02) {
-												temp = 5;
-											} else if (number <= 0.27) {
-												temp = 10;
-											} else if (number <= 88.47) {
-												temp = 20;
-											} else if (number <= 165.31) {
-												temp = 25;
-											} else if (number <= 1983.70) {
-												temp = 35;
-											} else {
-												temp = 45;
-											}
-
-											return temp;
+											const number = Number(params[params.length - 1]) / unit;
+											return findRangeIn(number);
 										},
 										itemStyle: {
 											opacity:.9,

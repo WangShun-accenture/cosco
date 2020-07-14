@@ -134,7 +134,6 @@ export default {
 		  this.ZtbYtd = data.ZtbYtd;
 		  this.Znddc = data.Znddc;
 	  },
-
 	  //累计利润header接口获取
 	  getLjlrHeaderInfo(){
 		  axios
@@ -224,21 +223,26 @@ export default {
 		  this.ZTljysdc = data.Zljysdc;
 	  },
 	  getTabInfo() {
-		  axios
-			  .get(
-				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq '201610' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq 'X'",
-				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZusdFlag eq "+"'"+this.$store.state.ZusdFlag+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+"&$format=json",
-				  {
-					  auth: {
-						  username: `T-WANGBJ`,
-						  password: `1qaz2wsx`
-					  }
-				  }
-			  )
-			  .then(res=>{
+		axios
+			.get(
+				"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq "
+				+"'"+this.$store.state.Calmonth+"'"
+				+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
+				+" and ZusdFlag  eq "+"'"+this.$store.state.ZusdFlag+"'"
+				+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+				// +" and ZsortF    eq "+"'"+'Ztb,desc'+"'"
+				+" &$format=json",
+				{
+					auth: {
+						username: `T-WANGBJ`,
+						password: `1qaz2wsx`
+					}
+				}
+			)
+			.then(res=>{
 				this.getTabInfoSucc(res);
-			  })
-			  .catch((e)=>{console.log(e)})
+			})
+			.catch((e)=>{console.log(e)})
 	  },
 	  getTabInfoSucc(res) {
 		  console.log(res)

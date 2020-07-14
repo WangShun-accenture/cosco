@@ -15,7 +15,7 @@
 
             <div class="count-content">
               <div class="count-content-num">
-                {{ this.ZljsrYtdC | commafy}}
+                ${{ this.ZljsrYtdC | commafy}}
               </div>
               <div class="count-content-dec">累计收入</div>
             </div>
@@ -24,8 +24,8 @@
               <div class="count-content-num">
                 <div>{{ ZtbYtdPercent }}</div>
                 <div>
-                  <img src="../../assets/images/large_white_up.png" v-if="ZtbYtd>0">
-                  <img src="../../assets/images/large_yellow_down.png" v-if="ZtbYtd<0" >
+                  <img src="../../assets/images/middle_green_up.png" v-if="ZtbYtd>0">
+                  <img src="../../assets/images/middle_yellow_down.png" v-if="ZtbYtd<0" >
                 </div>
               </div>
               <div class="count-content-dec">同比</div>
@@ -53,8 +53,8 @@
               <div class="count-content-num">
                 <div>  {{ ZljlrtbYTDPercent }}</div>
                 <div>
-                  <img src="../../assets/images/large_white_up.png" v-if="ZljlrtbYTD>0">
-                  <img src="../../assets/images/large_yellow_down.png"  v-if="ZljlrtbYTD<0">
+                  <img src="../../assets/images/middle_green_up.png" v-if="ZljlrtbYTD>0">
+                  <img src="../../assets/images/middle_yellow_down.png"  v-if="ZljlrtbYTD<0">
                 </div>
               </div>
               <div class="count-content-dec">同比</div>
@@ -81,8 +81,8 @@
               <div class="count-content-num">
                 <div>  {{ this.ZljxltbYTDPercent }}</div>
                 <div>
-                  <img src="../../assets/images/large_white_up.png" v-if="ZljxltbYTD>0">
-                  <img src="../../assets/images/large_yellow_down.png" v-if="ZljxltbYTD<0">
+                  <img src="../../assets/images/middle_green_up.png" v-if="ZljxltbYTD>0">
+                  <img src="../../assets/images/middle_yellow_down.png" v-if="ZljxltbYTD<0">
                 </div>
               </div>
               <div class="count-content-dec">同比</div>
@@ -100,46 +100,51 @@
       </div>
   
       <div class="total" :class="{fullWidth:ZplotNum}">
-        <div class="total-content">
-          <div class="total-content-num">
-            <div>{{ this.ZTljsrYtdC | commafy}}</div>
-          </div>
-          <div class="total-content-dec">
-            累计收入
-          </div>
-        </div>
-        <div class="total-content">
-          <div class="total-content-num">
-            <div>{{ this.ZTtbYtdPercent }}</div>
-            <div>
-              <img src="../../assets/images/middle_green_up.png" v-if="this.ZTtbYtdPercent>0">
-              <img src="../../assets/images/middle_yellow_down.png" v-if="this.ZTtbYtdPercent<0">
+        <div>
+          <div class="total-content">
+            <div class="total-content-num">
+              <div>${{ this.ZTljsrYtdC | commafy}}</div>
+            </div>
+            <div class="total-content-dec">
+              累计收入
             </div>
           </div>
-          <div class="total-content-dec">
-            同比
-          </div>
-        </div>
-        <div class="total-content">
-          <div class="total-content-num">
-            <div>{{ this.ZTnddcPercent }}</div>
-          </div>
-          <div class="total-content-dec">
-            年度达成
-          </div>
-        </div>
-        <div class="total-content">
-          <div class="total-content-num">
-            <div>{{ this.ZTljysdcPercent }}</div>
-          </div>
-          <div class="total-content-dec">
-            累计达成
-          </div>
-        </div>
-        <div class="tab-title" v-show="ZplotNum">
-            <div class="tabOptionInfo" v-for="(item,index) of titleList" :key="item.id" :class="{tabOption:ZkggsNum === index}" @click="changeComponySelect(index)">
-              {{item.title}}
+          <div class="total-content">
+            <div class="total-content-num">
+              <div>{{ this.ZTtbYtdPercent }}</div>
+              <div>
+                <img src="../../assets/images/middle_green_up.png" v-if="ZTtbYtd>0">
+                <img src="../../assets/images/middle_yellow_down.png" v-if="ZTtbYtd<0">
+              </div>
             </div>
+            <div class="total-content-dec">
+              同比
+            </div>
+          </div>
+          <div class="total-content">
+            <div class="total-content-num">
+              <div>{{ this.ZTnddcPercent }}</div>
+            </div>
+            <div class="total-content-dec">
+              年度达成
+            </div>
+          </div>
+          <div class="total-content">
+            <div class="total-content-num">
+              <div>{{ this.ZTljysdcPercent }}</div>
+            </div>
+            <div class="total-content-dec">
+              累计达成
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="tab-title" v-show="ZplotNum">
+              <div class="tabOptionInfo" v-for="(item,index) of titleList" :key="item.id" :class="{tabOption:ZkggsNum === index}" @click="changeComponySelect(index)">
+                {{item.title}}
+              </div>
+          </div>
         </div>
       </div>
 
@@ -165,11 +170,11 @@
         <div class="corner-option-info" @click="mapChangeSelect()">
           <span>{{!ZdzhqNum ? '查看大中华区' : '查看全球'}}</span>
         </div>
-        <div class="corner-option-info" :class="{cornerOption:ZusdNum}" @click="ZusdChangeColor()">
+        <div class="corner-option-info" :class="{cornerOption:ZusdNum}" v-if="!ZplotNum" @click="ZusdChangeColor()">
           <span>查看本位币</span>
         </div>
         <div class="corner-option-info" @click="plotChangeColor()">
-          <span>{{!ZplotNum ? '查看折线图' : '查看数据表'}}</span>
+          <span>{{!ZplotNum ? '查看折线图' : '查看地图'}}</span>
         </div>
       </div>
     </div>
@@ -361,8 +366,8 @@ import { mapState,mapGetters,mapActions } from 'vuex';
     position:absolute
     text-align right
     font-size: 12px;
-    right:-10px
-    top:180px
+    right:0px
+    top:10px
     padding-right:20px;
   .unit
     position:absolute
@@ -381,7 +386,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
     flex: 1;
     .content-left
       flex:3
-      padding:20px
+      padding:40px 20px 20px 20px
       position: relative
     .content-right
       position:relative
@@ -397,14 +402,15 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       margin:20px 0
       display:flex
       justify-content:center
-      align-items:center
+      align-items:top
       position:relative
+      >div
+        display:flex;
       .tab-title
-        position:absolute
-        margin-top:9px
+        padding-right:20px
         height:40px
         display:flex
-        justify-content:center
+        justify-content:flex-end
         align-items:center
         right:0;
         top:50px;
@@ -412,7 +418,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
           width:120px
           height:40px
           line-height:40px
-          margin:0 90px
+          margin-left:90px
           text-align:center
           font-size:18px
           border-bottom:3px #334185 solid
@@ -500,13 +506,16 @@ import { mapState,mapGetters,mapActions } from 'vuex';
                 width: 100%;
                 height: 100%;
     .fullWidth
-      width:100%
+      width:90%
+      margin: 20px auto
+      justify-content:space-between
     .map
       width:1030px
       height:560px
     .line
-      width:1760px
-      height:480px
+      width:calc(100vw - 40px)
+      height:510px
+      margin-top:-50px
     .map-option
       position:absolute
       left:754px
@@ -528,7 +537,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
         background:#fff
     .corner-option
       display:flex;
-      justify-content space-around
+      justify-content flex-end
       align-items:center
       margin-top:20px;
       width:750px

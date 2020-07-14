@@ -59,19 +59,20 @@ let install = function(Vue) {
 									global: false // 缺省为 false
 								},
 								legend: {
-									left: 10,
+									left: '42%',
 									bottom: 0,
 									data: ['完成累计预算','未完成累计预算'],
 									textStyle: {
 										color: '#fff',
-										fontSize: 16
+										fontSize: 12
 									},
-									orient: 'vertical'
+									// orient: 'vertical'
 								},
 								geo: {
 									map: 'china',
 									roam: true,
 									zoom: 1.2,//当前视角的缩放比例
+									center: [103.388611,34.563611],
 									silent: true,
 									emphasis: {
 										label: {
