@@ -7,11 +7,11 @@
     <HomeContent
         :TabList="TabList"
         :ljsrChartList="ljsrChartList"
-        :ZTljsrYtd="ZTljsrYtd"
+        :ZTljsrYtdC="ZTljsrYtdC"
         :ZTtbYtd="ZTtbYtd"
         :ZTnddc="ZTnddc"
         :ZTljysdc="ZTljysdc"
-		:ZljsrYtd="ZljsrYtdC"
+		:ZljsrYtdC="ZljsrYtdC"
         :ZtbYtd="ZtbYtd"
         :Znddc="Znddc"
 		:Zljsl="Zljsl"
@@ -40,7 +40,7 @@ export default {
 		  ZljsrYtdC: "",//累计收入
 		  ZtbYtd: "",//同比
 		  Znddc: "",//年度达成
-		  ZTljsrYtd: "",//累计收入 total
+		  ZTljsrYtdC: "",//累计收入 total
 		  ZTtbYtd: "",//同比 total
 		  ZTnddc: "",//年度达成 total
 		  Zljsl: "",//累计数量
@@ -146,8 +146,8 @@ export default {
 		  res = res.d;
 		  res = res.results;
 		  const data = res[0];//data是对象{..:..,..:..}
-		  this.ZljsrYtdC = data.ZljsrYtdC;
-		  this.ZljsrYtdC = data.ZljsrYtdC;
+		  this.ZljsrYtd = data.ZljsrYtd;
+		  this.ZljsrYtd = data.ZljsrYtd;
 		  this.ZtbYtd = data.ZtbYtd;
 		  this.Znddc = data.Znddc;
 		  console.log(this.xData);
@@ -176,7 +176,7 @@ export default {
 		  res = res.d;
 		  res = res.results;
 		  const data = res[0];//data是对象{..:..,..:..}
-		  this.ZTljsrYtd = data.ZljsrYtd;
+		  this.ZTljsrYtdC = data.ZljsrYtdC;
 		  this.ZTtbYtd = data.ZtbYtd;
 		  this.ZTnddc = data.Znddc;
 		  this.ZTljysdc = data.Zljysdc;
