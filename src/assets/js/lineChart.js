@@ -68,7 +68,7 @@ let install = function(Vue) {
 									fontSize : 10,
 									color : 'white',
 									interval: 0,
-									rotate:45
+									// rotate:45
 								},
 								data : xData,
 								// data : [ '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度', '一季度', '二季度' ]
@@ -76,9 +76,9 @@ let install = function(Vue) {
 							//y轴
 							yAxis : [ {
 								type : 'value',
-								max: function(value) {
-									return value.max*2;
-								},
+								// max: function(value) {
+								// 	return value;
+								// },
 								boundaryGap: true,
 								// boundaryGap: ['5%', '5%'],
 								//y轴字体设置
