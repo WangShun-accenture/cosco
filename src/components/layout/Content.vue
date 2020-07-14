@@ -12,23 +12,25 @@
         <div class="subject-box" v-show="ZljsrFlag===0">
           <div class="title" >中远海运港口当月累计收入</div>
           <div class="count">
+
             <div class="count-content">
               <div class="count-content-num">
                 {{ this.ZljsrYtdC | commafy}}
               </div>
               <div class="count-content-dec">累计收入</div>
             </div>
+
             <div class="count-content">
               <div class="count-content-num">
                 <div>{{ ZtbYtdPercent }}</div>
                 <div>
-                  <!-- {{Ztbytd}} -->
-                  <!-- <img src="../../assets/images/large_white_up.png" v-if="Ztbytd>0"> -->
-                  <!-- <img src="../../assets/images/large_yellow_down.png" style="opacity:0"> -->
+                  <img src="../../assets/images/large_white_up.png" v-if="ZtbYtd>0">
+                  <img src="../../assets/images/large_yellow_down.png" v-if="ZtbYtd<0" >
                 </div>
               </div>
               <div class="count-content-dec">同比</div>
             </div>
+            
             <div class="count-content">
               <div class="count-content-num">
                 {{ ZnddcPercent | tb}}
@@ -51,8 +53,8 @@
               <div class="count-content-num">
                 <div>  {{ ZljlrtbYTDPercent }}</div>
                 <div>
-                  <!--<img src="../../assets/images/large_white_up.png" v-if="false">-->
-                  <!--<img src="../../assets/images/large_yellow_down.png">-->
+                  <img src="../../assets/images/large_white_up.png" v-if="ZljlrtbYTD>0">
+                  <img src="../../assets/images/large_yellow_down.png"  v-if="ZljlrtbYTD<0">
                 </div>
               </div>
               <div class="count-content-dec">同比</div>
@@ -79,8 +81,8 @@
               <div class="count-content-num">
                 <div>  {{ this.ZljxltbYTDPercent }}</div>
                 <div>
-                  <!--<img src="../../assets/images/large_white_up.png" v-if="false">-->
-                  <!--<img src="../../assets/images/large_yellow_down.png">-->
+                  <img src="../../assets/images/large_white_up.png" v-if="ZljxltbYTD>0">
+                  <img src="../../assets/images/large_yellow_down.png" v-if="ZljxltbYTD<0">
                 </div>
               </div>
               <div class="count-content-dec">同比</div>
