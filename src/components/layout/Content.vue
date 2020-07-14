@@ -8,7 +8,7 @@
           <div class="count">
             <div class="count-content">
               <div class="count-content-num">
-                {{ this.ZljsrYtd }}
+                {{ this.ZljsrYtd | commafy}}
               </div>
               <div class="count-content-dec">累计收入 YTD</div>
             </div>
@@ -36,7 +36,7 @@
           <div class="count">
             <div class="count-content">
               <div class="count-content-num">
-                {{ this.ZljsrYtd }}
+                {{ this.ZljsrYtd | commafy}}
               </div>
               <div class="count-content-dec">累计利润</div>
             </div>
@@ -109,19 +109,20 @@
     </div>
     <div class="content-right" v-show="!ZplotNum" id="contentRight">
       <div class="unit">
-        <div>金额单位：1,000,000</div>
-        <div>吞吐量单位：10,000 TEU</div>
+        <div v-show="ZljsrFlag!==2">金额：1,000,000</div>
+        <div v-show="ZljsrFlag===2">吞吐量：10,000 TEU</div>
       </div>
-      <ContentTab class="content-tab" :TabList="TabList" v-show="!ZplotNum"></ContentTab>
+      <ContentTab class="content-tab" :TabList="TabList" :chinaOnly="ZdzhqNum" v-show="!ZplotNum"></ContentTab>
     </div>
 
     <div class="content-bottom">
       <div class="corner-option">
-        <div class="corner-option-info" :class="{cornerOption:ZdzhqNum}" @click="mapChangeSelect()">
-          <span>{{!ZdzhqNum ? '查看大中华区' : '查看全球'}}</span>
-        </div>
+        
         <div class="corner-option-info" :class="{cornerOption:ZqycsNum === index}" v-for="(item,index) of subjectOptionList" :key="index"  @click="changeSelect(index)">
           <span>{{ item.option }}</span>
+        </div>
+        <div class="corner-option-info" :class="{cornerOption:ZdzhqNum}" @click="mapChangeSelect()">
+          <span>{{!ZdzhqNum ? '查看大中华区' : '查看全球'}}</span>
         </div>
         <div class="corner-option-info" :class="{cornerOption:ZusdNum}" @click="ZusdChangeColor()">
           <span>查看本位币</span>
@@ -209,9 +210,9 @@ import { mapState,mapGetters,mapActions } from 'vuex';
     watch:{
       TabList(data){
         if(this.ZdzhqNum){
-			    this.$chinaChart.china_bar('chinaMap',this.TabList); //方法调用
+			    this.$chinaChart.china_bar('chinaMap',this.TabList,this.ZljsrFlag); //方法调用
 		    }else{
-			    this.$worldChart.world_bar ('worldMap',this.TabList); //方法调用
+			    this.$worldChart.world_bar ('worldMap',this.TabList,this.ZljsrFlag); //方法调用
 		    }
       },
       ZljsrNum() {
@@ -230,10 +231,10 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 	    ZdzhqNum(){
 		    if(this.ZdzhqNum){
 			    this.ZdzhqFlag = "X";//大中华区
-			    this.$chinaChart.china_bar('chinaMap',this.TabList); //方法调用
+			    this.$chinaChart.china_bar('chinaMap',this.TabList,this.ZljsrFlag); //方法调用
 		    }else{
 			    this.ZdzhqFlag = "";//世界
-			    this.$worldChart.world_bar ('worldMap',this.TabList); //方法调用
+			    this.$worldChart.world_bar ('worldMap',this.TabList,this.ZljsrFlag); //方法调用
 		    }
 		    this.$store.commit("changeZdzhqFlag",this.ZdzhqFlag);
       },
@@ -304,13 +305,16 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       .unit
         position:absolute
         text-align right
+        font-size: 12px;
         right:0
         top:10px
+        padding-right:20px;
     .content-bottom
       position:absolute
       bottom:20px
       right:0
     .total
+      width:90%  
       height:80px
       margin:20px 0
       display:flex
@@ -343,6 +347,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
     .subject
       color:#fff
       background:linear-gradient(#001372, #00126b)
+      width:95%
       .subject-box
         height:150px
         display:flex
@@ -393,7 +398,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
                 width: 100%;
                 height: 100%;
     .map
-      width:1000px
+      width:1030px
       height:560px
     .line
       width:1760px

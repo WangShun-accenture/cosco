@@ -11,7 +11,7 @@
         :ZTtbYtd="ZTtbYtd"
         :ZTnddc="ZTnddc"
         :ZTljysdc="ZTljysdc"
-		:ZljsrYtd="ZljsrYtd"
+		:ZljsrYtd="ZljsrYtdC"
         :ZtbYtd="ZtbYtd"
         :Znddc="Znddc"
 		:Zljsl="Zljsl"

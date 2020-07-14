@@ -1,6 +1,5 @@
 import echarts from "echarts";
 import world from '../../../node_modules/echarts/map/js/world.js'
-import {geoCoordMap , rawData} from './worldPosition'
 
 const img = require('../images/05.png');
 
@@ -9,7 +8,7 @@ let install = function(Vue) {
 			$worldChart: {
 				get() {
 					return {
-						world_bar: function (id,data) {
+						world_bar: function (id,data,flag) {
 							this.show = false;
 							this.chart = echarts.init(document.getElementById(id));
 							this.chart.clear();
@@ -29,6 +28,13 @@ let install = function(Vue) {
 											rawData[i]['Ztb']
 										]
 									};
+									if (flag===0){
+										temp.value.push(rawData[i]['Zljsr']);
+									}else if(flag===1){
+										// temp.value.push();
+									}else{
+										// temp.value.push();
+									}
 									if (rawData[i]['Zljysdc'] > 1){
 										world.done.push(temp);
 									}else{
@@ -64,7 +70,7 @@ let install = function(Vue) {
 								},
 								geo: {
 									map: 'world',
-									// roam: true,
+									roam: true,
 									zoom: 1.2,//当前视角的缩放比例
 									silent: true,
 									emphasis: {
@@ -118,7 +124,25 @@ let install = function(Vue) {
 										type: 'scatter',
 										coordinateSystem: 'geo',
 										data: world.undone,
-										symbolSize: 20,
+										symbolSize: function(params){
+											const number = Number(params[params.length-1])/1000000;
+											let temp = 10;
+											if (number <= 0.02){
+												temp = 5;
+											} else if (number <= 0.27){
+												temp = 10;
+											} else if (number <= 88.47) {
+												temp = 20;
+											} else if (number <= 165.31) {
+												temp = 25;
+											} else if (number <= 1983.70) {
+												temp = 35;
+											} else {
+												temp = 45;
+											}
+											
+											return temp;
+										},
 										itemStyle: {
 											opacity: .9,
 											color: {
@@ -141,6 +165,25 @@ let install = function(Vue) {
 										coordinateSystem: 'geo',
 										data: world.done,
 										symbolSize: 20,
+										symbolSize: function (params) {
+											const number = Number(params[params.length - 1]) / 1000000;
+											let temp = 10;
+											if (number <= 0.02) {
+												temp = 5;
+											} else if (number <= 0.27) {
+												temp = 10;
+											} else if (number <= 88.47) {
+												temp = 20;
+											} else if (number <= 165.31) {
+												temp = 25;
+											} else if (number <= 1983.70) {
+												temp = 35;
+											} else {
+												temp = 45;
+											}
+
+											return temp;
+										},
 										itemStyle: {
 											opacity:.9,
 											color: {

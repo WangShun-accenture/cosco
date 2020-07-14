@@ -1,6 +1,5 @@
 import echarts from "echarts";
 import china from '../../../node_modules/echarts/map/js/china.js'
-import { geoCoordMap, rawData } from './position'
 
 const img = require('../images/05.png');
 
@@ -9,7 +8,7 @@ let install = function(Vue) {
 			$chinaChart: {
 				get() {
 					return {
-						china_bar: function (id, data) {
+						china_bar: function (id, data, flag) {
 							this.chart = echarts.init(document.getElementById(id));
 							this.chart.clear();
 							const china = {
@@ -28,6 +27,13 @@ let install = function(Vue) {
 											rawData[i]['Ztb']
 										]
 									};
+									if (flag === 0) {
+										temp.value.push(rawData[i]['Zljsr']);
+									} else if (flag === 1) {
+										// temp.value.push();
+									} else {
+										// temp.value.push();
+									}
 									if (rawData[i]['Zbgzz'][0] === 'A'){
 										if (rawData[i]['Zljysdc'] > 1) {
 											china.done.push(temp);
@@ -64,7 +70,7 @@ let install = function(Vue) {
 								},
 								geo: {
 									map: 'china',
-									// roam: true,
+									roam: true,
 									zoom: 1.2,//当前视角的缩放比例
 									silent: true,
 									emphasis: {
@@ -120,7 +126,25 @@ let install = function(Vue) {
 										type: 'scatter',
 										coordinateSystem: 'geo',
 										data: china.undone,
-										symbolSize: 20,
+										symbolSize: function(params){
+											const number = Number(params[params.length-1])/1000000;
+											let temp = 10;
+											if (number <= 0.02){
+												temp = 5;
+											} else if (number <= 0.27){
+												temp = 10;
+											} else if (number <= 88.47) {
+												temp = 20;
+											} else if (number <= 165.31) {
+												temp = 25;
+											} else if (number <= 1983.70) {
+												temp = 35;
+											} else {
+												temp = 45;
+											}
+											
+											return temp;
+										},
 										itemStyle: {
 											opacity: .9,
 											color: {
@@ -142,7 +166,25 @@ let install = function(Vue) {
 										type: 'scatter',
 										coordinateSystem: 'geo',
 										data: china.done,
-										symbolSize: 20,
+										symbolSize: function(params){
+											const number = Number(params[params.length-1])/1000000;
+											let temp = 10;
+											if (number <= 0.02){
+												temp = 5;
+											} else if (number <= 0.27){
+												temp = 10;
+											} else if (number <= 88.47) {
+												temp = 20;
+											} else if (number <= 165.31) {
+												temp = 25;
+											} else if (number <= 1983.70) {
+												temp = 35;
+											} else {
+												temp = 45;
+											}
+											
+											return temp;
+										},
 										itemStyle: {
 											opacity: .9,
 											color: {

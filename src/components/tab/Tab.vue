@@ -5,7 +5,7 @@
           {{item.title}}
         </div>
     </div>
-    <div class="tab-content" :class="{scroll:ZkggsNum === 1,hidden:ZkggsNum === 0}">
+    <div class="tab-content" >
       <table class="tab-table">
         <tr class="table-head">
           <th class="table-th1">公司</th>
@@ -15,12 +15,12 @@
           <th class="table-th5">同比</th>
           <th class="table-th6">累计预算达成</th>
         </tr>
-        <tr class="table-tr" v-for="(item,index) of TabList" :key="index">
+        <tr class="table-tr" v-for="(item,index) of tableData" :key="index">
           <td class="table-td1">
             <span :class="{green:item.Zljysdc>1,transparent:item.Zljysdc<=1}"></span>
             <span>{{item.ZbgzzT}}</span>
           </td>
-          <td class="table-td2">{{item.Zljsr}}</td>
+          <td class="table-td2">{{item.Zljsr | commafy}}</td>
           <td class="table-td3">{{item.Currency}}</td>
           <td class="table-td4">{{ Number(item.Znddc * 100).toFixed(2) + "%" }}</td>
           <td class="table-td5">
@@ -42,11 +42,13 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 	export default {
 		name: "ContentTab",
     props:{
-			TabList:Array
+      TabList:Array,
+      chinaOnly:Boolean
     },
 		data() {
 			return {
-				ZkggsNum: 0,//控股公司选择
+        ZkggsNum: 0,//控股公司选择
+        tableData:[],
 				titleList: [{id: "0001", title: "控股公司"}, {id: "0002", title: "参股公司"}],
 			}
     },
@@ -60,6 +62,16 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       
     },
 		watch: {
+      TabList(){
+        this.tableData = this.TabList;
+      },
+      chinaOnly(){
+        if(this.chinaOnly){
+          this.tableData = this.TabList.filter(item=> item['Zbgzz'][0]==='A');
+        }else{
+          this.tableData = this.TabList
+        }
+      },
 			ZkggsNum() {
 				if (this.ZkggsNum === 0) {
 					this.ZkggsFlag = "X";//控股公司
@@ -72,9 +84,9 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 				// alert(this.$store.state.ZkggsFlag);
 			},
 		},
-		// mounted() {
-		// 	this.getTabInfo();
-		// },
+		mounted() {
+      
+		},
 	}
 </script>
 <style lang="stylus" scoped>
@@ -121,6 +133,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       color: white
   .tab-content
     height:735px
+    overflow:scroll
     text-align:center
     margin-top: 15px;
     width: 100%;
@@ -148,6 +161,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
             display: inline-block;
             align-items: center;
             img
+              maring-top:10px
               width: 100%;
               height: 70%;
         .table-td6
