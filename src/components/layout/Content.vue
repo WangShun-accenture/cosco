@@ -98,7 +98,7 @@
         </div>
     
       </div>
-  
+      <!-- ********************************地图上方数据显示******************************** -->
       <div class="total" :class="{fullWidth:ZplotNum}" v-show="ZljsrFlag===0">
         <div class="total-content">
           <div class="total-content-num">
@@ -187,6 +187,51 @@
         </div>
       </div>
 
+      <div class="total" :class="{fullWidth:ZplotNum}" v-show="ZljsrFlag===2">
+        <div class="total-content">
+          <div class="total-content-num">
+            <div>{{ this.ZTljxlYtdC | commafy}}</div>
+          </div>
+          <div class="total-content-dec">
+            累计收入
+          </div>
+        </div>
+        <div class="total-content">
+          <div class="total-content-num">
+            <div>{{ this.ZTljxltbYTDPercent }}</div>
+            <div>
+              <img src="../../assets/images/middle_green_up.png" v-if="this.ZTtbYtdPercent>0">
+              <img src="../../assets/images/middle_yellow_down.png" v-if="this.ZTtbYtdPercent<0">
+            </div>
+          </div>
+          <div class="total-content-dec">
+            同比
+          </div>
+        </div>
+        <div class="total-content">
+          <div class="total-content-num">
+            <div>{{ this.ZTljxlnddcPercent }}</div>
+          </div>
+          <div class="total-content-dec">
+            年度达成
+          </div>
+        </div>
+        <div class="total-content">
+          <div class="total-content-num">
+            <div>{{ this.ZTljxlljysdcPercent }}</div>
+          </div>
+          <div class="total-content-dec">
+            累计达成
+          </div>
+        </div>
+        <div class="tab-title" v-show="ZplotNum">
+            <div class="tabOptionInfo" v-for="(item,index) of titleList" :key="item.id" :class="{tabOption:ZkggsNum === index}" @click="changeComponySelect(index)">
+              {{item.title}}
+            </div>
+        </div>
+      </div>
+      <!-- ********************************地图上方数据显示******************************** -->
+
       <div class="map" id="worldMap" v-show="!ZdzhqNum&&!ZplotNum"></div>
       <div class="map" id="chinaMap" v-show="ZdzhqNum&&!ZplotNum"></div>
       <div class="line" id="line" v-show="ZplotNum"></div>
@@ -259,8 +304,12 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       ZTljlrnddc: String,
       ZTTljydc: String,
       ZljxlYtdC: String,//累计数量
-      ZljxltbYTD:String,
-      Zljxlnddc:String,
+      ZljxltbYTD: String,
+      Zljxlnddc: String,
+      ZTljxlYtdC: String,
+		  ZTljxltbYTD: String,
+		  ZTljxlnddc: String,
+		  ZTljxlljysdc: String,
 	    // xData:Array,
 	    // ZljsrData:Array,//折线图 累计收入
 	    // ZqntqljsrData:Array,//折线图 去年同期累计收入
@@ -311,6 +360,16 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       ZljxlnddcPercent(){
         return Number(this.Zljxlnddc * 100).toFixed(2) + "%";
       },
+      ZTljxltbYTDPercent(){
+        return Number(this.ZTljxltbYTD * 100).toFixed(2) + "%";
+      },
+      ZTljxlnddcPercent(){
+        return Number(this.ZTljxlnddc * 100).toFixed(2) + "%";
+      },
+      ZTljxlljysdcPercent(){
+        return Number(this.ZTljxlljysdc * 100).toFixed(2) + "%";
+      },
+
 		},
     watch:{
       TabList(data){

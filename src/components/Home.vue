@@ -15,6 +15,10 @@
 		:ZTljlrtbYTD="ZTljlrtbYTD"
 		:ZTljlrnddc="ZTljlrnddc"
 		:ZTTljydc="ZTTljydc"
+		:ZTljxlYtdC="ZTljxlYtdC"
+		:ZTljxltbYTD="ZTljxltbYTD"
+		:ZTljxlnddc="ZTljxlnddc"
+		:ZTljxlljysdc="ZTljxlljysdc"
 		:ZljsrYtdC="ZljsrYtdC"
         :ZtbYtd="ZtbYtd"
         :Znddc="Znddc"
@@ -63,7 +67,11 @@ export default {
 		  ZTljlrYtdC:"",
 		  ZTljlrtbYTD:"",
           ZTljlrnddc:"",
-          ZTTljydc:"",
+		  ZTTljydc:"",
+		  ZTljxlYtdC:"",
+		  ZTljxltbYTD:"",
+		  ZTljxlnddc:"",
+		  ZTljxlljysdc:"",
 		  TabList:[],
 		  ljsrChartList:[],
 		  xData:[],
@@ -260,6 +268,35 @@ export default {
 		  this.ZTljlrnddc = data.Znddc;
 		  this.ZTTljydc = data.Zljysdc;
 	  },
+	  //地图上方累计箱量数据
+	  getTotalLJXLInfo(){
+		  axios
+			  .get(
+				  // "/api/header.json"
+				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'",
+				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZxllxFlag eq 'A'&$format=json",
+				  {
+					  auth: {
+						  username: `T-WANGBJ`,
+						  password: `1qaz2wsx`
+					  }
+				  }
+			  )
+			  .then(
+				  this.getTotalLJXLInfoSucc
+			  )
+			  .catch((e)=>{console.log(e)})
+	  },
+	  getTotalLJXLInfoSucc(res){
+		  res = res.data;
+		  res = res.d;
+		  res = res.results;
+		  const data = res[0];//data是对象{..:..,..:..}
+		  this.ZTljxlYtdC = data.ZljslC;
+		  this.ZTljxltbYTD = data.ZtbYtd;
+		  this.ZTljxlnddc = data.Znddc;
+		  this.ZTljxlljysdc = data.Zljysdc;
+	  },
 
 	  getTabInfo() {
 		  axios
@@ -362,6 +399,7 @@ export default {
 			this.getLjlrHeaderInfo();
 			this.getTotalLJLRInfo();
 			this.getLjxlHeaderInfo();
+			this.getTotalLJXLInfo();
 			this.getLjsrChartInfo();
 		},
 		'$store.state.ZljsrFlag': function () {
@@ -379,12 +417,14 @@ export default {
 			this.getLjlrHeaderInfo();
 			this.getTotalLJLRInfo();
 			this.getLjxlHeaderInfo();
+			this.getTotalLJXLInfo();
 			this.getLjsrChartInfo();
 		},
 		'$store.state.ZkggsFlag': function () {
 			console.log(this.ZljysData)
 			this.getTotalLJSRInfo();
 			this.getTotalLJLRInfo();
+			this.getTotalLJXLInfo();
 			this.getTabInfo();
 			this.getLjsrChartInfo();
 		},
