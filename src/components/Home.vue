@@ -12,6 +12,7 @@
         :ZTnddc="ZTnddc"
         :ZTljysdc="ZTljysdc"
 		:ZljsrYtdC="ZljsrYtdC"
+
         :ZtbYtd="ZtbYtd"
         :Znddc="Znddc"
 		:Zljsl="Zljsl"
@@ -225,20 +226,24 @@ export default {
 					}
 				}
         	)
-			.then(
-				this.getLjsrChartInfoSucc
-			)
+			.then(res=>{
+				this.getLjsrChartInfoSucc(res)
+			})
 	  },
 	  getLjsrChartInfoSucc(res) {
 		  res = res.data;
 		  res = res.d;
-		  const data = res.results;//results为数组
+		  let data = res.results;//results为数组
+		  this.ChinaOnlyFlag
+			  ? data = res.results.filter(item => item['Zbgzz'][0] === 'A')
+			  : data = res.results
 		  let jsonString = JSON.stringify(data, ["ZbgzzT", "Zljsr", "Zqntqljsr", "Zljys"]);
 		  this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
 		  this.getLineData('ZbgzzT');
 		  this.getLineData('Zljsr');
 		  this.getLineData('Zqntqljsr');
 		  this.getLineData('Zljys');
+		  this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData);
 	  },
 	  // getLjsrChartInfoSucc(res) {
 			//   res = res.data;
@@ -277,14 +282,12 @@ export default {
 			this.getTotalInfo();
 			this.getTabInfo();
 			this.getLjsrChartInfo();
-			this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
 		},
 		'$store.state.ZljsrFlag': function () {
 			this.getHeader();
 			this.getTotalInfo();
 			this.getTabInfo();
 			this.getLjsrChartInfo();
-			this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
 		  // alert(this.$store.state.ZljsrFlag);
     },
 		'$store.state.ZqycsFlag': function () {
@@ -292,18 +295,16 @@ export default {
 			this.getTotalInfo();
 			this.getTabInfo();
 			this.getLjsrChartInfo();
-			this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
 		},
 		'$store.state.ZkggsFlag': function () {
+			console.log(this.ZljysData)
 			this.getTotalInfo();
 			this.getTabInfo();
 			this.getLjsrChartInfo();
-			this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
 		},
 		'$store.state.ZusdFlag': function () {
 			this.getTabInfo();
 			this.getLjsrChartInfo();
-			this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
 		},
     	'$store.state.ZplotFlag': function () {
 	    	this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用

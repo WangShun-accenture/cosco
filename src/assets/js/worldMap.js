@@ -43,7 +43,7 @@ let install = function(Vue) {
 								}
 							};
 							makeMapData(data);
-							console.log(world);
+							// console.log(world);
 							const optionData = {
 								backgroundColor: {
 									type: 'linear',
@@ -59,19 +59,20 @@ let install = function(Vue) {
 									global: false // 缺省为 false
 								},
 								legend: {
-									left:10,
+									// left:c,
 									bottom: 0,
-									data: ['未完成累计预算', '完成累计预算'],
+									data: ['完成累计预算','未完成累计预算'],
 									textStyle: {
 										color: '#fff',
 										fontSize: 16
 									},
-									orient: 'vertical'
+									// orient: 'vertical'
 								},
 								geo: {
 									map: 'world',
 									roam: true,
-									zoom: 1.2,//当前视角的缩放比例
+									center: [60.905868,35.411244],
+									zoom: 2,//当前视角的缩放比例
 									silent: true,
 									emphasis: {
 										label: {
@@ -110,7 +111,7 @@ let install = function(Vue) {
 										return `
 											${params.name}
 											<br> 
-											累计收入 ${params.value[2]}
+											累计收入$${params.value[2]}
 											<br>
 											<span>年度预算达成 ${Number(params.value[3] * 100).toFixed(2) + "%"}</span>
 											<br>

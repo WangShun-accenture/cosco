@@ -16,7 +16,7 @@
               <div class="count-content-num">
                 {{ this.ZljsrYtdC | commafy}}
               </div>
-              <div class="count-content-dec">累计收入 YTD</div>
+              <div class="count-content-dec">累计收入</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
@@ -27,13 +27,13 @@
                   <!-- <img src="../../assets/images/large_yellow_down.png" style="opacity:0"> -->
                 </div>
               </div>
-              <div class="count-content-dec">同比 YoY</div>
+              <div class="count-content-dec">同比</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
                 {{ ZtbYtdPercent | tb}}
               </div>
-              <div class="count-content-dec">年度达成 Budget</div>
+              <div class="count-content-dec">年度达成</div>
             </div>
       
           </div>
@@ -55,13 +55,13 @@
                   <img src="../../assets/images/large_yellow_down.png">
                 </div>
               </div>
-              <div class="count-content-dec">同比 YoY</div>
+              <div class="count-content-dec">同比</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
                 {{ ZnddcPercent | tb}}
               </div>
-              <div class="count-content-dec">年度达成 Budget</div>
+              <div class="count-content-dec">年度达成</div>
             </div>
       
           </div>
@@ -83,13 +83,13 @@
                   <img src="../../assets/images/large_yellow_down.png">
                 </div>
               </div>
-              <div class="count-content-dec">同比 YoY</div>
+              <div class="count-content-dec">同比</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
                 {{ ZtbYtdPercent }}
               </div>
-              <div class="count-content-dec">年度达成 Budget</div>
+              <div class="count-content-dec">年度达成</div>
             </div>
             
           </div>
@@ -103,7 +103,7 @@
             <div>{{ this.ZTljsrYtdC | commafy}}</div>
           </div>
           <div class="total-content-dec">
-            累计收入 YTD
+            累计收入
           </div>
         </div>
         <div class="total-content">
@@ -115,7 +115,7 @@
             </div>
           </div>
           <div class="total-content-dec">
-            同比 YoY
+            同比
           </div>
         </div>
         <div class="total-content">
@@ -123,7 +123,7 @@
             <div>{{ this.ZTnddcPercent }}</div>
           </div>
           <div class="total-content-dec">
-            年度达成 Budget
+            年度达成
           </div>
         </div>
         <div class="total-content">
@@ -131,8 +131,13 @@
             <div>{{ this.ZTljysdcPercent }}</div>
           </div>
           <div class="total-content-dec">
-            累计达成 Budget
+            累计达成
           </div>
+        </div>
+        <div class="tab-title" v-show="ZplotNum">
+            <div class="tabOptionInfo" v-for="(item,index) of titleList" :key="item.id" :class="{tabOption:ZkggsNum === index}" @click="changeComponySelect(index)">
+              {{item.title}}
+            </div>
         </div>
       </div>
 
@@ -155,13 +160,13 @@
         <div class="corner-option-info" :class="{cornerOption:ZqycsNum === index}" v-for="(item,index) of subjectOptionList" :key="index"  @click="changeSelect(index)">
           <span>{{ item.option }}</span>
         </div>
-        <div class="corner-option-info" :class="{cornerOption:ZdzhqNum}" @click="mapChangeSelect()">
+        <div class="corner-option-info" @click="mapChangeSelect()">
           <span>{{!ZdzhqNum ? '查看大中华区' : '查看全球'}}</span>
         </div>
         <div class="corner-option-info" :class="{cornerOption:ZusdNum}" @click="ZusdChangeColor()">
           <span>查看本位币</span>
         </div>
-        <div class="corner-option-info" :class="{cornerOption:ZplotNum}" @click="plotChangeColor()">
+        <div class="corner-option-info" @click="plotChangeColor()">
           <span>{{!ZplotNum ? '查看折线图' : '查看数据表'}}</span>
         </div>
       </div>
@@ -183,10 +188,12 @@ import { mapState,mapGetters,mapActions } from 'vuex';
         ZdzhqNum:false,
         ZqycsNum:0,
         ZljsrNum:0,
+        ZkggsNum:0,
 				ZusdNum:false,
 				ZplotNum:false,//false为查看折线图未点击状态
         mapOptionList:[{id: "0001",option: "查看全球"}, {id: "0002",option: "查看大中华区"}],
         subjectOptionList:[{id: "0001",option: "非权益乘数"},{id: "0002",option: "权益乘数"}],
+        titleList: [{id: "0001", title: "控股公司"}, {id: "0002", title: "参股公司"}],
       }
     },
     props:{
@@ -207,43 +214,21 @@ import { mapState,mapGetters,mapActions } from 'vuex';
     },
 		computed:{
       ...mapState({
-          'ZljsrFlag' : state=>state.ZljsrFlag
+          'ZljsrFlag' : state=>state.ZljsrFlag,
+          'ZkggsFlag' : state=>state.ZkggsFlag
       }),
-      // ZljsrYtdC(){  
-      //   const realVal = Number(this.ZljsrYtdC).toFixed(2);
-      //   return "$ "+(realVal+ '').replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g,'$1,');
-      // },
-      /**
-       * @return {string}
-       */
       ZnddcPercent(){//把年度达成转化为百分比
         return Number(this.Znddc * 100).toFixed(2) + "%";
       },
-	    /**
-	     * @return {string}
-	     */
 	    ZtbYtdPercent(){//把年度达成转化为百分比
 		    return Number(this.ZtbYtd * 100).toFixed(2) + "%";
       },
-      // ZTljsrYtdCRealVal(){  
-      //   const realVal = Number(this.ZTljsrYtdC).toFixed(2);
-      //   return "$ "+(realVal+ '').replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g,'$1,');
-      // },
-			/**
-			 * @return {string}
-			 */
 			ZTnddcPercent(){//把同比YOY转化为百分比
 				return Number(this.ZTnddc * 100).toFixed(2) + "%";
 			},
-			/**
-			 * @return {string}
-			 */
 			ZTtbYtdPercent(){//把年度达成率转化为百分比
 				return Number(this.ZTtbYtd * 100).toFixed(2) + "%";
 			},
-			/**
-			 * @return {string}
-			 */
 			ZTljysdcPercent(){//把累计预算达成率转化为百分比
 				return Number(this.ZTljysdc * 100).toFixed(2) + "%";
 			},
@@ -251,11 +236,27 @@ import { mapState,mapGetters,mapActions } from 'vuex';
     watch:{
       TabList(data){
         if(this.ZdzhqNum){
-			    this.$chinaChart.china_bar('chinaMap',this.TabList,this.ZljsrFlag); //方法调用
+			    this.$chinaChart.china_bar('chinaMap',this.TabList,this.ZljsrFlag);
 		    }else{
-			    this.$worldChart.world_bar ('worldMap',this.TabList,this.ZljsrFlag); //方法调用
+			    this.$worldChart.world_bar ('worldMap',this.TabList,this.ZljsrFlag);
 		    }
       },
+      ZkggsFlag(){
+        if(this.ZkggsFlag === 'X'){
+          this.ZkggsNum = 0;
+        }else{
+          this.ZkggsNum = 1;
+        }
+      },
+      ZkggsNum() {
+        let flag = 'X';
+				if (this.ZkggsNum === 0) {
+					flag = "X";//控股公司
+				} else {
+					flag = "";//参股公司
+				}
+				this.$store.commit("changeZkggsFlag", flag);
+			},
       ZljsrNum() {
 		    if(this.ZljsrNum === 0){
 			    this.ZljsrFlag = 0;
@@ -267,7 +268,6 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 			    this.ZljsrFlag = 2;
 		    }
 		    this.$store.commit("changeZljsrFlag",this.ZljsrFlag);
-		    // alert(this.$store.state.ZljsrFlag)
 	    },
 	    ZdzhqNum(){
 		    if(this.ZdzhqNum){
@@ -311,6 +311,9 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 	    },
     },
     methods: {
+      changeComponySelect: function (index) {
+				this.ZkggsNum = index;
+			},
       changeSelect: function (index) {
         this.ZqycsNum = index;
       },
@@ -332,6 +335,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 	}
 </script>
 <style lang="stylus" scoped>
+
   .rightUnit
     position:absolute
     text-align right
@@ -360,11 +364,12 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       position: relative
     .content-right
       position:relative
+      padding-right: 20px;
       flex:2
     .content-bottom
       position:absolute
       bottom:20px
-      right:0
+      right:20px
     .total
       width:90%  
       height:80px
@@ -372,6 +377,30 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       display:flex
       justify-content:center
       align-items:center
+      position:relative
+      .tab-title
+        position:absolute
+        margin-top:9px
+        height:40px
+        display:flex
+        justify-content:center
+        align-items:center
+        right:0;
+        top:50px;
+        .tabOptionInfo
+          width:120px
+          height:40px
+          line-height:40px
+          margin:0 90px
+          text-align:center
+          font-size:18px
+          border-bottom:3px #334185 solid
+          color: #999
+        .tabOption
+          font-weight:bolder
+          border-bottom:3px #fff solid
+          color: white
+
       .total-content
         .total-content-dec
           width:186px

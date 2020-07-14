@@ -74,13 +74,21 @@
       this.Calmonth = year.toString() + month.toString();//this.就可以取到store传过来的值，相当于一个缓存？已经传过来的
 			this.$store.commit("changeCalmonth",this.Calmonth);
 			// alert(this.$store.state.Calmonth)
-		},
+    },
+    getLastMonthAndDay(){
+      let nowDate = new Date();
+      let year = nowDate.getFullYear();
+      let month = nowDate.getMonth();
+      if(month == 0){
+          month = 12;
+          year = year - 1;
+      }
+      return new Date(year,month,0);
+    }
 	},
 		mounted() {
-      this.value = new Date();//设置初始默认时间为此时的时间
+      this.value = this.getLastMonthAndDay();//设置初始默认时间为此时的时间
 			this.getMonth();
-			// console.log(this.ZljsrYtd);
-			// this.getHeaderInfo();
 		},
     watch: {
       ZljsrNum() {

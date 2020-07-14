@@ -44,7 +44,7 @@ let install = function(Vue) {
 								}
 							};
 							makeMapData(data);
-							console.log('china===>',china);
+							// console.log('china===>',china);
 							const optionData = {
 								backgroundColor: {type: 'linear',
 									x: 0,
@@ -61,7 +61,7 @@ let install = function(Vue) {
 								legend: {
 									left: 10,
 									bottom: 0,
-									data: ['未完成累计预算', '完成累计预算'],
+									data: ['完成累计预算','未完成累计预算'],
 									textStyle: {
 										color: '#fff',
 										fontSize: 16

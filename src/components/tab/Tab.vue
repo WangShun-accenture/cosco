@@ -27,15 +27,15 @@
               :class="{yellow:item.Ztb<0,green:item.Ztb>0}" 
               :title="Number(item.Ztb * 100).toFixed(2) + '%'"
             >
-              {{ Number(item.Ztb * 100).toFixed(2) + "%" | tb}}
+              {{ !item.Ztb || Number(item.Ztb) == 0 ? '' : Number(item.Ztb * 100).toFixed(2) + "%" | tb}}
             </div>
             <div>
               <img src="../../assets/images/small_green_up.png" v-if="item.Ztb>0">
               <img src="../../assets/images/small_yellow_down.png" v-if="item.Ztb<0">
             </div>
           </td>
-          <td class="table-td5">{{ Number(item.Znddc * 100).toFixed(2) + "%" }}</td>
-          <td class="table-td6">{{ Number(item.Zljysdc * 100).toFixed(2) + "%" }}</td>
+          <td class="table-td5">{{ !item.Znddc || Number(item.Znddc) == 0 ? '' : Number(item.Znddc * 100).toFixed(2) + "%" }}</td>
+          <td class="table-td6">{{ !item.Zljysdc || Number(item.Zljysdc) == 0 ? '' : Number(item.Zljysdc * 100).toFixed(2) + "%" }}</td>
         </tr>
       </table>
       
@@ -64,11 +64,20 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 
     },
     computed:{
-
+      ...mapState({
+        'ZkggsFlag' : state=>state.ZkggsFlag
+      }),
     },
 		watch: {
       TabList(){
         this.tableData = this.TabList;
+      },
+      ZkggsFlag(){
+        if(this.ZkggsFlag === 'X'){
+          this.ZkggsNum = 0;
+        }else{
+          this.ZkggsNum = 1;
+        }
       },
       chinaOnly(){
         if(this.chinaOnly){
@@ -78,15 +87,13 @@ import { mapState,mapGetters,mapActions } from 'vuex';
         }
       },
 			ZkggsNum() {
+        let flag = 'X';
 				if (this.ZkggsNum === 0) {
-					this.ZkggsFlag = "X";//控股公司
-					// alert(this.ZkggsFlag);
+					flag = "X";//控股公司
 				} else {
-					this.ZkggsFlag = "";//参股公司
-					// alert(this.ZkggsFlag)
+					flag = "";//参股公司
 				}
-				this.$store.commit("changeZkggsFlag", this.ZkggsFlag);
-				// alert(this.$store.state.ZkggsFlag);
+				this.$store.commit("changeZkggsFlag", flag);
 			},
 		},
 		mounted() {
@@ -161,7 +168,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
           width:62px 
         .table-td3
           text-align:right 
-          width:100px
+          width:50px
         .table-td4
           width:100px
           position relative
