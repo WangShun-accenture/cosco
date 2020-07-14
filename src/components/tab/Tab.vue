@@ -21,7 +21,7 @@
             <span>{{item.ZbgzzT}}</span>
           </td>
           <td class="table-td2">{{item.Currency}}</td>
-          <td class="table-td3">{{item.Zljsr | commafy}}</td>
+          <td class="table-td3">{{item.ZljsrC | commafy}}</td>
           <td class="table-td4">
             <div 
               :class="{yellow:item.Ztb<0,green:item.Ztb>0}" 
@@ -64,7 +64,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 
     },
     computed:{
-      
+
     },
 		watch: {
       TabList(){

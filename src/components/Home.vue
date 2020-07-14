@@ -124,7 +124,8 @@ export default {
 		  this.ZtbYtd = data.ZtbYtd;
 		  this.Znddc = data.Znddc;
 	  },
-    //累计箱量header接口获取
+
+      //累计箱量header接口获取
 	  getLjxlHeaderInfo(){
 		  axios
 			  .get(

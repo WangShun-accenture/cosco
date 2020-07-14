@@ -14,7 +14,7 @@
           <div class="count">
             <div class="count-content">
               <div class="count-content-num">
-                {{ ZljsrYtdCRealVal}}
+                {{ this.ZljsrYtdC | commafy}}
               </div>
               <div class="count-content-dec">累计收入 YTD</div>
             </div>
@@ -43,7 +43,7 @@
           <div class="count">
             <div class="count-content">
               <div class="count-content-num">
-                {{ ZljsrYtdCRealVal | commafy}}
+                {{ ZljsrYtdC | commafy}}
               </div>
               <div class="count-content-dec">累计利润</div>
             </div>
@@ -71,7 +71,7 @@
           <div class="count">
             <div class="count-content">
               <div class="count-content-num">
-                {{ ZljsrYtdCRealVal }}
+                {{ ZljsrYtdC }}
               </div>
               <div class="count-content-dec">累计箱量</div>
             </div>
@@ -100,7 +100,7 @@
       <div class="total" :class="{fullWidth:ZplotNum}">
         <div class="total-content">
           <div class="total-content-num">
-            <div>{{ this.ZTljsrYtdCRealVal }}</div>
+            <div>{{ this.ZTljsrYtdC | commafy}}</div>
           </div>
           <div class="total-content-dec">
             累计收入 YTD
@@ -209,10 +209,10 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       ...mapState({
           'ZljsrFlag' : state=>state.ZljsrFlag
       }),
-      ZljsrYtdCRealVal(){  
-        const realVal = Number(this.ZljsrYtdC).toFixed(0);
-        return "$ "+(realVal+ '').replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g,'$1,');
-      },
+      // ZljsrYtdC(){  
+      //   const realVal = Number(this.ZljsrYtdC).toFixed(2);
+      //   return "$ "+(realVal+ '').replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g,'$1,');
+      // },
       /**
        * @return {string}
        */
@@ -225,10 +225,10 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 	    ZtbYtdPercent(){//把年度达成转化为百分比
 		    return Number(this.ZtbYtd * 100).toFixed(2) + "%";
       },
-      ZTljsrYtdCRealVal(){  
-        const realVal = Number(this.ZTljsrYtdC).toFixed(0);
-        return "$ "+(realVal+ '').replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g,'$1,');
-      },
+      // ZTljsrYtdCRealVal(){  
+      //   const realVal = Number(this.ZTljsrYtdC).toFixed(2);
+      //   return "$ "+(realVal+ '').replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g,'$1,');
+      // },
 			/**
 			 * @return {string}
 			 */
