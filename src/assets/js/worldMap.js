@@ -1,5 +1,6 @@
 import echarts from "echarts";
 import world from '../../../node_modules/echarts/map/js/world.js'
+import config from './config'
 
 const img = require('../images/05.png');
 
@@ -14,43 +15,43 @@ let install = function(Vue) {
 							this.chart.clear();
 							const world = {
 								done:[],
-								undone:[]
+								undone:[],
+								loss:[]
 							};
-							const unit = 1000000;
-							const radioArr = [5,10,20,25,35,45];
-							const rangeArr1 = [.02, .27, 88.47, 165.31, 1983.7];
 							let targetArr = [];
 							function findRangeIn(number) {
 								if (!targetArr.length) return 10;
-								if (number > targetArr[targetArr.length - 1]) return radioArr[targetArr.length - 1];
+								if (number > targetArr[targetArr.length - 1]) return config.radioArr[targetArr.length - 1];
 								for (let i = 0; i < targetArr.length; i++) {
 									if (number < targetArr[i]) {
-										return radioArr[i];
+										return config.radioArr[i];
 									}
 								}
 							}
 							function makeMapData(rawData) {
 								for(let i = 0;i<rawData.length;i++){
 									let temp = {
-										name: rawData[i]['ZbgzzT'],
+										name: rawData[i]['ZfbgzzT'],
 										value:[
 											rawData[i]['Longitude'],
 											rawData[i]['Latitude'],
-											rawData[i]['Zljsr'],
+
 											rawData[i]['Zljysdc'],
 											rawData[i]['Ztb']
 										]
 									};
+
 									if (flag===0){
-										temp.value.push(rawData[i]['Zljsr']);
-										targetArr = rangeArr1;
+										temp.value.push(rawData[i]['ZljsrC']);
+										targetArr = config.rangeArr1;
 									}else if(flag===1){
-										// temp.value.push();
-										// targetArr = [];
+										temp.value.push(rawData[i]['ZljsrC']);
+										targetArr = config.rangeArr2;
 									}else{
-										// temp.value.push();
-										// targetArr = [];
+										temp.value.push(rawData[i]['ZljslC']);
+										targetArr = config.rangeArr3;
 									}
+
 									if (rawData[i]['Zljysdc'] > 1){
 										world.done.push(temp);
 									}else{
@@ -126,11 +127,11 @@ let install = function(Vue) {
 										return `
 											${params.name}
 											<br> 
-											累计收入$${params.value[2]}
+											${config.title[flag]}${flag<2?'$':''}${params.value[4]}
 											<br>
-											<span>年度预算达成 ${Number(params.value[3] * 100).toFixed(2) + "%"}</span>
+											<span>年度预算达成 ${Number(params.value[2] * 100).toFixed(2) + "%"}</span>
 											<br>
-											<span>同比 ${Number(params.value[4] * 100).toFixed(2) + "%"}</span>
+											<span>同比 ${Number(params.value[3] * 100).toFixed(2) + "%"}</span>
 										`;
 									},
 								},
@@ -141,8 +142,10 @@ let install = function(Vue) {
 										coordinateSystem: 'geo',
 										data: world.undone,
 										symbolSize: function(params){
-											const number = Number(params[params.length-1])/unit;
-											return findRangeIn(number);
+											const number = Number(params[params.length-1]);
+											let radio = findRangeIn(number);
+											console.log('radio===>', radio, 'number===>', number)
+											return radio;
 										},
 										itemStyle: {
 											opacity: .9,
@@ -167,7 +170,7 @@ let install = function(Vue) {
 										data: world.done,
 										symbolSize: 20,
 										symbolSize: function (params) {
-											const number = Number(params[params.length - 1]) / unit;
+											const number = Number(params[params.length - 1]);
 											return findRangeIn(number);
 										},
 										itemStyle: {

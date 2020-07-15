@@ -298,22 +298,39 @@ export default {
 	  },
 
 	  getTabInfo() {
-		axios
-			.get(
-				"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter= Calmonth eq "
-				+"'"+this.$store.state.Calmonth+"'"
-				+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
-				+" and ZusdFlag  eq "+"'"+this.$store.state.ZusdFlag+"'"
-				+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
-				// +" and ZsortF    eq "+"'"+'Ztb,desc'+"'"
-				+" &$format=json",
-				{
-					auth: {
-						username: `T-WANGBJ`,
-						password: `1qaz2wsx`
-					}
+		// +" and ZsortF    eq "+"'"+'Ztb,desc'+"'"
+		let url1 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter="
+					+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
+					+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
+					+" and ZusdFlag  eq "+"'"+this.$store.state.ZusdFlag+"'"
+					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+					+" &$format=json";
+		let url2 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJLR_02Set?$filter="
+					+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
+					+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
+					+" and ZusdFlag  eq "+"'"+this.$store.state.ZusdFlag+"'"
+					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+					+" &$format=json";
+		let url3 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_02Set?$filter="
+					+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
+					+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
+					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+					+" and ZxllxFlag eq 'A'"
+					+" &$format=json";
+		let url;
+		if (this.$store.state.ZljsrFlag === 0) {
+		    url = url1;
+	    }else if (this.$store.state.ZljsrFlag === 1) {
+			url = url2;
+		}else{
+		    url = url3;
+	    }
+		axios.get(url,{
+				auth: {
+					username: `T-WANGBJ`,
+					password: `1qaz2wsx`
 				}
-			)
+			})
 			.then(res=>{
 				this.getTabInfoSucc(res);
 			})
@@ -325,7 +342,7 @@ export default {
 		  res = res.d;
 		  let data = [];//results为数组
 		  this.ChinaOnlyFlag
-			  ? data = res.results.filter(item => item['Zbgzz'][0] === 'A')
+			  ? data = res.results.filter(item => item['Zfbgzz'][0] === 'A')
 			  : data = res.results
 		  let jsonString = JSON.stringify(data);
 		  this.TabList = JSON.parse(jsonString);//string转json,输出数据为object
@@ -353,7 +370,7 @@ export default {
 		  res = res.d;
 		  let data = res.results;//results为数组
 		  this.ChinaOnlyFlag
-			  ? data = res.results.filter(item => item['Zbgzz'][0] === 'A')
+			  ? data = res.results.filter(item => item['Zfbgzz'][0] === 'A')
 			  : data = res.results
 		  let jsonString = JSON.stringify(data, ["ZbgzzT", "Zljsr", "Zqntqljsr", "Zljys"]);
 		  this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
@@ -425,7 +442,6 @@ export default {
 			this.getLjsrChartInfo();
 		},
 		'$store.state.ZkggsFlag': function () {
-			console.log(this.ZljysData)
 			this.getTotalLJSRInfo();
 			this.getTotalLJLRInfo();
 			this.getTotalLJXLInfo();

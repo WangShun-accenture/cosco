@@ -30,11 +30,13 @@ let install = function(Vue) {
 									lineStyle : {
 										color: '#fff',
 										width: 0.5,
-										
 									},
 									// label : {
 									// 	backgroundColor : '#6a7985'
 									// }
+								},
+								textStyle:{
+									fontSize: 16
 								}
 							},
 							//图形位置
@@ -79,7 +81,7 @@ let install = function(Vue) {
 								// max: function(value) {
 								// 	return value*3;
 								// },
-								name:'USD',
+								name:'1 USD',
 								splitNumber: 8,
 								boundaryGap: true,
 								// boundaryGap: ['5%', '5%'],
@@ -135,7 +137,7 @@ let install = function(Vue) {
 								// ]
 							},
 								{
-									name : "去年同期累计收入",//seriesName
+									name : "上年同期累计",//seriesName
 									type : 'line',
 									symbol : 'circle',
 									symbolSize : 8,

@@ -8,20 +8,15 @@
     <div class="tab-content" >
       <table class="tab-table">
         <tr class="table-head">
-          <th class="table-th1">公司</th>
-          <th class="table-th3">币种</th>
-          <th class="table-th2">累计收入</th>
-          <th class="table-th5">同比</th>
-          <th class="table-th4">年度预算达成</th>
-          <th class="table-th6">累计预算达成</th>
+          <th v-for="(item,index) of tableHeadData[ZljsrFlag]" :key="index" :class="['table-th'+index+1]">{{item.title}}</th>
         </tr>
         <tr class="table-tr" v-for="(item,index) of tableData" :key="index">
           <td class="table-td1">
             <span :class="{greenBall:item.Zljysdc>1,transparent:item.Zljysdc<=1}"></span>
-            <span>{{item.ZbgzzT}}</span>
+            <span>{{item.ZfbgzzT}}</span>
           </td>
-          <td class="table-td2">{{item.Currency}}</td>
-          <td class="table-td3">{{item.ZljsrC | commafy}}</td>
+          <td class="table-td2" v-if="ZljsrFlag!==2">{{item.Currency}}</td>
+          <td class="table-td3" :class="{yellow:item.Ztb<0&&ZljsrFlag===1}">{{(item.ZljsrC || item.ZljslC) | commafy}}</td>
           <td class="table-td4">
             <div 
               :class="{yellow:item.Ztb<0,green:item.Ztb>0}" 
@@ -54,7 +49,24 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 			return {
         ZkggsNum: 0,//控股公司选择
         tableData:[],
-				titleList: [{id: "0001", title: "控股公司"}, {id: "0002", title: "参股公司"}],
+        titleList: [{id: "0001", title: "控股公司"}, {id: "0002", title: "参股公司"}],
+        tableHeadData:[
+          [
+            {id: "0001", title: "公司"}, {id: "0002", title: "币种"},
+            {id: "0003", title: "累计收入"}, {id: "0004", title: "累计同比"},
+            {id: "0005", title: "年度预算达成"}, {id: "0006", title: "累计预算达成"}
+          ],
+          [
+            {id: "0001", title: "公司"}, {id: "0002", title: "币种"},
+            {id: "0003", title: "累计利润"}, {id: "0004", title: "累计同比"},
+            {id: "0005", title: "年度预算达成"}, {id: "0006", title: "累计预算达成"}
+          ],
+          [
+            {id: "0001", title: "公司"}, 
+            {id: "0003", title: "累计箱量"}, {id: "0004", title: "累计同比"},
+            {id: "0005", title: "年度预算达成"}, {id: "0006", title: "累计预算达成"}
+          ]
+        ]
 			}
     },
 		methods: {
@@ -65,7 +77,8 @@ import { mapState,mapGetters,mapActions } from 'vuex';
     },
     computed:{
       ...mapState({
-        'ZkggsFlag' : state=>state.ZkggsFlag
+        'ZkggsFlag' : state=>state.ZkggsFlag,
+        'ZljsrFlag' : state=>state.ZljsrFlag
       }),
     },
 		watch: {
@@ -81,7 +94,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       },
       chinaOnly(){
         if(this.chinaOnly){
-          this.tableData = this.TabList.filter(item=> item['Zbgzz'][0]==='A');
+          this.tableData = this.TabList.filter(item=> item['Zfbgzz'][0]==='A');
         }else{
           this.tableData = this.TabList
         }
@@ -129,7 +142,6 @@ import { mapState,mapGetters,mapActions } from 'vuex';
     align-items: center;
     flex-flow: column;
   .tab-title
-    margin-top:9px
     height:40px
     display:flex
     justify-content:center

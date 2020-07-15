@@ -28,7 +28,7 @@
                   <img src="../../assets/images/middle_yellow_down.png" v-if="ZtbYtd<0" >
                 </div>
               </div>
-              <div class="count-content-dec">同比</div>
+              <div class="count-content-dec">累计同比</div>
             </div>
             
             <div class="count-content">
@@ -45,7 +45,7 @@
           <div class="count">
             <div class="count-content">
               <div class="count-content-num">
-                {{ this.ZljlrYtdC | commafy}}
+                ${{ this.ZljlrYtdC | commafy}}
               </div>
               <div class="count-content-dec">累计利润</div>
             </div>
@@ -57,7 +57,7 @@
                   <img src="../../assets/images/middle_yellow_down.png"  v-if="ZljlrtbYTD<0">
                 </div>
               </div>
-              <div class="count-content-dec">同比</div>
+              <div class="count-content-dec">累计同比</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
@@ -73,7 +73,7 @@
           <div class="count">
             <div class="count-content">
               <div class="count-content-num">
-                {{ this.ZljxlYtdC }}
+                ${{ this.ZljxlYtdC }}
               </div>
               <div class="count-content-dec">累计箱量</div>
             </div>
@@ -85,7 +85,7 @@
                   <img src="../../assets/images/middle_yellow_down.png" v-if="ZljxltbYTD<0">
                 </div>
               </div>
-              <div class="count-content-dec">同比</div>
+              <div class="count-content-dec">累计同比</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
@@ -118,7 +118,7 @@
               </div>
             </div>
             <div class="total-content-dec">
-              同比
+              累计同比
             </div>
           </div>
           <div class="total-content">
@@ -167,7 +167,7 @@
               </div>
             </div>
             <div class="total-content-dec">
-              同比
+             累计同比
             </div>
           </div>
           <div class="total-content">
@@ -215,7 +215,7 @@
               </div>
             </div>
             <div class="total-content-dec">
-              同比
+              累计同比
             </div>
           </div>
           <div class="total-content">

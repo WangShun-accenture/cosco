@@ -1,5 +1,6 @@
 import echarts from "echarts";
 import china from '../../../node_modules/echarts/map/js/china.js'
+import config from './config'
 
 const img = require('../images/05.png');
 
@@ -15,31 +16,44 @@ let install = function(Vue) {
 								done: [],
 								undone: []
 							};
+							let targetArr = [];
+							function findRangeIn(number) {
+								if (!targetArr.length) return 10;
+								if (number > targetArr[targetArr.length - 1]) return config.radioArr[targetArr.length - 1];
+								for (let i = 0; i < targetArr.length; i++) {
+									if (number < targetArr[i]) {
+										return config.radioArr[i];
+									}
+								}
+							}
 							function makeMapData(rawData) {
 								for (let i = 0; i < rawData.length; i++) {
 									let temp = {
-										name: rawData[i]['ZbgzzT'],
+										name: rawData[i]['ZfbgzzT'],
 										value: [
 											rawData[i]['Longitude'],
 											rawData[i]['Latitude'],
-											rawData[i]['Zljsr'],
+
 											rawData[i]['Zljysdc'],
 											rawData[i]['Ztb']
 										]
 									};
+
 									if (flag === 0) {
-										temp.value.push(rawData[i]['Zljsr']);
+										temp.value.push(rawData[i]['ZljsrC']);
+										targetArr = config.rangeArr1;
 									} else if (flag === 1) {
-										// temp.value.push();
+										temp.value.push(rawData[i]['ZljsrC']);
+										targetArr = config.rangeArr2;
 									} else {
-										// temp.value.push();
+										temp.value.push(rawData[i]['ZljslC']);
+										targetArr = config.rangeArr3;
 									}
-									if (rawData[i]['Zbgzz'][0] === 'A'){
-										if (rawData[i]['Zljysdc'] > 1) {
-											china.done.push(temp);
-										} else {
-											china.undone.push(temp);
-										}
+
+									if (rawData[i]['Zljysdc'] > 1) {
+										china.done.push(temp);
+									} else {
+										china.undone.push(temp);
 									}
 								}
 							};
@@ -109,15 +123,13 @@ let install = function(Vue) {
 									`,
 									formatter: function (params) {
 										return `
-										<div>
 											${params.name}
 											<br> 
-											累计收入 ${params.value[2]}
+											${config.title[flag]}${flag < 2 ? '$' : ''}${params.value[4]}
 											<br>
-											<span>年度预算达成 ${Number(params.value[3] * 100).toFixed(2) + "%"}</span>
+											<span>年度预算达成 ${Number(params.value[2] * 100).toFixed(2) + "%"}</span>
 											<br>
-											<span>同比 ${Number(params.value[4] * 100).toFixed(2) + "%"}</span>
-										</div>
+											<span>同比 ${Number(params.value[3] * 100).toFixed(2) + "%"}</span>
 										`;
 									},
 								},
@@ -127,24 +139,9 @@ let install = function(Vue) {
 										type: 'scatter',
 										coordinateSystem: 'geo',
 										data: china.undone,
-										symbolSize: function(params){
-											const number = Number(params[params.length-1])/1000000;
-											let temp = 10;
-											if (number <= 0.02){
-												temp = 5;
-											} else if (number <= 0.27){
-												temp = 10;
-											} else if (number <= 88.47) {
-												temp = 20;
-											} else if (number <= 165.31) {
-												temp = 25;
-											} else if (number <= 1983.70) {
-												temp = 35;
-											} else {
-												temp = 45;
-											}
-											
-											return temp;
+										symbolSize: function (params) {
+											const number = Number(params[params.length - 1]);
+											return findRangeIn(number);
 										},
 										itemStyle: {
 											opacity: .9,
@@ -167,24 +164,9 @@ let install = function(Vue) {
 										type: 'scatter',
 										coordinateSystem: 'geo',
 										data: china.done,
-										symbolSize: function(params){
-											const number = Number(params[params.length-1])/1000000;
-											let temp = 10;
-											if (number <= 0.02){
-												temp = 5;
-											} else if (number <= 0.27){
-												temp = 10;
-											} else if (number <= 88.47) {
-												temp = 20;
-											} else if (number <= 165.31) {
-												temp = 25;
-											} else if (number <= 1983.70) {
-												temp = 35;
-											} else {
-												temp = 45;
-											}
-											
-											return temp;
+										symbolSize: function (params) {
+											const number = Number(params[params.length - 1]);
+											return findRangeIn(number);
 										},
 										itemStyle: {
 											opacity: .9,
@@ -204,6 +186,7 @@ let install = function(Vue) {
 									}
 								],
 							};
+
 							this.chart.setOption(optionData);
 						}
 					}
