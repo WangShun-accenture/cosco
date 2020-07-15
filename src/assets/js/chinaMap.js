@@ -14,7 +14,8 @@ let install = function(Vue) {
 							this.chart.clear();
 							const china = {
 								done: [],
-								undone: []
+								undone: [],
+								empty: []
 							};
 							let targetArr = [];
 							function findRangeIn(number) {
@@ -50,7 +51,9 @@ let install = function(Vue) {
 										targetArr = config.rangeArr3;
 									}
 
-									if (rawData[i]['Zljysdc'] > 1) {
+									if (Number(temp.value[temp.value.length - 1]) == 0) {
+										china.empty.push(temp);
+									} else if (rawData[i]['Zljysdc'] > 1) {
 										china.done.push(temp);
 									} else {
 										china.undone.push(temp);
@@ -179,6 +182,32 @@ let install = function(Vue) {
 													offset: 0, color: 'rgba(0,255,169,1)' // 0% 处的颜色
 												}, {
 													offset: 1, color: 'rgba(0,255,169,.5)' // 100% 处的颜色
+												}],
+												global: false // 缺省为 false
+											}
+										}
+									},
+									{
+										name: "空",
+										type: 'scatter',
+										coordinateSystem: 'geo',
+										data: world.empty,
+										symbolSize: 20,
+										symbolSize: function (params) {
+											const number = Number(params[params.length - 1]);
+											return 15;
+										},
+										itemStyle: {
+											opacity: .9,
+											color: {
+												type: 'radial',
+												x: 0.5,
+												y: 0.5,
+												r: 0.5,
+												colorStops: [{
+													offset: 0, color: 'rgba(255,255,255,1)' // 0% 处的颜色
+												}, {
+													offset: 1, color: 'rgba(255,255,255,.5)' // 100% 处的颜色
 												}],
 												global: false // 缺省为 false
 											}

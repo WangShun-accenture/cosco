@@ -262,7 +262,7 @@ export default {
 		  res = res.d;
 		  res = res.results;
 		  const data = res[0];//data是对象{..:..,..:..}
-		  console.log('error===>',data)
+		//   console.log('error===>',data)
 		  this.ZTljlrYtdC = data.ZljsrYtdC;
 		  this.ZTljlrtbYTD = data.ZtbYtd;
 		  this.ZTljlrnddc = data.Znddc;
