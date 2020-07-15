@@ -16,7 +16,7 @@
             <span>{{item.ZfbgzzT}}</span>
           </td>
           <td class="table-td2" v-if="ZljsrFlag!==2">{{item.Currency}}</td>
-          <td class="table-td3" :class="{yellow:item.Ztb<0&&ZljsrFlag===1}">{{(item.ZljsrC || item.ZljslC) | commafy}}</td>
+          <td class="table-td3" :class="{yellow:item.ZljsrC<0&&ZljsrFlag===1}">{{(item.ZljsrC || item.ZljslC) | commafy}}</td>
           <td class="table-td4">
             <div 
               :class="{yellow:item.Ztb<0,green:item.Ztb>0}" 
@@ -146,6 +146,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
     display:flex
     justify-content:center
     align-items:center
+    margin-top: 25px;
     .tabOptionInfo
       width:120px
       height:40px

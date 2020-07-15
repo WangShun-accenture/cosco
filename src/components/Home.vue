@@ -89,7 +89,7 @@ export default {
 			  let tempX = this.ljsrChartList[i][key];
 			  list.push(tempX);
 		  }
-		  if(key==="ZbgzzT"){
+		  if(key==="ZfbgzzT"){
 			  this.xData = list;
 		  }
 		  if(key==="Zljsr"){
@@ -262,6 +262,7 @@ export default {
 		  res = res.d;
 		  res = res.results;
 		  const data = res[0];//data是对象{..:..,..:..}
+		  console.log('error===>',data)
 		  this.ZTljlrYtdC = data.ZljsrYtdC;
 		  this.ZTljlrtbYTD = data.ZtbYtd;
 		  this.ZTljlrnddc = data.Znddc;
@@ -372,9 +373,9 @@ export default {
 		  this.ChinaOnlyFlag
 			  ? data = res.results.filter(item => item['Zfbgzz'][0] === 'A')
 			  : data = res.results
-		  let jsonString = JSON.stringify(data, ["ZbgzzT", "Zljsr", "Zqntqljsr", "Zljys"]);
+		  let jsonString = JSON.stringify(data, ["ZfbgzzT", "Zljsr", "Zqntqljsr", "Zljys"]);
 		  this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
-		  this.getLineData('ZbgzzT');
+		  this.getLineData('ZfbgzzT');
 		  this.getLineData('Zljsr');
 		  this.getLineData('Zqntqljsr');
 		  this.getLineData('Zljys');
@@ -384,9 +385,9 @@ export default {
 			//   res = res.data;
 			//   res = res.d;
 			//   const data = res.results;//results为数组
-			//   let jsonString = JSON.stringify(data, ["ZbgzzT", "Zljsr", "Zqntqljsr", "Zljys"]);
+			//   let jsonString = JSON.stringify(data, ["ZfbgzzT", "Zljsr", "Zqntqljsr", "Zljys"]);
 			//   this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
-			//   this.getLineData('ZbgzzT',this.xData);
+			//   this.getLineData('ZfbgzzT',this.xData);
 			//   this.getLineData('Zljsr',this.ZljsrData);
 			//   this.getLineData('Zqntqljsr',this.ZqntqljsrData);
 			//   this.getLineData('Zljys',this.ZljysData);

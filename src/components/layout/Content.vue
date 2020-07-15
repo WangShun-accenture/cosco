@@ -22,7 +22,7 @@
 
             <div class="count-content">
               <div class="count-content-num">
-                <div>{{ ZtbYtdPercent }}</div>
+                <div>{{ ZtbYtdPercent  | tb}}</div>
                 <div>
                   <img src="../../assets/images/middle_green_up.png" v-if="ZtbYtd>0">
                   <img src="../../assets/images/middle_yellow_down.png" v-if="ZtbYtd<0" >
@@ -51,7 +51,7 @@
             </div>
             <div class="count-content">
               <div class="count-content-num">
-                <div>  {{ ZljlrtbYTDPercent }}</div>
+                <div>  {{ ZljlrtbYTDPercent  | tb}}</div>
                 <div>
                   <img src="../../assets/images/middle_green_up.png" v-if="ZljlrtbYTD>0">
                   <img src="../../assets/images/middle_yellow_down.png"  v-if="ZljlrtbYTD<0">
@@ -79,7 +79,7 @@
             </div>
             <div class="count-content">
               <div class="count-content-num">
-                <div>  {{ this.ZljxltbYTDPercent }}</div>
+                <div>  {{ this.ZljxltbYTDPercent  | tb}}</div>
                 <div>
                   <img src="../../assets/images/middle_green_up.png" v-if="ZljxltbYTD>0">
                   <img src="../../assets/images/middle_yellow_down.png" v-if="ZljxltbYTD<0">
@@ -267,8 +267,8 @@
         <div class="corner-option-info" @click="mapChangeSelect()">
           <span>{{!ZdzhqNum ? '查看大中华区' : '查看全球'}}</span>
         </div>
-        <div class="corner-option-info" :class="{cornerOption:ZusdNum}" v-if="!ZplotNum" @click="ZusdChangeColor()">
-          <span>查看本位币</span>
+        <div class="corner-option-info" v-if="!ZplotNum" @click="ZusdChangeColor()">
+          <span>{{!ZusdNum ? '查看本位币' : '查看美元'}}</span>
         </div>
         <div class="corner-option-info" @click="plotChangeColor()">
           <span>{{!ZplotNum ? '查看折线图' : '查看地图'}}</span>
