@@ -92,13 +92,13 @@ export default {
 		  if(key==="ZfbgzzT"){
 			  this.xData = list;
 		  }
-		  if(key==="Zljsr"){
+		  if(key==="ZljsrC"){
 			  this.ZljsrData = list;
 		  }
-		  if(key==="Zqntqljsr"){
+		  if(key==="ZqntqljsrC"){
 			  this.ZqntqljsrData = list;
 		  }
-		  if(key==="Zljys"){
+		  if(key==="ZljysC"){
 			  this.ZljysData = list;
 		  }
 	  },
@@ -373,12 +373,12 @@ export default {
 		  this.ChinaOnlyFlag
 			  ? data = res.results.filter(item => item['Zfbgzz'][0] === 'A')
 			  : data = res.results
-		  let jsonString = JSON.stringify(data, ["ZfbgzzT", "Zljsr", "Zqntqljsr", "Zljys"]);
+		  let jsonString = JSON.stringify(data, ["ZfbgzzT", "ZljsrC", "ZqntqljsrC", "ZljysC"]);
 		  this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
 		  this.getLineData('ZfbgzzT');
-		  this.getLineData('Zljsr');
-		  this.getLineData('Zqntqljsr');
-		  this.getLineData('Zljys');
+		  this.getLineData('ZljsrC');
+		  this.getLineData('ZqntqljsrC');
+		  this.getLineData('ZljysC');
 		  this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData);
 	  },
 	  // getLjsrChartInfoSucc(res) {

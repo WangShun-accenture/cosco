@@ -25,6 +25,7 @@ let install = function(Vue) {
 							tooltip : {
 								trigger : 'axis',
 								position : 'top',
+								formatter: '{b0}<br/>{a0}: ${c0}<br>{a1}: ${c1}<br/>{a2}: ${c2}',
 								axisPointer : {
 									type : 'line',
 									lineStyle : {
