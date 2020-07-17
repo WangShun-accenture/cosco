@@ -10,6 +10,7 @@ let install = function(Vue) {
 				get() {
 					return {
 						china_bar: function (id, data, flag) {
+							this.show= false;
 							this.chart = echarts.init(document.getElementById(id));
 							this.chart.clear();
 							const china = {
@@ -18,12 +19,13 @@ let install = function(Vue) {
 								empty: []
 							};
 							let targetArr = [];
+							let radioArr = [];
 							function findRangeIn(number) {
 								if (!targetArr.length) return 10;
-								if (number > targetArr[targetArr.length - 1]) return config.radioArr[targetArr.length - 1];
+								if (number > targetArr[targetArr.length - 1]) return radioArr[targetArr.length - 1];
 								for (let i = 0; i < targetArr.length; i++) {
 									if (number < targetArr[i]) {
-										return config.radioArr[i];
+										return radioArr[i];
 									}
 								}
 							}
@@ -43,12 +45,15 @@ let install = function(Vue) {
 									if (flag === 0) {
 										temp.value.push(rawData[i]['ZljsrC']);
 										targetArr = config.rangeArr1;
+										radioArr = config.radioArr1;
 									} else if (flag === 1) {
 										temp.value.push(rawData[i]['ZljsrC']);
 										targetArr = config.rangeArr2;
+										radioArr = config.radioArr2;
 									} else {
 										temp.value.push(rawData[i]['ZljslC']);
 										targetArr = config.rangeArr3;
+										radioArr = config.radioArr3;
 									}
 
 									if (Number(temp.value[temp.value.length - 1]) == 0) {
@@ -191,7 +196,7 @@ let install = function(Vue) {
 										name: "空",
 										type: 'scatter',
 										coordinateSystem: 'geo',
-										data: world.empty,
+										data: china.empty,
 										symbolSize: 20,
 										symbolSize: function (params) {
 											const number = Number(params[params.length - 1]);
