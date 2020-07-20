@@ -120,7 +120,36 @@ export default {
 		    // alert(this.$store.state.ZljsrFlag)
 	    }
 	},
-	
+	//获取 累计收入url1，累计利润url2，累计箱量url3 header 接口
+	// getHeaderInfo(){
+	// 	//累计收入接口
+	// 	let url1 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= "
+	// 				+"Calmonth 		 eq "+"'"+this.$store.state.Calmonth+"'"
+	// 				+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+	// 				+"&$format=json";
+	// 	//累计利润接口
+	// 	let url2 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJLR_01Set?$filter= "
+	// 				+"Calmonth 		 eq "+"'"+this.$store.state.Calmonth+"'"
+	// 				+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+	// 				+"&$format=json";
+	// 	//累计箱量接口
+	// 	let url3 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= "
+	// 				+"Calmonth       eq "+"'"+this.$store.state.Calmonth+"'"
+	// 				+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+	// 				+" and ZxllxFlag eq 'A'&$format=json";
+	// 	let url;
+	// 	if (this.$store.state.ZljsrFlag === 0) {
+	// 	    url = url1;
+	// 	}
+	// 	if (this.$store.state.ZljsrFlag === 1) {
+	// 		url = url2;
+	// 	}
+	// 	if (this.$store.state.ZljsrFlag === 2) {
+	// 	    url = url3;
+	// 	}
+				  
+				  
+	// },
     //累计收入header接口获取
 	  getLjsrHeaderInfo(){
 		  axios
@@ -129,10 +158,10 @@ export default {
 				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X'",
 				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+"&$format=json",
 				  {
-					  auth: {
-						  username: `T-WANGBJ`,
-						  password: `1qaz2wsx`
-					  }
+					//   auth: {
+					// 	  username: `T-WANGBJ`,
+					// 	  password: `1qaz2wsx`
+					//   }
 				  }
 			  )
 			  .then(
@@ -144,10 +173,14 @@ export default {
 		  res = res.data;
 		  res = res.d;
 		  res = res.results;
+		  
 		  const data = res[0];//data是对象{..:..,..:..}
 		  this.ZljsrYtdC = data.ZljsrYtdC;
 		  this.ZtbYtd = data.ZtbYtd;
 		  this.Znddc = data.Znddc;
+		  console.log("累计收入res========="+data.ZljsrYtdC);
+		  console.log("累计收入res========="+data.ZljsrYtdC);
+		  console.log("累计收入res========="+data.ZljsrYtdC);
 	  },
 	  //累计利润header接口获取
 	  getLjlrHeaderInfo(){
@@ -157,10 +190,10 @@ export default {
 				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X'",
 				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJLR_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+"&$format=json",
 				  {
-					  auth: {
-						  username: `T-WANGBJ`,
-						  password: `1qaz2wsx`
-					  }
+					//   auth: {
+					// 	  username: `T-WANGBJ`,
+					// 	  password: `1qaz2wsx`
+					//   }
 				  }
 			  )
 			  .then(
@@ -186,10 +219,10 @@ export default {
 				  //"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZxllxFlag eq "+"'"+this.$store.state.ZxllxFlag+"'"+"&$format=json",
 				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZxllxFlag eq 'A'&$format=json",
 				  {
-					  auth: {
-						  username: `T-WANGBJ`,
-						  password: `1qaz2wsx`
-					  }
+					//   auth: {
+					// 	  username: `T-WANGBJ`,
+					// 	  password: `1qaz2wsx`
+					//   }
 				  }
 			  )
 			  .then(
@@ -216,10 +249,10 @@ export default {
 				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'",
 				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+"&$format=json",
 				  {
-					  auth: {
-						  username: `T-WANGBJ`,
-						  password: `1qaz2wsx`
-					  }
+					//   auth: {
+					// 	  username: `T-WANGBJ`,
+					// 	  password: `1qaz2wsx`
+					//   }
 				  }
 			  )
 			  .then(
@@ -246,10 +279,10 @@ export default {
 				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'",
 				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJLR_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+"&$format=json",
 				  {
-					  auth: {
-						  username: `T-WANGBJ`,
-						  password: `1qaz2wsx`
-					  }
+					//   auth: {
+					// 	  username: `T-WANGBJ`,
+					// 	  password: `1qaz2wsx`
+					//   }
 				  }
 			  )
 			  .then(
@@ -276,10 +309,10 @@ export default {
 				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'",
 				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZxllxFlag eq 'A'&$format=json",
 				  {
-					  auth: {
-						  username: `T-WANGBJ`,
-						  password: `1qaz2wsx`
-					  }
+					//   auth: {
+					// 	  username: `T-WANGBJ`,
+					// 	  password: `1qaz2wsx`
+					//   }
 				  }
 			  )
 			  .then(
@@ -327,10 +360,10 @@ export default {
 		    url = url3;
 	    }
 		axios.get(url,{
-				auth: {
-					username: `T-WANGBJ`,
-					password: `1qaz2wsx`
-				}
+				// auth: {
+				// 	username: `T-WANGBJ`,
+				// 	password: `1qaz2wsx`
+				// }
 			})
 			.then(res=>{
 				this.getTabInfoSucc(res);
@@ -356,10 +389,10 @@ export default {
 				// "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set?$filter= Calmonth eq '201812' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq ' '",
 				"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZusdFlag eq "+"'"+this.$store.state.ZusdFlag+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+"&$format=json",
 				{
-					auth: {
-						username: `T-WANGBJ`,
-						password: `1qaz2wsx`
-					}
+					// auth: {
+					// 	username: `T-WANGBJ`,
+					// 	password: `1qaz2wsx`
+					// }
 				}
         	)
 			.then(res=>{
