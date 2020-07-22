@@ -19,6 +19,10 @@
 		:ZTljxltbYTD="ZTljxltbYTD"
 		:ZTljxlnddc="ZTljxlnddc"
 		:ZTljxlljysdc="ZTljxlljysdc"
+		:ZTljdsYtdC="ZTljdsYtdC"
+		:ZTljdstbYTD="ZTljdstbYTD"
+		:ZTljdsnddc="ZTljdsnddc"
+		:ZTljdsljysdc="ZTljdsljysdc"
 		:ZljsrYtdC="ZljsrYtdC"
         :ZtbYtd="ZtbYtd"
         :Znddc="Znddc"
@@ -28,6 +32,12 @@
 		:ZljxlYtdC="ZljxlYtdC"
 		:ZljxltbYTD="ZljxltbYTD"
 		:Zljxlnddc="Zljxlnddc"
+		:ZljdsYtdC="ZljdsYtdC"
+		:ZljdstbYTD="ZljdstbYTD"
+		:Zljdsnddc="Zljdsnddc"
+		
+		
+		
     >
         <!--:xData="xData"
         :ZljsrData="ZljsrData"
@@ -64,6 +74,9 @@ export default {
 		  ZljlrYtdC:"",
 		  ZljlrtbYTD:"",
 		  Zljlrnddc:"",
+		  ZljdsYtdC:"",
+		  ZljdstbYTD:"",
+		  Zljdsnddc:"",
 		  ZTljlrYtdC:"",
 		  ZTljlrtbYTD:"",
           ZTljlrnddc:"",
@@ -72,6 +85,10 @@ export default {
 		  ZTljxltbYTD:"",
 		  ZTljxlnddc:"",
 		  ZTljxlljysdc:"",
+		  ZTljdsYtdC:"",
+		  ZTljdstbYTD:"",
+		  ZTljdsnddc:"",
+		  ZTljdsljysdc:"",
 		  TabList:[],
 		  ljsrChartList:[],
 		  xData:[],
@@ -117,8 +134,10 @@ export default {
 		}
 	    if (this.$store.state.ZljsrFlag === 2) {
 		    this.getLjxlHeaderInfo();
-		    // alert(this.$store.state.ZljsrFlag)
-	    }
+		}
+		if (this.$store.state.ZljsrFlag === 3) {
+			this.getLjdsHeaderInfo();
+		}
 	},
 	//获取 累计收入url1，累计利润url2，累计箱量url3 header 接口
 	// getHeaderInfo(){
@@ -178,9 +197,6 @@ export default {
 		  this.ZljsrYtdC = data.ZljsrYtdC;
 		  this.ZtbYtd = data.ZtbYtd;
 		  this.Znddc = data.Znddc;
-		  console.log("累计收入res========="+data.ZljsrYtdC);
-		  console.log("累计收入res========="+data.ZljsrYtdC);
-		  console.log("累计收入res========="+data.ZljsrYtdC);
 	  },
 	  //累计利润header接口获取
 	  getLjlrHeaderInfo(){
@@ -235,12 +251,45 @@ export default {
 		  res = res.d;
 		  res = res.results;
 		  const data = res[0];//data是对象{..:..,..:..}
-		  console.log("ljxl result=="+data);
+		  //console.log("ljxl result=="+data);
 		  this.ZljxlYtdC = data.ZljslC;
 		  this.ZljxltbYTD = data.ZtbYtd;
 		  this.Zljxlnddc = data.Znddc;
 		  //console.log(this.xData);
 	  },
+	  //累计吨数Header接口获取
+	  getLjdsHeaderInfo(){
+		  axios
+			  .get(
+				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X' and ZxllxFlag eq 'A'",
+				  //"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZxllxFlag eq "+"'"+this.$store.state.ZxllxFlag+"'"+"&$format=json",
+				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZxllxFlag eq 'B'&$format=json",
+				  {
+					//   auth: {
+					// 	  username: `T-WANGBJ`,
+					// 	  password: `1qaz2wsx`
+					//   }
+				  }
+			  )
+			  .then(
+				  this.getLjdsHeaderInfoSucc
+			  )
+			  .catch((e)=>{console.log(e)})
+	  },
+	  getLjdsHeaderInfoSucc(res){
+		  res = res.data;
+		  res = res.d;
+		  res = res.results;
+		  const data = res[0];//data是对象{..:..,..:..}
+		  this.ZljdsYtdC = data.ZljslC;
+		  this.ZljdstbYTD = data.ZtbYtd;
+		  this.Zljdsnddc = data.Znddc;
+		  //console.log(this.xData);
+	  },
+	  
+
+
+
       //地图上方累计收入数据
 	  getTotalLJSRInfo(){
 		  axios
@@ -307,7 +356,7 @@ export default {
 			  .get(
 				  // "/api/header.json"
 				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'",
-				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZxllxFlag eq 'A'&$format=json",
+				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZxllxFlag eq 'B'&$format=json",
 				  {
 					//   auth: {
 					// 	  username: `T-WANGBJ`,
@@ -330,35 +379,73 @@ export default {
 		  this.ZTljxlnddc = data.Znddc;
 		  this.ZTljxlljysdc = data.Zljysdc;
 	  },
+	  
+	  //地图上方累计吨数数据
+	  getTotalLJDSInfo(){
+		  axios
+			  .get(
+				  // "/api/header.json"
+				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'",
+				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZxllxFlag eq 'B'&$format=json",
+				  {
+					//   auth: {
+					// 	  username: `T-WANGBJ`,
+					// 	  password: `1qaz2wsx`
+					//   }
+				  }
+			  )
+			  .then(
+				  this.getTotalLJDSInfoSucc
+			  )
+			  .catch((e)=>{console.log(e)})
+	  },
+	  getTotalLJDSInfoSucc(res){
+		  res = res.data;
+		  res = res.d;
+		  res = res.results;
+		  const data = res[0];//data是对象{..:..,..:..}
+		  this.ZTljdsYtdC = data.ZljslC;
+		  this.ZTljdstbYTD = data.ZtbYtd;
+		  this.ZTljdsnddc = data.Znddc;
+		  this.ZTljdsljysdc = data.Zljysdc;
+	  },
 
 	  getTabInfo() {
 		// +" and ZsortF    eq "+"'"+'Ztb,desc'+"'"
-		let url1 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter="
+		let url0 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_02Set?$filter="
 					+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
 					+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
 					+" and ZusdFlag  eq "+"'"+this.$store.state.ZusdFlag+"'"
 					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
 					+" &$format=json";
-		let url2 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJLR_02Set?$filter="
+		let url1 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJLR_02Set?$filter="
 					+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
 					+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
 					+" and ZusdFlag  eq "+"'"+this.$store.state.ZusdFlag+"'"
 					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
 					+" &$format=json";
-		let url3 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_02Set?$filter="
+		let url2 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_02Set?$filter="
 					+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
 					+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
 					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
 					+" and ZxllxFlag eq 'A'"
 					+" &$format=json";
+		let url3 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_02Set?$filter="
+					+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
+					+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
+					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+					+" and ZxllxFlag eq 'B'"
+					+" &$format=json";			
 		let url;
 		if (this.$store.state.ZljsrFlag === 0) {
-		    url = url1;
+		    url = url0;
 	    }else if (this.$store.state.ZljsrFlag === 1) {
-			url = url2;
-		}else{
-		    url = url3;
-	    }
+			url = url1;
+		}else if (this.$store.state.ZljsrFlag === 2){
+		    url = url2;
+	    }else{
+			url = url3;
+		}
 		axios.get(url,{
 				// auth: {
 				// 	username: `T-WANGBJ`,
@@ -427,6 +514,7 @@ export default {
 			//   console.log(this.xData);
 		// },
 	},
+
 	mounted(){
 		this.getLjsrHeaderInfo();
 		this.getTotalLJSRInfo();
@@ -455,6 +543,9 @@ export default {
 			this.getTotalLJLRInfo();
 			this.getLjxlHeaderInfo();
 			this.getTotalLJXLInfo();
+
+			this.getLjdsHeaderInfo();
+			this.getTotalLJDSInfo();
 			this.getLjsrChartInfo();
 		},
 		'$store.state.ZljsrFlag': function () {
@@ -473,12 +564,16 @@ export default {
 			this.getTotalLJLRInfo();
 			this.getLjxlHeaderInfo();
 			this.getTotalLJXLInfo();
+
+			this.getLjdsHeaderInfo();
+			this.getTotalLJDSInfo();
 			this.getLjsrChartInfo();
 		},
 		'$store.state.ZkggsFlag': function () {
 			this.getTotalLJSRInfo();
 			this.getTotalLJLRInfo();
 			this.getTotalLJXLInfo();
+			this.getTotalLJDSInfo();
 			this.getTabInfo();
 			this.getLjsrChartInfo();
 		},

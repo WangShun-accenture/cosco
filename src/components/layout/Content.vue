@@ -4,8 +4,9 @@
     <div class="content-left">
 
       <div class="rightUnit" v-show="ZplotNum">
-        <div v-show="ZljsrFlag!==2">金额：1,000,000</div>
+        <div v-show="ZljsrFlag===0 || ZljsrFlag===1">金额：10,000</div>
         <div v-show="ZljsrFlag===2">吞吐量：10,000 TEU</div>
+        <div v-show="ZljsrFlag===3">吞吐量：10,000 TON</div>
       </div>
       <div class="subject" :class="{fullWidth:ZplotNum}">
 
@@ -37,9 +38,9 @@
               </div>
               <div class="count-content-dec">年度达成</div>
             </div>
-      
           </div>
         </div>
+
         <div class="subject-box" v-show="ZljsrFlag===1">
           <div class="title" >中远海运港口当月累计利润</div>
           <div class="count">
@@ -73,9 +74,9 @@
           <div class="count">
             <div class="count-content">
               <div class="count-content-num">
-                ${{ this.ZljxlYtdC }}
+                {{ this.ZljxlYtdC }}
               </div>
-              <div class="count-content-dec">累计箱量</div>
+              <div class="count-content-dec">累计箱量TEU</div>
             </div>
             <div class="count-content">
               <div class="count-content-num">
@@ -96,9 +97,40 @@
             
           </div>
         </div>
+
+        <div class="subject-box" v-show="ZljsrFlag===3">
+          <div class="title" >中远海运港口当月累计吨数</div>
+          <div class="count">
+
+            <div class="count-content">
+              <div class="count-content-num">
+                ${{ this.ZljdsYtdC | commafy}}
+              </div>
+              <div class="count-content-dec">累计吨数TON</div>
+            </div>
+
+            <div class="count-content">
+              <div class="count-content-num">
+                <div>{{ this.ZljdstbYTDPercent  | tb}}</div>
+                <div>
+                  <img src="../../assets/images/middle_green_up.png" v-if="ZtbYtd>0">
+                  <img src="../../assets/images/middle_yellow_down.png" v-if="ZtbYtd<0" >
+                </div>
+              </div>
+              <div class="count-content-dec">累计同比</div>
+            </div>
+            
+            <div class="count-content">
+              <div class="count-content-num">
+                {{ this.ZljdsnddcPercent | tb}}
+              </div>
+              <div class="count-content-dec">年度达成</div>
+            </div>
+          </div>
+        </div>
     
       </div>
-  
+      <!-- ********************************地图上方数据显示******************************** -->
       <div class="total" :class="{fullWidth:ZplotNum}" v-show="ZljsrFlag===0">
         <div>
           <div class="total-content">
@@ -155,7 +187,7 @@
               <div>${{ this.ZTljlrYtdC | commafy}}</div>
             </div>
             <div class="total-content-dec">
-              累计收入
+              累计利润
             </div>
           </div>
           <div class="total-content">
@@ -203,7 +235,7 @@
               <div>${{ this.ZTljxlYtdC | commafy}}</div>
             </div>
             <div class="total-content-dec">
-              累计收入
+              累计箱量TEU
             </div>
           </div>
           <div class="total-content">
@@ -243,6 +275,54 @@
           </div>
         </div>
       </div>
+
+      <div class="total" :class="{fullWidth:ZplotNum}" v-show="ZljsrFlag===3">
+        <div>
+          <div class="total-content">
+            <div class="total-content-num">
+              <div>${{ this.ZTljdsYtdC | commafy}}</div>
+            </div>
+            <div class="total-content-dec">
+              累计吨数TON
+            </div>
+          </div>
+          <div class="total-content">
+            <div class="total-content-num">
+              <div>{{ ZTljdstbYTDPercent }}</div>
+              <div>
+                <img src="../../assets/images/middle_green_up.png" v-if="ZTljxltbYTD>0">
+                <img src="../../assets/images/middle_yellow_down.png" v-if="ZTljxltbYTD<0">
+              </div>
+            </div>
+            <div class="total-content-dec">
+              累计同比
+            </div>
+          </div>
+          <div class="total-content">
+            <div class="total-content-num">
+              <div>{{ this.ZTljdsnddcPercent }}</div>
+            </div>
+            <div class="total-content-dec">
+              年度达成
+            </div>
+          </div>
+          <div class="total-content">
+            <div class="total-content-num">
+              <div>{{ this.ZTljdsljysdcPercent }}</div>
+            </div>
+            <div class="total-content-dec">
+              累计达成
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="tab-title" v-show="ZplotNum">
+              <div class="tabOptionInfo" v-for="(item,index) of titleList" :key="item.id" :class="{tabOption:ZkggsNum === index}" @click="changeComponySelect(index)">
+                {{item.title}}
+              </div>
+          </div>
+        </div>
+      </div>
       <!-- ********************************地图上方数据显示******************************** -->
 
       <div class="map" id="worldMap" v-show="!ZdzhqNum&&!ZplotNum"></div>
@@ -252,8 +332,9 @@
 
     <div class="content-right" v-show="!ZplotNum" id="contentRight">
       <div class="unit">
-        <div v-show="ZljsrFlag!==2">金额：1,000,000</div>
+        <div v-show="ZljsrFlag===0 || ZljsrFlag===1">金额：10,000</div>
         <div v-show="ZljsrFlag===2">吞吐量：10,000 TEU</div>
+        <div v-show="ZljsrFlag===3">吞吐量：10,000 TON</div>
       </div>
       <ContentTab class="content-tab" :TabList="TabList" :chinaOnly="ZdzhqNum" v-show="!ZplotNum"></ContentTab>
     </div>
@@ -319,10 +400,17 @@ import { mapState,mapGetters,mapActions } from 'vuex';
       ZljxlYtdC: String,//累计数量
       ZljxltbYTD: String,
       Zljxlnddc: String,
+      ZljdsYtdC: String,
+      ZljdstbYTD: String,
+      Zljdsnddc: String,
       ZTljxlYtdC: String,
 		  ZTljxltbYTD: String,
 		  ZTljxlnddc: String,
-		  ZTljxlljysdc: String,
+      ZTljxlljysdc: String,
+      ZTljdsYtdC: String,
+		  ZTljdstbYTD: String,
+		  ZTljdsnddc: String,
+		  ZTljdsljysdc: String,
 	    // xData:Array,
 	    // ZljsrData:Array,//折线图 累计收入
 	    // ZqntqljsrData:Array,//折线图 去年同期累计收入
@@ -335,54 +423,69 @@ import { mapState,mapGetters,mapActions } from 'vuex';
           'ZkggsFlag' : state=>state.ZkggsFlag
       }),
       ZnddcPercent(){//把年度达成转化为百分比
-        return Number(this.Znddc * 100).toFixed(2) + "%";
+        return Number(this.Znddc * 100).toFixed(1) + "%";
       },
 	    ZtbYtdPercent(){//把年度达成转化为百分比
-		    return Number(this.ZtbYtd * 100).toFixed(2) + "%";
+		    return Number(this.ZtbYtd * 100).toFixed(1) + "%";
       },
 			ZTnddcPercent(){//把同比YOY转化为百分比
-				return Number(this.ZTnddc * 100).toFixed(2) + "%";
+				return Number(this.ZTnddc * 100).toFixed(1) + "%";
 			},
 			ZTtbYtdPercent(){//把年度达成率转化为百分比
-				return Number(this.ZTtbYtd * 100).toFixed(2) + "%";
+				return Number(this.ZTtbYtd * 100).toFixed(1) + "%";
 			},
 			ZTljysdcPercent(){//把累计预算达成率转化为百分比
-				return Number(this.ZTljysdc * 100).toFixed(2) + "%";
+				return Number(this.ZTljysdc * 100).toFixed(1) + "%";
       },
       //累计利润
       ZljlrtbYTDPercent(){
-        return Number(this.ZljlrtbYTD * 100).toFixed(2) + "%";
+        return Number(this.ZljlrtbYTD * 100).toFixed(1) + "%";
       },
 		  ZljlrnddcPercent(){
-        return Number(this.Zljlrnddc * 100).toFixed(2) + "%";
+        return Number(this.Zljlrnddc * 100).toFixed(1) + "%";
       },
       ZTljlrtbYTDPercent(){
-        return Number(this.ZTljlrtbYTD * 100).toFixed(2) + "%";
+        return Number(this.ZTljlrtbYTD * 100).toFixed(1) + "%";
       },
 
       ZTljlrnddcPercent(){
-        return Number(this.ZTljlrnddc * 100).toFixed(2) + "%";
+        return Number(this.ZTljlrnddc * 100).toFixed(1) + "%";
       },
       ZTTljydcPercent(){
-        return Number(this.ZTTljydc * 100).toFixed(2) + "%";
+        return Number(this.ZTTljydc * 100).toFixed(1) + "%";
       },
       //累计箱量
       ZljxltbYTDPercent(){
-        return Number(this.ZljxltbYTD * 100).toFixed(2) + "%";
+        return Number(this.ZljxltbYTD * 100).toFixed(1) + "%";
       },
       ZljxlnddcPercent(){
-        return Number(this.Zljxlnddc * 100).toFixed(2) + "%";
+        return Number(this.Zljxlnddc * 100).toFixed(1) + "%";
       },
       ZTljxltbYTDPercent(){
-        return Number(this.ZTljxltbYTD * 100).toFixed(2) + "%";
+        return Number(this.ZTljxltbYTD * 100).toFixed(1) + "%";
       },
       ZTljxlnddcPercent(){
-        return Number(this.ZTljxlnddc * 100).toFixed(2) + "%";
+        return Number(this.ZTljxlnddc * 100).toFixed(1) + "%";
       },
       ZTljxlljysdcPercent(){
-        return Number(this.ZTljxlljysdc * 100).toFixed(2) + "%";
+        return Number(this.ZTljxlljysdc * 100).toFixed(1) + "%";
       },
-
+      //累计吨数
+      ZljdstbYTDPercent(){
+        return Number(this.ZljdstbYTD * 100).toFixed(1) + "%";
+      },
+      ZljdsnddcPercent(){
+        return Number(this.Zljdsnddc * 100).toFixed(1) + "%";
+      },
+      ZTljdstbYTDPercent(){
+        return Number(this.ZTljdstbYTD * 100).toFixed(1) + "%";
+      },
+      ZTljdsnddcPercent(){
+        return Number(this.ZTljdsnddc * 100).toFixed(1) + "%";
+      },
+      ZTljdsljysdcPercent(){
+        return Number(this.ZTljdsljysdc * 100).toFixed(1) + "%";
+      },
 		},
     watch:{
       TabList(data){
@@ -417,7 +520,10 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 		    }
 		    if(this.ZljsrNum === 2){
 			    this.ZljsrFlag = 2;
-		    }
+        }
+        if(this.ZljsrNum === 3){
+			    this.ZljsrFlag = 3;
+        }
 		    this.$store.commit("changeZljsrFlag",this.ZljsrFlag);
 	    },
 	    ZdzhqNum(){

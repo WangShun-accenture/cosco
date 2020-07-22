@@ -45,7 +45,8 @@
 				navList:[
 					{id:"0001",nav:"累计收入"},
           {id:"0002",nav:"累计利润"},
-          {id:"0003",nav:"累计箱量"}
+          {id:"0003",nav:"累计箱量"},
+          {id:"0003",nav:"累计吨数"},
           ],
 				// subjectOptionList:[
 				// 	{id: "0001",option: "非权益乘数"},
@@ -100,6 +101,9 @@
 		    }
 		    if(this.ZljsrNum === 2){
 			    this.ZljsrFlag = 2;
+        }
+        if(this.ZljsrNum === 3){
+			    this.ZljsrFlag = 3;
 		    }
 		    this.$store.commit("changeZljsrFlag",this.ZljsrFlag);
 	    },

@@ -15,22 +15,24 @@
             <span :class="{greenBall:item.Zljysdc>1,transparent:item.Zljysdc<=1}"></span>
             <span>{{item.ZfbgzzT}}</span>
           </td>
-          <td class="table-td2" v-if="ZljsrFlag!==2">{{item.Currency}}</td>
+          <!--<td class="table-td2" v-if="ZljsrFlag!==2 || ZljsrFlag!==3">{{item.Currency}}</td>-->
+          <td class="table-td2" v-show="ZljsrFlag===0 || ZljsrFlag===1">{{item.Currency}}</td>
+          <td class="table-td2" v-show="ZljsrFlag===2 || ZljsrFlag===3">{{item.Mseht}}</td>
           <td class="table-td3" :class="{yellow:item.ZljsrC<0&&ZljsrFlag===1}">{{(item.ZljsrC || item.ZljslC) | commafy}}</td>
           <td class="table-td4">
             <div 
               :class="{yellow:item.Ztb<0,green:item.Ztb>0}" 
-              :title="Number(item.Ztb * 100).toFixed(2) + '%'"
+              :title="Number(item.Ztb * 100).toFixed(1) + '%'"
             >
-              {{ !item.Ztb || Number(item.Ztb) == 0 ? '' : Number(item.Ztb * 100).toFixed(2) + "%" | tb}}
+              {{ !item.Ztb || Number(item.Ztb) == 0 ? '' : Number(item.Ztb * 100).toFixed(1) + "%" | tb}}
             </div>
             <div>
               <img src="../../assets/images/small_green_up.png" v-if="item.Ztb>0">
               <img src="../../assets/images/small_yellow_down.png" v-if="item.Ztb<0">
             </div>
           </td>
-          <td class="table-td5">{{ !item.Znddc || Number(item.Znddc) == 0 ? '' : Number(item.Znddc * 100).toFixed(2) + "%" }}</td>
-          <td class="table-td6">{{ !item.Zljysdc || Number(item.Zljysdc) == 0 ? '' : Number(item.Zljysdc * 100).toFixed(2) + "%" }}</td>
+          <td class="table-td5">{{ !item.Znddc || Number(item.Znddc) == 0 ? '' : Number(item.Znddc * 100).toFixed(1) + "%" }}</td>
+          <td class="table-td6">{{ !item.Zljysdc || Number(item.Zljysdc) == 0 ? '' : Number(item.Zljysdc * 100).toFixed(1) + "%" }}</td>
         </tr>
       </table>
       
@@ -62,8 +64,13 @@ import { mapState,mapGetters,mapActions } from 'vuex';
             {id: "0005", title: "年度预算达成"}, {id: "0006", title: "累计预算达成"}
           ],
           [
-            {id: "0001", title: "公司"}, 
+            {id: "0001", title: "公司"}, {id: "0002", title: "数量单位"},
             {id: "0003", title: "累计箱量"}, {id: "0004", title: "累计同比"},
+            {id: "0005", title: "年度预算达成"}, {id: "0006", title: "累计预算达成"}
+          ],
+          [
+            {id: "0001", title: "公司"}, {id: "0002", title: "数量单位"},
+            {id: "0003", title: "累计吨数"}, {id: "0004", title: "累计同比"},
             {id: "0005", title: "年度预算达成"}, {id: "0006", title: "累计预算达成"}
           ]
         ]

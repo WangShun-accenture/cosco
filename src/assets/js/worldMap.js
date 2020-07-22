@@ -150,7 +150,7 @@ let install = function(Vue) {
 										symbolSize: function(params){
 											const number = Number(params[params.length-1]);
 											let radio = findRangeIn(number);
-											console.log('大小===>', radio, '输入值===>', number)
+											//console.log('大小===>', radio, '输入值===>', number)
 											return radio;
 										},
 										itemStyle: {
