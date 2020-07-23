@@ -5,8 +5,8 @@
 
       <div class="rightUnit" v-show="ZplotNum">
         <div v-show="ZljsrFlag===0 || ZljsrFlag===1">金额：10,000</div>
-        <div v-show="ZljsrFlag===2">吞吐量：10,000 TEU</div>
-        <div v-show="ZljsrFlag===3">吞吐量：10,000 TON</div>
+        <div v-show="ZljsrFlag===2">吞吐量：10,000 </div>
+        <div v-show="ZljsrFlag===3">吞吐量：10,000 </div>
       </div>
       <div class="subject" :class="{fullWidth:ZplotNum}">
 
@@ -280,7 +280,7 @@
         <div>
           <div class="total-content">
             <div class="total-content-num">
-              <div>${{ this.ZTljdsYtdC | commafy}}</div>
+              <div>{{ this.ZTljdsYtdC | commafy}}</div>
             </div>
             <div class="total-content-dec">
               累计吨数TON
@@ -333,8 +333,8 @@
     <div class="content-right" v-show="!ZplotNum" id="contentRight">
       <div class="unit">
         <div v-show="ZljsrFlag===0 || ZljsrFlag===1">金额：10,000</div>
-        <div v-show="ZljsrFlag===2">吞吐量：10,000 TEU</div>
-        <div v-show="ZljsrFlag===3">吞吐量：10,000 TON</div>
+        <div v-show="ZljsrFlag===2">吞吐量：10,000 </div>
+        <div v-show="ZljsrFlag===3">吞吐量：10,000 </div>
       </div>
       <ContentTab class="content-tab" :TabList="TabList" :chinaOnly="ZdzhqNum" v-show="!ZplotNum"></ContentTab>
     </div>

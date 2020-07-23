@@ -109,7 +109,7 @@ export default {
 		  if(key==="ZfbgzzT"){
 			  this.xData = list;
 		  }
-		  if(key==="ZljsrC"){
+		  if(key==="ZljsrC" || key==="ZljslC"){
 			  this.ZljsrData = list;
 		  }
 		  if(key==="ZqntqljsrC"){
@@ -470,50 +470,90 @@ export default {
 	    // console.log(this.TabList);
     },
     //折线图-累计收入
-	  getLjsrChartInfo() {
-		  axios
-			.get(
-				// "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set?$filter= Calmonth eq '201812' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq ' '",
-				"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZusdFlag eq "+"'"+this.$store.state.ZusdFlag+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+"&$format=json",
-				{
-					// auth: {
-					// 	username: `T-WANGBJ`,
-					// 	password: `1qaz2wsx`
-					// }
-				}
-        	)
-			.then(res=>{
-				this.getLjsrChartInfoSucc(res)
+	// getLjsrChartInfo() {
+	// 	  axios
+	// 		.get(
+	// 			// "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set?$filter= Calmonth eq '201812' and ZkggsFlag eq 'X' and ZusdFlag eq ' ' and ZqycsFlag eq ' '",
+	// 			"/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZusdFlag eq "+"'"+this.$store.state.ZusdFlag+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+"&$format=json",
+	// 			{
+	// 				// auth: {
+	// 				// 	username: `T-WANGBJ`,
+	// 				// 	password: `1qaz2wsx`
+	// 				// }
+	// 			}
+    //     	)
+	// 		.then(res=>{
+	// 			this.getLjsrChartInfoSucc(res)
+	// 		})
+	// 	},
+	//   getLjsrChartInfoSucc(res) {
+	// 	  res = res.data;
+	// 	  res = res.d;
+	// 	  let data = res.results;//results为数组
+	// 	  this.ChinaOnlyFlag
+	// 		  ? data = res.results.filter(item => item['Zfbgzz'][0] === 'A')
+	// 		  : data = res.results
+	// 	  let jsonString = JSON.stringify(data, ["ZfbgzzT", "ZljsrC", "ZqntqljsrC", "ZljysC"]);
+	// 	  this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
+	// 	  this.getLineData('ZfbgzzT');
+	// 	  this.getLineData('ZljsrC');
+	// 	  this.getLineData('ZqntqljsrC');
+	// 	  this.getLineData('ZljysC');
+	// 	  this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData);
+	//   },
+		//折线图
+	getChartInfo(){
+		let url0 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_03Set?$filter="
+					+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
+					+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
+					+" and ZusdFlag  eq "+"'"+this.$store.state.ZusdFlag+"'"
+					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+					+"&$format=json";
+		let url1 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJLR_03Set?$filter="
+					+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
+					+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
+					+" and ZusdFlag  eq "+"'"+this.$store.state.ZusdFlag+"'"
+					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+					+"&$format=json";
+		let url;
+		if (this.$store.state.ZljsrFlag === 0) {
+			console.log(url);
+		    url = url0;
+		} 
+		if (this.$store.state.ZljsrFlag === 1) {
+			url = url1;
+		}
+
+		axios.get(url,{
+				// auth: {
+				// 	username: `T-WANGBJ`,
+				// 	password: `1qaz2wsx`
+				// }
 			})
-	  },
-	  getLjsrChartInfoSucc(res) {
-		  res = res.data;
+			.then(res=>{
+				this.getChartInfoSucc(res);
+			})
+			.catch((e)=>{console.log(e)})
+	},
+	getChartInfoSucc(res) {
+		res = res.data;
 		  res = res.d;
 		  let data = res.results;//results为数组
 		  this.ChinaOnlyFlag
 			  ? data = res.results.filter(item => item['Zfbgzz'][0] === 'A')
 			  : data = res.results
 		  let jsonString = JSON.stringify(data, ["ZfbgzzT", "ZljsrC", "ZqntqljsrC", "ZljysC"]);
+		  console.log("current status is +++++++++++"+this.$store.state.ZljsrFlag);
 		  this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
 		  this.getLineData('ZfbgzzT');
 		  this.getLineData('ZljsrC');
 		  this.getLineData('ZqntqljsrC');
 		  this.getLineData('ZljysC');
 		  this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData);
-	  },
-	  // getLjsrChartInfoSucc(res) {
-			//   res = res.data;
-			//   res = res.d;
-			//   const data = res.results;//results为数组
-			//   let jsonString = JSON.stringify(data, ["ZfbgzzT", "Zljsr", "Zqntqljsr", "Zljys"]);
-			//   this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
-			//   this.getLineData('ZfbgzzT',this.xData);
-			//   this.getLineData('Zljsr',this.ZljsrData);
-			//   this.getLineData('Zqntqljsr',this.ZqntqljsrData);
-			//   this.getLineData('Zljys',this.ZljysData);
-			//   console.log(this.xData);
-		// },
 	},
+},
+
+	
 
 	mounted(){
 		this.getLjsrHeaderInfo();
@@ -532,7 +572,8 @@ export default {
 			this.getLjsrHeaderInfo();
 			this.getTotalLJSRInfo();
 			this.getTabInfo();
-			this.getLjsrChartInfo();
+			//this.getLjsrChartInfo();
+			this.getChartInfo();
 		},
 		'$store.state.Calmonth': function () {
 			this.getLjsrHeaderInfo();
@@ -546,14 +587,15 @@ export default {
 
 			this.getLjdsHeaderInfo();
 			this.getTotalLJDSInfo();
-			this.getLjsrChartInfo();
+			//this.getLjsrChartInfo();
+			this.getChartInfo();
 		},
 		'$store.state.ZljsrFlag': function () {
 			this.getHeader();
 			this.getTotalLJSRInfo();
 			this.getTabInfo();
-			this.getLjsrChartInfo();
-		  // alert(this.$store.state.ZljsrFlag);
+			//this.getLjsrChartInfo();
+			this.getChartInfo();
     },
 		'$store.state.ZqycsFlag': function () {
 			this.getHeader();
@@ -567,7 +609,8 @@ export default {
 
 			this.getLjdsHeaderInfo();
 			this.getTotalLJDSInfo();
-			this.getLjsrChartInfo();
+			//this.getLjsrChartInfo();
+			this.getChartInfo();
 		},
 		'$store.state.ZkggsFlag': function () {
 			this.getTotalLJSRInfo();
@@ -575,14 +618,20 @@ export default {
 			this.getTotalLJXLInfo();
 			this.getTotalLJDSInfo();
 			this.getTabInfo();
-			this.getLjsrChartInfo();
+			//this.getLjsrChartInfo();
+			this.getChartInfo();
 		},
 		'$store.state.ZusdFlag': function () {
 			this.getTabInfo();
-			this.getLjsrChartInfo();
+			//this.getLjsrChartInfo();
+			this.getChartInfo();
 		},
     	'$store.state.ZplotFlag': function () {
-	    	this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
+			if (this.$store.state.ZljsrFlag === 0 || this.$store.state.ZljsrFlag === 1) {
+				console.log("current status is ===="+this.$store.state.ZljsrFlag);
+				this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
+			} 
+	    	//this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
 		},
 	}
 }
