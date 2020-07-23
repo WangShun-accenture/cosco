@@ -112,10 +112,10 @@ export default {
 		  if(key==="ZljsrC" || key==="ZljslC"){
 			  this.ZljsrData = list;
 		  }
-		  if(key==="ZqntqljsrC"){
+		  if(key==="ZqntqljsrC"|| key==="ZqntqljslC"){
 			  this.ZqntqljsrData = list;
 		  }
-		  if(key==="ZljysC"){
+		  if(key==="ZljysC" || key==="ZljysSlC"){
 			  this.ZljysData = list;
 		  }
 	  },
@@ -515,6 +515,17 @@ export default {
 					+" and ZusdFlag  eq "+"'"+this.$store.state.ZusdFlag+"'"
 					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
 					+"&$format=json";
+		// let url2 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_03Set?$filter="		
+		// 			+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
+		// 			+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
+		// 			+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+		// 			+" and ZxllxFlag eq 'A'&$format=json";
+		// let url3 =  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_03Set?$filter="		
+		// 			+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
+		// 			+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
+		// 			+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+		// 			+" and ZxllxFlag eq 'B'&$format=json";
+
 		let url;
 		if (this.$store.state.ZljsrFlag === 0) {
 			console.log(url);
@@ -523,7 +534,12 @@ export default {
 		if (this.$store.state.ZljsrFlag === 1) {
 			url = url1;
 		}
-
+		// if (this.$store.state.ZljsrFlag === 2) {
+		// 	url = url2;
+		// }
+		// if (this.$store.state.ZljsrFlag === 3) {
+		// 	url = url3;
+		// }
 		axios.get(url,{
 				// auth: {
 				// 	username: `T-WANGBJ`,
@@ -542,8 +558,25 @@ export default {
 		  this.ChinaOnlyFlag
 			  ? data = res.results.filter(item => item['Zfbgzz'][0] === 'A')
 			  : data = res.results
+		//   if(this.$store.state.ZljsrFlag ===0 || this.$store.state.ZljsrFlag ===1){
+		// 	  let jsonString = JSON.stringify(data, ["ZfbgzzT", "ZljsrC", "ZqntqljsrC", "ZljysC"]);
+		//       this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
+		//       this.getLineData('ZfbgzzT');
+		//       this.getLineData('ZljsrC');
+		//       this.getLineData('ZqntqljsrC');
+		//       this.getLineData('ZljysC');
+		//       this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData);
+		//   }
+		//   if(this.$store.state.ZljsrFlag ===1 || this.$store.state.ZljsrFlag ===2){
+		// 	  let jsonString = JSON.stringify(data, ["ZfbgzzT", "ZljsrC", "ZqntqljslC", "ZljysSlC"]);
+		//       this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
+		//       this.getLineData('ZfbgzzT');
+		//       this.getLineData('ZljsrC');
+		//       this.getLineData('ZqntqljslC');
+		//       this.getLineData('ZljysSlC');
+		//       this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData);
+		//   }
 		  let jsonString = JSON.stringify(data, ["ZfbgzzT", "ZljsrC", "ZqntqljsrC", "ZljysC"]);
-		  console.log("current status is +++++++++++"+this.$store.state.ZljsrFlag);
 		  this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
 		  this.getLineData('ZfbgzzT');
 		  this.getLineData('ZljsrC');
@@ -559,6 +592,7 @@ export default {
 		this.getLjsrHeaderInfo();
 		this.getTotalLJSRInfo();
 		this.getTabInfo();
+		this.getChartInfo();
 		// this.getLjsrChartInfo();
 		// screenSize(this.$refs.editor);
 	},
@@ -628,9 +662,12 @@ export default {
 		},
     	'$store.state.ZplotFlag': function () {
 			if (this.$store.state.ZljsrFlag === 0 || this.$store.state.ZljsrFlag === 1) {
-				console.log("current status is ===="+this.$store.state.ZljsrFlag);
 				this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
-			} 
+			}
+			// if (this.$store.state.ZljsrFlag === 2 || this.$store.state.ZljsrFlag === 3) {
+
+			// 	this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
+			// } 
 	    	//this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
 		},
 	}

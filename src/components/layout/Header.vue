@@ -135,7 +135,7 @@
         width:600px
         height:70px
     .nav
-      width:1073px
+      width:1150px
       height:70px
       position:absolute
       right:0
