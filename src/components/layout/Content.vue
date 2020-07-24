@@ -111,7 +111,7 @@
 
             <div class="count-content">
               <div class="count-content-num">
-                <div>{{ this.ZljdstbYTDPercent  | tb}}</div>
+                <div>{{ ZljdstbYTDPercent  | tb}}</div>
                 <div>
                   <img src="../../assets/images/middle_green_up.png" v-if="ZtbYtd>0">
                   <img src="../../assets/images/middle_yellow_down.png" v-if="ZtbYtd<0" >

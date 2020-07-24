@@ -34,7 +34,7 @@ Vue.filter('tb', function (value) {
         return '>500%';
     }
     if(Number(strNumber)<=-500){
-        return '<500%';
+        return '<-500%';
     }
     return value;
 })
