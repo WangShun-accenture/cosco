@@ -95,6 +95,9 @@ export default {
 		  ZljsrData:[],//折线图 累计收入
 		  ZqntqljsrData:[],//折线图 去年同期累计收入
 		  ZljysData:[],//折线图 累计预算
+		  value:"",
+		  currentDate:"",
+		  selectDate:"",
 		  
     }
   },
@@ -584,11 +587,29 @@ export default {
 		  this.getLineData('ZljysC');
 		  this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData);
 	},
-},
-
+	// getLastMonthAndDay(){
+    //   let nowDate = new Date();
+    //   let year = nowDate.getFullYear();
+    //   let month = nowDate.getMonth();
+    //   if(month == 0){
+    //       month = 12;
+    //       year = year - 1;
+    //   }
+    //   //console.log(Date(year,month,0));
+    //   return new Date(year,month,0);
+	// },
+	// getMonth(){
+	// 	let year = this.value.getFullYear();
+	// 	let month = ("0" + (this.value.getMonth() + 1)).slice(-2);
+	// 	this.currentDate = year.toString() + month.toString();
+	// 	return this.currentDate;
+	// }
 	
-
+},
 	mounted(){
+		// this.value = this.getLastMonthAndDay();
+		// //console.log(this.value);
+		// this.getMonth();
 		this.getLjsrHeaderInfo();
 		this.getTotalLJSRInfo();
 		this.getTabInfo();
@@ -610,19 +631,45 @@ export default {
 			this.getChartInfo();
 		},
 		'$store.state.Calmonth': function () {
-			this.getLjsrHeaderInfo();
-			this.getTotalLJSRInfo();
-			this.getTabInfo();
+			console.log("Begin get month....");
+			let nowDate = new Date();
+      		let year = nowDate.getFullYear();
+			let month = "0"+ nowDate.getMonth();
+			let currentDate = year.toString() + month.toString();
+			let selectDate = this.$store.state.Calmonth;
+			// console.log("currentDate===="+currentDate);
+			if(currentDate >= selectDate){
+				// console.log("currentDate===="+currentDate);
+				// console.log(this.store.state.Calmonth);
+				this.getLjsrHeaderInfo();
+				this.getTotalLJSRInfo();
+				this.getTabInfo();
 
-			this.getLjlrHeaderInfo();
-			this.getTotalLJLRInfo();
-			this.getLjxlHeaderInfo();
-			this.getTotalLJXLInfo();
+				this.getLjlrHeaderInfo();
+				this.getTotalLJLRInfo();
+				this.getLjxlHeaderInfo();
+				this.getTotalLJXLInfo();
 
-			this.getLjdsHeaderInfo();
-			this.getTotalLJDSInfo();
-			//this.getLjsrChartInfo();
-			this.getChartInfo();
+				this.getLjdsHeaderInfo();
+				this.getTotalLJDSInfo();
+				//this.getLjsrChartInfo();
+				this.getChartInfo();
+			}else{
+				return;
+			}
+			// this.getLjsrHeaderInfo();
+			// this.getTotalLJSRInfo();
+			// this.getTabInfo();
+
+			// this.getLjlrHeaderInfo();
+			// this.getTotalLJLRInfo();
+			// this.getLjxlHeaderInfo();
+			// this.getTotalLJXLInfo();
+
+			// this.getLjdsHeaderInfo();
+			// this.getTotalLJDSInfo();
+			// //this.getLjsrChartInfo();
+			// this.getChartInfo();
 		},
 		'$store.state.ZljsrFlag': function () {
 			this.getHeader();
