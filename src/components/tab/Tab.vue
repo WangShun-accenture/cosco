@@ -31,8 +31,8 @@
               <img src="../../assets/images/small_yellow_down.png" v-if="item.Ztb<0">
             </div>
           </td>
-          <td class="table-td5">{{ !item.Znddc || Number(item.Znddc) == 0 ? '' : Number(item.Znddc * 100).toFixed(1) + "%" |tb}}</td>
-          <td class="table-td6">{{ !item.Zljysdc || Number(item.Zljysdc) == 0 ? '' : Number(item.Zljysdc * 100).toFixed(1) + "%" |tb}}</td>
+          <td class="table-td5">{{ !item.Znddc || Number(item.Znddc) == 0 ? '' : Number(item.Znddc * 100).toFixed(1) + "%" }}</td>
+          <td class="table-td6">{{ !item.Zljysdc || Number(item.Zljysdc) == 0 ? '' : Number(item.Zljysdc * 100).toFixed(1) + "%" }}</td>
         </tr>
       </table>
       

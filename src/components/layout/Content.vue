@@ -104,7 +104,7 @@
 
             <div class="count-content">
               <div class="count-content-num">
-                ${{ this.ZljdsYtdC | commafy}}
+                {{ this.ZljdsYtdC | commafy}}
               </div>
               <div class="count-content-dec">累计吨数TON</div>
             </div>
@@ -232,7 +232,7 @@
         <div>
           <div class="total-content">
             <div class="total-content-num">
-              <div>${{ this.ZTljxlYtdC | commafy}}</div>
+              <div>{{ this.ZTljxlYtdC | commafy}}</div>
             </div>
             <div class="total-content-dec">
               累计箱量TEU

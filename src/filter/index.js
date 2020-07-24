@@ -32,7 +32,9 @@ Vue.filter('tb', function (value) {
     let strNumber = value.replace('%','');
     if(Number(strNumber)>=500){
         return '>500%';
-    }else{
-        return value
     }
+    if(Number(strNumber)<=-500){
+        return '<500%';
+    }
+    return value;
 })
