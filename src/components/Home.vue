@@ -522,16 +522,17 @@ export default {
 					+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
 					+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
 					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
-					+" and ZxllxFlag eq 'A'&$format=json";
+					+" and ZxllxFlag eq 'A'"
+					+" &$format=json";
 		let url3 =  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_03Set?$filter="		
 					+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
 					+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
 					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
-					+" and ZxllxFlag eq 'B'&$format=json";
+					+" and ZxllxFlag eq 'B'"
+					+" &$format=json";
 
 		let url;
 		if (this.$store.state.ZljsrFlag === 0) {
-			console.log(url);
 		    url = url0;
 		} 
 		if (this.$store.state.ZljsrFlag === 1) {

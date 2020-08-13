@@ -32,7 +32,8 @@ module.exports = {
 		hotOnly: false,
 		proxy: {
 			"/api": {
-				target: "http://172.17.8.98:8000", //就是把api的请求全部转到这个地址
+				target: "http://172.17.8.98:8000", //prod就是把api的请求全部转到这个地址
+				//target: "http://172.17.8.46:8000", //dev就是把api的请求全部转到这个地址
 				// target: "http://localhost:8080",
 				ws: true,
 				changeOrigin: true,
