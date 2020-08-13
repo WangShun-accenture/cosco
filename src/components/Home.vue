@@ -461,7 +461,7 @@ export default {
 			.catch((e)=>{console.log(e)})
 	  },
 	  getTabInfoSucc(res) {
-		  console.log(res)
+		//   console.log(res)
 		  res = res.data;
 		  res = res.d;
 		  let data = [];//results为数组
@@ -518,16 +518,16 @@ export default {
 					+" and ZusdFlag  eq "+"'"+this.$store.state.ZusdFlag+"'"
 					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
 					+"&$format=json";
-		// let url2 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_03Set?$filter="		
-		// 			+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
-		// 			+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
-		// 			+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
-		// 			+" and ZxllxFlag eq 'A'&$format=json";
-		// let url3 =  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_03Set?$filter="		
-		// 			+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
-		// 			+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
-		// 			+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
-		// 			+" and ZxllxFlag eq 'B'&$format=json";
+		let url2 = "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_03Set?$filter="		
+					+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
+					+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
+					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+					+" and ZxllxFlag eq 'A'&$format=json";
+		let url3 =  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_03Set?$filter="		
+					+" Calmonth      eq "+"'"+this.$store.state.Calmonth+"'"
+					+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"
+					+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"
+					+" and ZxllxFlag eq 'B'&$format=json";
 
 		let url;
 		if (this.$store.state.ZljsrFlag === 0) {
@@ -537,12 +537,12 @@ export default {
 		if (this.$store.state.ZljsrFlag === 1) {
 			url = url1;
 		}
-		// if (this.$store.state.ZljsrFlag === 2) {
-		// 	url = url2;
-		// }
-		// if (this.$store.state.ZljsrFlag === 3) {
-		// 	url = url3;
-		// }
+		if (this.$store.state.ZljsrFlag === 2) {
+			url = url2;
+		}
+		if (this.$store.state.ZljsrFlag === 3) {
+			url = url3;
+		}
 		axios.get(url,{
 				// auth: {
 				// 	username: `T-WANGBJ`,
@@ -581,11 +581,12 @@ export default {
 		//   }
 		  let jsonString = JSON.stringify(data, ["ZfbgzzT", "ZljsrC", "ZqntqljsrC", "ZljysC"]);
 		  this.ljsrChartList = JSON.parse(jsonString);//string转json,输出数据为object
+		  console.log(this.ljsrChartList);
 		  this.getLineData('ZfbgzzT');
 		  this.getLineData('ZljsrC');
 		  this.getLineData('ZqntqljsrC');
 		  this.getLineData('ZljysC');
-		  this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData);
+		  this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData, this.$store.state.ZljsrFlag);
 	},
 	// getLastMonthAndDay(){
     //   let nowDate = new Date();
@@ -709,7 +710,7 @@ export default {
 		},
     	'$store.state.ZplotFlag': function () {
 			if (this.$store.state.ZljsrFlag === 0 || this.$store.state.ZljsrFlag === 1) {
-				this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData); //方法调用
+				this.$lineChart.draw_line ('line', this.xData, this.ZljsrData, this.ZqntqljsrData, this.ZljysData, this.$store.state.ZljsrFlag); //方法调用
 			}
 			// if (this.$store.state.ZljsrFlag === 2 || this.$store.state.ZljsrFlag === 3) {
 

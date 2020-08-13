@@ -582,7 +582,8 @@ import { mapState,mapGetters,mapActions } from 'vuex';
 		    this.ZusdNum = !this.ZusdNum;//选中状态为true
       },
 	    plotChangeColor: function(){
-      	this.ZplotNum = !this.ZplotNum;
+        this.ZplotNum = !this.ZplotNum;
+        this.ZusdNum = false;
       }
     },
 		mounted() {

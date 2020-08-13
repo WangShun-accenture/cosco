@@ -185,7 +185,7 @@ import { mapState,mapGetters,mapActions } from 'vuex';
           width:162px 
           text-align:left 
         .table-td2
-          width:50px 
+          width:100px 
         .table-td3
           text-align:right 
           width:102px

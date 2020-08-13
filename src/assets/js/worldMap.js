@@ -56,7 +56,7 @@ let install = function(Vue) {
 										radioArr = config.radioArr3;
 									}
 
-									if (Number(temp.value[temp.value.length-1]) ==  0){
+									if (rawData[i]['Zljysdc'] ==  0){
 										world.empty.push(temp);
 									}else if (rawData[i]['Zljysdc'] > 1){
 										world.done.push(temp);
@@ -150,7 +150,7 @@ let install = function(Vue) {
 										symbolSize: function(params){
 											const number = Number(params[params.length-1]);
 											let radio = findRangeIn(number);
-											console.log('未完成累计预算 大小===>', radio, '输入值===>', number)
+											// console.log('未完成累计预算 大小===>', radio, '输入值===>', number)
 											return radio;
 										},
 										itemStyle: {

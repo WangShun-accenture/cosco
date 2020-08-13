@@ -5,8 +5,20 @@ let install = function(Vue) {
 			get() {
 				return {
 					//一个简单的示例 draw_line: function (id, xData, seriesName, seriesData)
-					draw_line: function (id, xData, ZljsrData, ZqntqljsrData, ZljysData) {
+					draw_line: function (id, xData, ZljsrData, ZqntqljsrData, ZljysData, flag) {
 						this.chart = echarts.init(document.getElementById(id));
+						const name = {
+							'0': '累计收入',
+							'1': '累计利润',
+							'2': '累计箱量',
+							'3': '累计吨数',
+						}
+						const unit = {
+							'0': 'USD',
+							'1': 'USD',
+							'2': 'TEU',
+							'3': 'TON',
+						}
 						this.chart.clear();
 						const optionData = {
 							color : [ '#6a7985' ],
@@ -82,7 +94,7 @@ let install = function(Vue) {
 								// max: function(value) {
 								// 	return value*3;
 								// },
-								name:'1 USD',
+								name: unit[flag],
 								splitNumber: 8,
 								boundaryGap: true,
 								// boundaryGap: ['5%', '5%'],
@@ -117,7 +129,7 @@ let install = function(Vue) {
 							} ],
 							series : [
 								{
-									name : "累计收入",//seriesName
+									name: name[flag],//seriesName
 									type : 'line',
 									symbol : 'circle',
 									symbolSize : 8,
