@@ -389,7 +389,7 @@ export default {
 			  .get(
 				  // "/api/header.json"
 				  // "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJSR_01Set?$filter= Calmonth eq '201910' and ZqycsFlag eq 'X' and ZkggsFlag eq 'X'",
-				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZxllxFlag eq 'B'&$format=json",
+				  "/api/sap/opu/odata/sap/ZFI_DPXQ_SRV/LJXL_01Set?$filter= Calmonth eq "+"'"+this.$store.state.Calmonth+"'"+" and ZqycsFlag eq "+"'"+this.$store.state.ZqycsFlag+"'"+" and ZkggsFlag eq "+"'"+this.$store.state.ZkggsFlag+"'"+" and ZxllxFlag eq 'A'&$format=json",
 				  {
 					//   auth: {
 					// 	  username: `T-WANGBJ`,

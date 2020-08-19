@@ -135,7 +135,7 @@ let install = function(Vue) {
 											<br> 
 											${config.title[flag]}${flag < 2 ? '$' : ''}${params.value[4]}
 											<br>
-											<span>年度预算达成 ${Number(params.value[2] * 100).toFixed(2) + "%"}</span>
+											<span>累计预算达成 ${Number(params.value[2] * 100).toFixed(2) + "%"}</span>
 											<br>
 											<span>同比 ${Number(params.value[3] * 100).toFixed(2) + "%"}</span>
 										`;
