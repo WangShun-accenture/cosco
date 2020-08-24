@@ -130,10 +130,16 @@ let install = function(Vue) {
 										background-position: center;
 									`,
 									formatter: function (params) {
+										let value = ''
+										if (params.value[4] > 999 ){
+											let parts = params.value[4].toString().split('.')
+											parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+											value = parts.join('.')
+										}
 										return `
 											${params.name}
 											<br> 
-											${config.title[flag]}${flag<2?'$':''}${params.value[4]}
+											${config.title[flag]}${flag<2?'$':''}${value}
 											<br>
 											<span>累计预算达成 ${Number(params.value[2] * 100).toFixed(2) + "%"}</span>
 											<br>

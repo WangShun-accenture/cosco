@@ -38,6 +38,37 @@ let install = function(Vue) {
 								trigger : 'axis',
 								position : 'top',
 								formatter: '{b0}<br/>{a0}: ${c0}<br>{a1}: ${c1}<br/>{a2}: ${c2}',
+								// formatter:function(params){
+								// 	//seriesName
+								// 	//value
+								// 	let value0 = ''
+								// 	let value1 = ''
+								// 	let value2 = ''
+								// 	if (params[0].value > 999 || params[1].value > 999 || params[2].value >999){
+								// 		let parts0 = params[0].value.toString().split('.')
+								// 		let parts1 = params[1].value.toString().split('.')
+								// 		let parts2 = params[2].value.toString().split('.')
+								// 		parts0[0] = parts0[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+								// 		parts1[0] = parts1[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+								// 		parts2[0] = parts2[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+								// 		value0 = parts0.join('.')
+								// 		value1 = parts1.join('.')
+								// 		value2 = parts2.join('.')
+								// 		// console.log("value0======",value0);
+								// 		// console.log("value1======",value1);
+								// 		// console.log("value2======",value2);
+								// 	}
+								// 	console.log(params[2]);
+								// 	return `${params[0].name}  
+								// 			<br>
+								// 			${params[0].seriesName}:  ${value0}
+								// 			<br>
+								// 			${params[1].seriesName}:  ${value1}
+								// 			<br>
+								// 			${params[2].seriesName}:  ${value2}
+								// 	`
+									
+								// },
 								axisPointer : {
 									type : 'line',
 									lineStyle : {
@@ -143,6 +174,19 @@ let install = function(Vue) {
 									itemStyle : {
 										color : '#00c2ff'
 									},
+									// formatter: function (ZljsrData) {
+									// 	let value = ''
+									// 	if (ZljsrData.value > 0) {
+									// 		value = ZljsrData.value
+									// 		if (value > 999) {
+									// 			let parts = value.toString().split('.')
+                    				// 			parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                    				// 			value = parts.join('.')
+									// 		}
+									// 	}
+									// 	return value
+									// 	//console.log("AAAAAA=====",ZljsrData.value)
+									// },
 									data : ZljsrData,
 								// data : [
 								// 	509, 917, 2455, 2610, 2719, 3033, 3044, 3085, 2708, 2809, 2117,2000,1455,1210,719,
@@ -164,7 +208,7 @@ let install = function(Vue) {
 									itemStyle : {
 										color: '#74e667'
 									},
-									data : ZqntqljsrData,
+									data : ZqntqljsrData
 									// data: [
 									// 	2136,3693,2962,3810,3519,3484,3915,3823,3455,4310,4019,3433,3544,3885,4208,3372,
 									// 	3484,3915,3748,3675,4009,4433,3544,3285,4208,3372,3484,3915,3823,4265
